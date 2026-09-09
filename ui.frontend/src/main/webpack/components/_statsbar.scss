@@ -1,0 +1,40 @@
+.cmp-statsbar {
+    padding: 2rem 0;
+}
+
+.cmp-statsbar__heading {
+    margin: 0 0 1.5rem;
+}
+
+.cmp-statsbar__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.cmp-statsbar__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    text-align: center;
+}
+
+.cmp-statsbar__value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    // Keeps the count-up animation from shifting the layout as digits change width.
+    font-variant-numeric: tabular-nums;
+}
+
+.cmp-statsbar__label {
+    font-weight: 600;
+}
+
+.cmp-statsbar__description {
+    font-size: 0.875rem;
+    opacity: 0.75;
+}

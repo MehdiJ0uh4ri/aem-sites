@@ -1,0 +1,58 @@
+{
+  "jcr:primaryType": "cq:PageContent",
+  "sling:resourceType": "mysite/components/page",
+  "root": {
+    "jcr:primaryType": "nt:unstructured",
+    "sling:resourceType": "mysite/components/container",
+    "statsbar-full": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/statsbar",
+      "heading": "By the numbers",
+      "headingElement": "h3",
+      "items": {
+        "jcr:primaryType": "nt:unstructured",
+        "item0": {
+          "jcr:primaryType": "nt:unstructured",
+          "value": "98%",
+          "label": "Uptime",
+          "description": "Measured over the last twelve months."
+        },
+        "item1": {
+          "jcr:primaryType": "nt:unstructured",
+          "value": "$1.2M",
+          "label": "Saved"
+        },
+        "item2": {
+          "jcr:primaryType": "nt:unstructured",
+          "value": "1,200+",
+          "label": "Customers"
+        },
+        "item3": {
+          "jcr:primaryType": "nt:unstructured",
+          "value": "N/A",
+          "label": "Not a number"
+        },
+        "item4": {
+          "jcr:primaryType": "nt:unstructured",
+          "label": "Blank value is dropped"
+        }
+      }
+    },
+    "statsbar-empty": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/statsbar"
+    },
+    "statsbar-defaults": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/statsbar",
+      "items": {
+        "jcr:primaryType": "nt:unstructured",
+        "item0": {
+          "jcr:primaryType": "nt:unstructured",
+          "value": "42",
+          "label": "Answer"
+        }
+      }
+    }
+  }
+}

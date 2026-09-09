@@ -1,0 +1,36 @@
+<!--/*
+    Stats Bar component.
+
+    The markup follows the same BEM convention as the Core Components (cmp-<name>__<element>)
+    and exposes the data the client-side script needs through dedicated data attributes rather
+    than through CSS selectors.
+*/-->
+<sly data-sly-use.stats="com.mysite.core.models.StatsBar"/>
+
+<div class="cmp-statsbar"
+     data-cmp-is="statsbar"
+     data-sly-test.hasContent="${!stats.empty}"
+     id="${stats.id}"
+     data-cmp-data-layer="${stats.data.json}">
+
+    <h2 class="cmp-statsbar__heading"
+        data-sly-element="${stats.headingElement}"
+        data-sly-test="${stats.heading}">${stats.heading}</h2>
+
+    <ul class="cmp-statsbar__list">
+        <li class="cmp-statsbar__item" data-sly-repeat.item="${stats.items}">
+            <span class="cmp-statsbar__value"
+                  data-cmp-hook-statsbar="value"
+                  data-cmp-statsbar-number="${item.number}"
+                  data-cmp-statsbar-prefix="${item.prefix}"
+                  data-cmp-statsbar-suffix="${item.suffix}">${item.value}</span>
+            <span class="cmp-statsbar__label">${item.label}</span>
+            <span class="cmp-statsbar__description"
+                  data-sly-test="${item.description}">${item.description}</span>
+        </li>
+    </ul>
+</div>
+
+<sly data-sly-test="${!hasContent && wcmmode.edit}">
+    <div class="cq-placeholder" data-emptytext="${'Stats Bar' @ i18n}"></div>
+</sly>

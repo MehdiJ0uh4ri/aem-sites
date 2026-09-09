@@ -209,7 +209,7 @@ see Pitfall 2.
 > ```
 > **Windows:** `Remove-Item -Recurse -Force $env:USERPROFILE\mysite`
 >
-> **Do this from a different directory.** See Pitfall 6.
+> **Do this from a different directory.** See Pitfall 7.
 
 ---
 
@@ -385,9 +385,222 @@ mvn clean install -PautoInstallSinglePackage \
 
 ---
 
+## 6. Daily lifecycle — stopping and resuming
+
+Once the container exists you never `docker run` it again. Stop and start the
+**same** container:
+
+```bash
+# End of a session — give Oak time to close the repository cleanly
+docker stop -t 300 aem-author
+
+# Next session
+docker start aem-author
+```
+
+### Why the long timeout
+
+`docker stop` sends `SIGTERM`, waits, then `SIGKILL`s. The image's entrypoint is
+`/bin/tini -- /aem/run-tini.sh`, and tini does forward the signal correctly — but
+the image sets no stop timeout of its own:
+
+```bash
+docker inspect aem-author --format 'StopTimeout: {{.Config.StopTimeout}}'
+# StopTimeout: <nil>
+```
+
+so Docker's **10-second default** applies, and Oak needs far longer than that to
+close the segment store.
+
+**120 seconds is not enough either.** Measured on this setup, a `docker stop -t 120`
+logged the shutdown starting:
+```
+*INFO * [Apache Sling Terminator] Java VM is shutting down
+*INFO * [Apache Sling Terminator] Stopping Apache Sling
+```
+and was still not done 120 seconds later, so Docker killed it — exit `137`
+(`128 + 9`, i.e. `SIGKILL`). A complete shutdown measures about **138 seconds**
+here, so use `-t 300`.
+
+### Confirm the stop was clean
+
+The exit code tells you which signal ended the JVM:
+
+```bash
+docker inspect aem-author --format 'ExitCode: {{.State.ExitCode}}'
+```
+
+| Exit code | Meaning |
+| --- | --- |
+| `143` | `128 + 15` = `SIGTERM`. **This is the healthy result.** The JVM ran its shutdown hooks and exited on the signal. |
+| `137` | `128 + 9` = `SIGKILL`. Docker's timeout expired and it force-killed AEM mid-shutdown. Raise `-t`. |
+| `0` | Not what this image produces on `docker stop`. Do not wait for it. |
+
+The exit code is a signal, not proof. The definitive check is the log line that
+only a *completed* shutdown writes:
+
+```bash
+docker logs aem-author 2>&1 | grep "Apache Sling has been stopped"
+```
+
+Measured on this setup, a clean `docker stop -t 300`:
+
+```
+12:47:13.719  *INFO * [Apache Sling Terminator] Java VM is shutting down
+12:49:30.906  *INFO * [Sling Notifier] Apache Sling has been stopped
+```
+
+**About 138 seconds** from `SIGTERM` to a finished shutdown. That is precisely
+why `-t 120` is killed at the 120-second mark while `-t 300` completes with room
+to spare. In a killed (`137`) run, that final `Apache Sling has been stopped`
+line never appears at all — which is the quickest way to tell the two apart.
+
+A `137` is not automatically fatal: after the one above, the instance came back
+with all 640 bundles active, `/apps/mysite` and the authored content intact, and
+no Oak recovery messages. But it is gambling with the segment store, so do not
+make a habit of it.
+
+> **Do not diagnose AEM from responses taken during a stop.** While the shutdown
+> is running, the HTTP layer lies: `/crx/packmgr/index.jsp` answered `404` and
+> `login.html` never reached `200`, before the port stopped answering at all
+> (`curl` writes `000` when the connection is refused). None of that means
+> anything is broken. Check `docker inspect --format '{{.State.Running}}'` first.
+
+### Wait for readiness before building
+
+A restart is not instant, and the HTTP status *changes* as it comes up: `404`,
+then `503`, then `200`. A single `404` does not mean it is broken.
+
+```bash
+until curl -s -o /dev/null -w "%{http_code}" -u admin:admin \
+  http://localhost:4502/libs/granite/core/content/login.html | grep -q 200; do sleep 5; done
+echo "AEM is up"
+```
+
+Deploying before that returns wastes a six-minute build.
+
+### What survives what
+
+| Command | Effect |
+| --- | --- |
+| `docker stop` / `docker start` | Safe. Bundle, `/apps` and `/content` all intact. |
+| `docker rm aem-author` | Container gone. **Named volumes survive** — a `docker run` with the same `-v` flags resumes with content intact. |
+| `docker volume rm aem-repository aem-logs aem-backup` | **Destroys the JCR.** |
+| `docker volume prune` | **Also destroys it**, once the container is removed and the volumes count as unused. |
+
+### Restoring after a wipe
+
+Source lives in git; the instance does not. A full rebuild and deploy:
+
+```bash
+cd ~/mysite
+mvn clean install -PautoInstallSinglePackage
+```
+
+If `all/target/*.zip` is already current, reinstalling it takes seconds instead
+of six minutes:
+
+```bash
+curl -u admin:admin -F cmd=upload -F force=true -F install=true \
+  -F file=@all/target/mysite.all-1.0.0-SNAPSHOT.zip \
+  http://localhost:4502/crx/packmgr/service.jsp
+```
+
+The field is **`file`**. Passing `-F package=@...` is not reported as an error —
+the endpoint returns its own usage text wrapped in `<status code="200">ok</status>`,
+so a check for HTTP 200 reports success while nothing was installed. Grep the
+response body for `Package installed` instead.
+
+Content authored only through the UI (or `curl`) lives solely in the JCR and is
+**not** in git. If a page must survive a wipe, put it in `ui.content`.
+
+> ### Pitfall 6 — `docker run` a second time can wipe your instance
+>
+> After a stop, the instinct is to re-run the original `docker run`. It fails:
+> ```
+> docker: Error response from daemon: Conflict. The container name
+> "/aem-author" is already in use
+> ```
+> The usual reflex — `docker rm aem-author`, then run again — is safe **only if
+> the original `docker run` used the named `-v` flags** from section 1. If it did
+> not, the repository was sitting in an *anonymous* volume; the replacement
+> container gets fresh empty ones and you boot into a vanilla AEM. The symptom is
+> unmistakable: `/apps/mysite` and `/content/mysite` both return `404` and the
+> bundle count is back to stock.
+>
+> Check before removing anything:
+> ```bash
+> docker inspect aem-author --format '{{json .Mounts}}'
+> ```
+> You want three entries named `aem-repository`, `aem-logs` and `aem-backup`. An
+> empty `[]`, or `"Name"` values that are 64-character hex strings, mean anonymous
+> volumes — that content will not survive.
+>
+> The answer is almost always `docker start aem-author`, not `docker run`.
+
+---
+
+## 7. Consoles and where to look
+
+All served by the author container on 4502, all `admin` / `admin`:
+
+| Tool | URL |
+| --- | --- |
+| CRXDE Lite — browse and edit the JCR | http://localhost:4502/crx/de/index.jsp |
+| Package Manager — upload, install, build packages | http://localhost:4502/crx/packmgr/index.jsp |
+| OSGi bundles — check your bundle is `Active` | http://localhost:4502/system/console/bundles |
+| Sling Models — confirm a model registered | http://localhost:4502/system/console/status-adapters.txt |
+| Sites editor | http://localhost:4502/sites.html/content/mysite |
+
+CRXDE Lite is the fastest way to see what actually landed in the repository:
+components appear under `/apps/mysite/components`, and authored content under
+`/content/mysite/us/en/<page>/jcr:content`. It is a local-SDK convenience and is
+disabled on real AEM as a Cloud Service environments, so do not build a workflow
+that depends on it.
+
+---
+
+## 8. The dispatcher is not running, and is not part of this setup
+
+The `dispatcher/` module is **configuration only**. `mvn install` packages it as
+`dispatcher/target/mysite.dispatcher.cloud-1.0.0-SNAPSHOT.zip`; nothing in the
+steps above starts a web server. There is no dispatcher on `localhost` to visit.
+
+Its backend is parameterised rather than hard-coded —
+`dispatcher/src/conf.dispatcher.d/renders/default_renders.any`:
+
+```
+/0 {
+	/hostname "${AEM_HOST}"
+	/port "${AEM_PORT}"
+	/timeout "10000"
+}
+```
+
+Those variables are supplied by Adobe's **Dispatcher SDK** (Apache httpd plus the
+dispatcher module), a separate download from Adobe Software Distribution that
+needs an Adobe ID. It ships `bin/validate.sh` to lint the config and
+`bin/docker_run.sh` to run httpd against a backend. `dispatcher/update_sdk.sh`
+syncs this repo's config against a downloaded SDK:
+
+```bash
+./dispatcher/update_sdk.sh /opt/dispatcher-sdks/dispatcher-sdk-<version> src
+```
+
+Two things to expect if you go down that road, neither of which this guide covers:
+
+- The dispatcher is designed to front a **publish** instance. This setup runs an
+  author only, so you need a publish container first.
+- On Linux, `host.docker.internal` does not resolve by default. Reaching the AEM
+  container from the dispatcher container needs
+  `--add-host=host.docker.internal:host-gateway`, or both containers on a shared
+  Docker network.
+
+---
+
 ## Pitfalls that are environmental, not AEM
 
-> ### Pitfall 6 — `getcwd() failed: No such file or directory` (Linux only)
+> ### Pitfall 7 — `getcwd() failed: No such file or directory` (Linux only)
 >
 > After deleting and regenerating `~/mysite`, an already-open shell that was
 > `cd`'d into it still holds the **deleted inode**. Everything then fails,
@@ -435,11 +648,13 @@ mvn clean install -PautoInstallSinglePackage \
 ## Teardown
 
 ```bash
-docker stop aem-author && docker rm aem-author
+docker stop -t 300 aem-author && docker rm aem-author
 ```
 
-Volumes survive this, so the next `docker run` with the same `-v` flags resumes
-with your content intact. To destroy the repository as well:
+Volumes survive this **provided the container was created with the named `-v`
+flags** from section 1, so the next `docker run` with those same flags resumes
+with your content intact. If it was not, see Pitfall 6 — the content is in an
+anonymous volume and will be orphaned. To destroy the repository as well:
 
 ```bash
 docker volume rm aem-repository aem-logs aem-backup
