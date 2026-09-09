@@ -1,0 +1,39 @@
+{
+  "jcr:primaryType": "cq:PageContent",
+  "root": {
+    "jcr:primaryType": "nt:unstructured",
+    "marquee-full": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/marquee",
+      "items": ["  Accessible  ", "Composable", "", "   ", "Fast"],
+      "duration": 45
+    },
+    "marquee-string-duration": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/marquee",
+      "items": ["Only one"],
+      "duration": "18"
+    },
+    "marquee-too-fast": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/marquee",
+      "items": ["Clamp me"],
+      "duration": 1
+    },
+    "marquee-too-slow": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/marquee",
+      "items": ["Clamp me too"],
+      "duration": 9000
+    },
+    "marquee-defaults": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/marquee",
+      "items": ["No duration authored"]
+    },
+    "marquee-empty": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/marquee"
+    }
+  }
+}

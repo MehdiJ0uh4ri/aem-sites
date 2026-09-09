@@ -1,0 +1,29 @@
+{
+  "jcr:primaryType": "cq:PageContent",
+  "root": {
+    "jcr:primaryType": "nt:unstructured",
+    "hero-full": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/hero",
+      "eyebrow": "Design system",
+      "title": "Build interfaces that feel inevitable",
+      "description": "A component kit for teams who care about the details.",
+      "fileReference": "/content/dam/mysite/aurora.svg",
+      "primaryCtaText": "Get started",
+      "primaryCtaLink": "/content/mysite/us/en/stats-demo",
+      "secondaryCtaText": "Read the docs",
+      "secondaryCtaLink": "https://example.com/docs"
+    },
+    "hero-assetlink": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/hero",
+      "title": "Asset link",
+      "primaryCtaLink": "/content/dam/mysite/brochure.pdf"
+    },
+    "hero-empty": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/hero",
+      "description": "No headline was authored."
+    }
+  }
+}

@@ -1,0 +1,50 @@
+.cmp-marquee {
+    // Overridden per-instance by the script from the authored duration.
+    --cmp-marquee-duration: 30s;
+
+    margin-top: 1rem;
+    padding: 1.35rem 0;
+    overflow: hidden;
+    border: 1px solid $ds-line;
+    border-radius: $ds-radius;
+    background: $ds-ink-soft;
+    color: $ds-text;
+    // Fade the strip out at both ends instead of cutting it off.
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.cmp-marquee__viewport {
+    display: flex;
+    width: max-content;
+    animation: cmp-marquee-scroll var(--cmp-marquee-duration) linear infinite;
+}
+
+.cmp-marquee__track {
+    display: flex;
+    gap: 3rem;
+    margin: 0;
+    padding: 0 1.5rem;
+    list-style: none;
+}
+
+.cmp-marquee__item {
+    white-space: nowrap;
+    font-size: clamp(1rem, 2.2vw, 1.55rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: $ds-muted;
+}
+
+// The track is rendered twice, so shifting by half the viewport loops seamlessly.
+@keyframes cmp-marquee-scroll {
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cmp-marquee__viewport {
+        animation: none;
+    }
+}

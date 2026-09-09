@@ -16,3 +16,25 @@ $color-link:            #2020E0;
 $color-foreground-dark: invert($color-foreground);
 $color-background-dark: invert($color-background);
 $color-link-dark:       invert($color-link);
+
+
+//== Design system for the full-bleed marketing sections
+//   (hero, bento, marquee, stats). These sections carry their own dark
+//   treatment so they read correctly regardless of the page background.
+
+$ds-ink:           #08080c;
+$ds-ink-soft:      #0f0f16;
+$ds-text:          #f5f5f7;
+$ds-muted:         rgba(245, 245, 247, 0.62);
+$ds-line:          rgba(255, 255, 255, 0.10);
+$ds-surface:       rgba(255, 255, 255, 0.045);
+$ds-surface-hover: rgba(255, 255, 255, 0.080);
+
+$ds-accent:        #8b5cf6;
+$ds-accent-2:      #22d3ee;
+$ds-accent-3:      #f472b6;
+
+$ds-radius:        20px;
+$ds-radius-lg:     28px;
+$ds-max:           1180px;
+$ds-ease:          cubic-bezier(0.22, 1, 0.36, 1);

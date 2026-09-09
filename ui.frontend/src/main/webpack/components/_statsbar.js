@@ -19,8 +19,15 @@
         return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     }
 
+    // Format in the page's language, not the visitor's browser locale: the authored
+    // value ("1,200+") sets the expectation, and a French browser would otherwise
+    // animate through "1 084" before snapping back to "1,200".
+    function pageLocale() {
+        return document.documentElement.getAttribute("lang") || "en";
+    }
+
     function formatNumber(value, decimals) {
-        return value.toLocaleString(undefined, {
+        return value.toLocaleString(pageLocale(), {
             minimumFractionDigits: decimals,
             maximumFractionDigits: decimals
         });

@@ -1,0 +1,38 @@
+//== Page-level treatment for the marketing sections.
+//
+// Scoped with :has() so only pages that actually use a Hero get the dark ground.
+// Ordinary content pages keep the stock archetype styling.
+
+body:has(.cmp-hero) {
+    background: $ds-ink;
+    color: $ds-text;
+
+    main.container {
+        padding: 1rem;
+    }
+}
+
+//== Shared scroll-reveal.
+//
+// The hiding rule is gated behind a class the script adds to <html>. If the
+// script never runs, nothing is ever hidden and the page degrades to static.
+
+.cmp-reveal-ready [data-cmp-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s $ds-ease, transform 0.7s $ds-ease;
+    will-change: opacity, transform;
+}
+
+.cmp-reveal-ready [data-cmp-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cmp-reveal-ready [data-cmp-reveal] {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}

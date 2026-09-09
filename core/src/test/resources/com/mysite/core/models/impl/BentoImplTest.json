@@ -1,0 +1,47 @@
+{
+  "jcr:primaryType": "cq:PageContent",
+  "root": {
+    "jcr:primaryType": "nt:unstructured",
+    "bento-full": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/bento",
+      "eyebrow": "Capabilities",
+      "heading": "Everything in one grid",
+      "cards": {
+        "jcr:primaryType": "nt:unstructured",
+        "item0": {
+          "jcr:primaryType": "nt:unstructured",
+          "title": "Composable",
+          "description": "Drop tiles in any order.",
+          "fileReference": "/content/dam/mysite/aurora.svg",
+          "link": "/content/mysite/us/en/stats-demo",
+          "span": "wide"
+        },
+        "item1": {
+          "jcr:primaryType": "nt:unstructured",
+          "title": "Image only tile",
+          "fileReference": "/content/dam/mysite/mint.svg",
+          "span": "tall"
+        },
+        "item2": {
+          "jcr:primaryType": "nt:unstructured",
+          "fileReference": "/content/dam/mysite/ember.svg"
+        },
+        "item3": {
+          "jcr:primaryType": "nt:unstructured",
+          "title": "Bogus size",
+          "span": "enormous"
+        },
+        "item4": {
+          "jcr:primaryType": "nt:unstructured",
+          "description": "No title and no image, so it is dropped."
+        }
+      }
+    },
+    "bento-empty": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/bento",
+      "heading": "Nothing here"
+    }
+  }
+}

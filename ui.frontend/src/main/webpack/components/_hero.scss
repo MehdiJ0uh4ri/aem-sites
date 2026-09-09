@@ -1,0 +1,133 @@
+.cmp-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    min-height: clamp(520px, 78vh, 820px);
+    padding: clamp(3rem, 8vw, 7rem) clamp(1.25rem, 5vw, 4rem);
+    border-radius: $ds-radius-lg;
+    background: $ds-ink;
+    color: $ds-text;
+}
+
+.cmp-hero__art {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+}
+
+.cmp-hero__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    // Lifts the blurred gradient blobs back out of the near-black ground.
+    filter: saturate(1.25) contrast(1.05);
+}
+
+.cmp-hero__veil {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    // A single gradient only: two stacked layers buried the artwork entirely.
+    background:
+        radial-gradient(110% 85% at 50% 35%, rgba(8, 8, 12, 0.10) 0%, rgba(8, 8, 12, 0.55) 62%, rgba(8, 8, 12, 0.90) 100%);
+}
+
+.cmp-hero__inner {
+    max-width: 940px;
+}
+
+.cmp-hero__eyebrow {
+    display: inline-block;
+    margin: 0 0 1.25rem;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $ds-text;
+    border: 1px solid $ds-line;
+    border-radius: 999px;
+    background: $ds-surface;
+    backdrop-filter: blur(10px);
+}
+
+.cmp-hero__title {
+    margin: 0;
+    font-size: clamp(2.6rem, 7vw, 5.25rem);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    font-weight: 700;
+    // Gradient text: the colour fallback matters for browsers that skip background-clip.
+    color: $ds-text;
+    background: linear-gradient(180deg, #ffffff 30%, rgba(255, 255, 255, 0.62) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    @supports (-webkit-background-clip: text) or (background-clip: text) {
+        color: transparent;
+    }
+}
+
+.cmp-hero__desc {
+    margin: 1.5rem auto 0;
+    max-width: 640px;
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
+    line-height: 1.6;
+    color: $ds-muted;
+}
+
+.cmp-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-top: 2.5rem;
+}
+
+.cmp-hero__cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.85rem 1.7rem;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.25s $ds-ease, box-shadow 0.25s $ds-ease, background 0.25s $ds-ease;
+
+    &:hover {
+        transform: translateY(-2px);
+    }
+}
+
+.cmp-hero__cta--primary {
+    color: #0b0b10;
+    background: linear-gradient(135deg, #ffffff, #d9d9e3);
+    box-shadow: 0 10px 34px rgba(255, 255, 255, 0.16);
+
+    &:hover {
+        box-shadow: 0 16px 44px rgba(255, 255, 255, 0.24);
+    }
+}
+
+.cmp-hero__cta--ghost {
+    color: $ds-text;
+    border: 1px solid $ds-line;
+    background: $ds-surface;
+    backdrop-filter: blur(10px);
+
+    &:hover {
+        background: $ds-surface-hover;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cmp-hero__cta {
+        transition: none;
+
+        &:hover {
+            transform: none;
+        }
+    }
+}

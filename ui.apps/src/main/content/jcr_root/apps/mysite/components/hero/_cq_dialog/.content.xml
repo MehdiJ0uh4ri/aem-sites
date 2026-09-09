@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Hero"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/tabs"
+        maximized="{Boolean}true">
+        <items jcr:primaryType="nt:unstructured">
+            <text
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Text"
+                sling:resourceType="granite/ui/components/coral/foundation/container"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <eyebrow
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldDescription="Small label above the headline."
+                        fieldLabel="Eyebrow"
+                        name="./eyebrow"/>
+                    <title
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldLabel="Headline"
+                        name="./title"
+                        required="{Boolean}true"/>
+                    <description
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                        fieldLabel="Description"
+                        name="./description"
+                        rows="{Long}3"/>
+                </items>
+            </text>
+            <artwork
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Artwork"
+                sling:resourceType="granite/ui/components/coral/foundation/container"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <fileReference
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                        fieldDescription="Background artwork from Assets."
+                        fieldLabel="Image"
+                        name="./fileReference"
+                        rootPath="/content/dam"/>
+                    <alt
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldDescription="Leave empty when the artwork is purely decorative."
+                        fieldLabel="Alternative text"
+                        name="./alt"/>
+                </items>
+            </artwork>
+            <actions
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Actions"
+                sling:resourceType="granite/ui/components/coral/foundation/container"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <primaryCtaText
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldLabel="Primary button label"
+                        name="./primaryCtaText"/>
+                    <primaryCtaLink
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                        fieldDescription="Internal page paths get .html appended automatically. External URLs are used as-is."
+                        fieldLabel="Primary button link"
+                        name="./primaryCtaLink"
+                        rootPath="/content"/>
+                    <secondaryCtaText
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldLabel="Secondary button label"
+                        name="./secondaryCtaText"/>
+                    <secondaryCtaLink
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                        fieldLabel="Secondary button link"
+                        name="./secondaryCtaLink"
+                        rootPath="/content"/>
+                </items>
+            </actions>
+        </items>
+    </content>
+</jcr:root>

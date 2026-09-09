@@ -1,0 +1,167 @@
+.cmp-bento {
+    margin-top: 1rem;
+    padding: clamp(4rem, 9vw, 7rem) clamp(1.25rem, 5vw, 3rem);
+    border-radius: $ds-radius-lg;
+    background: $ds-ink;
+    color: $ds-text;
+}
+
+.cmp-bento__head {
+    max-width: 720px;
+    margin: 0 auto clamp(2.5rem, 5vw, 4rem);
+    text-align: center;
+}
+
+.cmp-bento__eyebrow {
+    margin: 0 0 0.75rem;
+    font-size: 0.8125rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $ds-accent-2;
+}
+
+.cmp-bento__heading {
+    margin: 0;
+    font-size: clamp(1.9rem, 4.2vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+}
+
+.cmp-bento__desc {
+    margin: 1rem auto 0;
+    max-width: 560px;
+    color: $ds-muted;
+    line-height: 1.6;
+}
+
+.cmp-bento__grid {
+    display: grid;
+    gap: 1rem;
+    // Explicit column counts rather than auto-fit: the footprints only tile
+    // without holes against a known number of columns.
+    grid-template-columns: 1fr;
+    grid-auto-rows: 260px;
+    // Lets later tiles back-fill the gaps a wide/tall neighbour leaves behind.
+    grid-auto-flow: dense;
+    max-width: $ds-max;
+    margin: 0 auto;
+}
+
+// Footprint modifiers. Only applied once there is room for a second column,
+// otherwise a "wide" tile would overflow a single-column grid.
+@media (min-width: 700px) {
+    .cmp-bento__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cmp-bento__card--wide {
+        grid-column: span 2;
+    }
+
+    .cmp-bento__card--tall {
+        grid-row: span 2;
+    }
+}
+
+@media (min-width: 1000px) {
+    .cmp-bento__grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.cmp-bento__inner {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid $ds-line;
+    border-radius: $ds-radius;
+    background: $ds-surface;
+    color: inherit;
+    text-decoration: none;
+    transition: transform 0.4s $ds-ease, border-color 0.4s $ds-ease;
+}
+
+a.cmp-bento__inner:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.22);
+
+    .cmp-bento__img {
+        transform: scale(1.06);
+    }
+
+    .cmp-bento__arrow {
+        transform: translate(3px, -3px);
+        opacity: 1;
+    }
+}
+
+.cmp-bento__media {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+}
+
+.cmp-bento__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s $ds-ease;
+}
+
+.cmp-bento__body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1.5rem;
+    background: linear-gradient(180deg, rgba(8, 8, 12, 0) 0%, rgba(8, 8, 12, 0.86) 70%);
+}
+
+.cmp-bento__title {
+    font-size: 1.3rem;
+    font-weight: 650;
+    letter-spacing: -0.015em;
+}
+
+.cmp-bento__text {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: $ds-muted;
+}
+
+.cmp-bento__arrow {
+    position: absolute;
+    top: -0.25rem;
+    right: 1.5rem;
+    font-size: 1.25rem;
+    opacity: 0.55;
+    transition: transform 0.3s $ds-ease, opacity 0.3s $ds-ease;
+}
+
+// Stagger the tiles as they come into view.
+@for $i from 1 through 8 {
+    .cmp-reveal-ready .cmp-bento__card:nth-child(#{$i}) {
+        transition-delay: #{$i * 60}ms;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cmp-bento__inner,
+    .cmp-bento__img,
+    .cmp-bento__arrow {
+        transition: none;
+    }
+
+    a.cmp-bento__inner:hover {
+        transform: none;
+
+        .cmp-bento__img {
+            transform: none;
+        }
+    }
+}

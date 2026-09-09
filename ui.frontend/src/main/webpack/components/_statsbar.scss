@@ -1,16 +1,26 @@
 .cmp-statsbar {
-    padding: 2rem 0;
+    margin-top: 1rem;
+    padding: clamp(3rem, 7vw, 5rem) clamp(1.25rem, 5vw, 3rem);
+    border-radius: $ds-radius-lg;
+    background: $ds-ink;
+    color: $ds-text;
 }
 
 .cmp-statsbar__heading {
-    margin: 0 0 1.5rem;
+    max-width: $ds-max;
+    margin: 0 auto clamp(2rem, 4vw, 3rem);
+    text-align: center;
+    font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+    letter-spacing: -0.03em;
+    font-weight: 700;
 }
 
 .cmp-statsbar__list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-    gap: 1.5rem;
-    margin: 0;
+    gap: 1rem;
+    max-width: $ds-max;
+    margin: 0 auto;
     padding: 0;
     list-style: none;
 }
@@ -18,16 +28,29 @@
 .cmp-statsbar__item {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 0.35rem;
+    padding: 1.75rem 1.25rem;
     text-align: center;
+    border: 1px solid $ds-line;
+    border-radius: $ds-radius;
+    background: $ds-surface;
 }
 
 .cmp-statsbar__value {
-    font-size: 2.5rem;
+    font-size: clamp(2.2rem, 5vw, 3.1rem);
     font-weight: 700;
-    line-height: 1.1;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
     // Keeps the count-up animation from shifting the layout as digits change width.
     font-variant-numeric: tabular-nums;
+    background: linear-gradient(135deg, $ds-accent-2, $ds-accent 55%, $ds-accent-3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: $ds-text;
+
+    @supports (-webkit-background-clip: text) or (background-clip: text) {
+        color: transparent;
+    }
 }
 
 .cmp-statsbar__label {
@@ -36,5 +59,6 @@
 
 .cmp-statsbar__description {
     font-size: 0.875rem;
-    opacity: 0.75;
+    line-height: 1.5;
+    color: $ds-muted;
 }

@@ -1,0 +1,26 @@
+<!--/*
+    Marquee — the track is rendered twice so the loop is seamless; the duplicate is
+    hidden from assistive technology. Duration comes from the model as a data
+    attribute and is applied as a CSS custom property by the script.
+*/-->
+<sly data-sly-use.marquee="com.mysite.core.models.Marquee"/>
+
+<section class="cmp-marquee"
+         data-sly-test.hasContent="${!marquee.empty}"
+         id="${marquee.id}"
+         data-cmp-is="marquee"
+         data-cmp-marquee-duration="${marquee.duration}"
+         data-cmp-data-layer="${marquee.data.json}">
+    <div class="cmp-marquee__viewport">
+        <ul class="cmp-marquee__track" data-cmp-hook-marquee="track">
+            <li class="cmp-marquee__item" data-sly-repeat.phrase="${marquee.items}">${phrase}</li>
+        </ul>
+        <ul class="cmp-marquee__track" aria-hidden="true">
+            <li class="cmp-marquee__item" data-sly-repeat.phrase="${marquee.items}">${phrase}</li>
+        </ul>
+    </div>
+</section>
+
+<sly data-sly-test="${!hasContent && wcmmode.edit}">
+    <div class="cq-placeholder" data-emptytext="${'Marquee' @ i18n}"></div>
+</sly>

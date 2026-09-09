@@ -1,0 +1,49 @@
+<!--/*
+    Hero — full-bleed opening section.
+
+    The artwork sits behind a veil so the headline keeps its contrast whatever image
+    the author picks. data-cmp-reveal is the shared scroll-reveal hook.
+*/-->
+<sly data-sly-use.hero="com.mysite.core.models.Hero"/>
+
+<section class="cmp-hero"
+         data-sly-test.hasContent="${!hero.empty}"
+         id="${hero.id}"
+         data-cmp-data-layer="${hero.data.json}">
+
+    <div class="cmp-hero__art" data-sly-test="${hero.fileReference}">
+        <!--/* HTL drops an attribute whose expression is empty, so a decorative
+               alt="" has to be written as a literal on its own variant. */-->
+        <img class="cmp-hero__img"
+             src="${hero.fileReference}"
+             alt="${hero.alt}"
+             decoding="async"
+             data-sly-test="${hero.alt}"/>
+        <img class="cmp-hero__img"
+             src="${hero.fileReference}"
+             alt=""
+             decoding="async"
+             data-sly-test="${!hero.alt}"/>
+    </div>
+    <div class="cmp-hero__veil"></div>
+
+    <div class="cmp-hero__inner" data-cmp-reveal>
+        <p class="cmp-hero__eyebrow" data-sly-test="${hero.eyebrow}">${hero.eyebrow}</p>
+        <h1 class="cmp-hero__title">${hero.title}</h1>
+        <p class="cmp-hero__desc" data-sly-test="${hero.description}">${hero.description}</p>
+
+        <div class="cmp-hero__actions"
+             data-sly-test="${hero.primaryCtaText || hero.secondaryCtaText}">
+            <a class="cmp-hero__cta cmp-hero__cta--primary"
+               data-sly-test="${hero.primaryCtaText}"
+               href="${hero.primaryCtaUrl}">${hero.primaryCtaText}</a>
+            <a class="cmp-hero__cta cmp-hero__cta--ghost"
+               data-sly-test="${hero.secondaryCtaText}"
+               href="${hero.secondaryCtaUrl}">${hero.secondaryCtaText}</a>
+        </div>
+    </div>
+</section>
+
+<sly data-sly-test="${!hasContent && wcmmode.edit}">
+    <div class="cq-placeholder" data-emptytext="${'Hero' @ i18n}"></div>
+</sly>

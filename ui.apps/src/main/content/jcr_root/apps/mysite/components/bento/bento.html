@@ -1,0 +1,54 @@
+<!--/*
+    Bento Grid — asymmetric feature tiles.
+
+    Each tile becomes a link only when the author set one; data-sly-element swaps the
+    wrapper between <a> and <div> so the markup stays valid either way.
+*/-->
+<sly data-sly-use.bento="com.mysite.core.models.Bento"/>
+
+<section class="cmp-bento"
+         data-sly-test.hasContent="${!bento.empty}"
+         id="${bento.id}"
+         data-cmp-data-layer="${bento.data.json}">
+
+    <header class="cmp-bento__head" data-cmp-reveal>
+        <p class="cmp-bento__eyebrow" data-sly-test="${bento.eyebrow}">${bento.eyebrow}</p>
+        <h2 class="cmp-bento__heading" data-sly-test="${bento.heading}">${bento.heading}</h2>
+        <p class="cmp-bento__desc" data-sly-test="${bento.description}">${bento.description}</p>
+    </header>
+
+    <div class="cmp-bento__grid">
+        <article class="cmp-bento__card cmp-bento__card--${card.span}"
+                 data-cmp-reveal
+                 data-sly-repeat.card="${bento.cards}">
+            <a class="cmp-bento__inner"
+               data-sly-element="${card.url ? 'a' : 'div'}"
+               href="${card.url}">
+                <span class="cmp-bento__media" data-sly-test="${card.fileReference}">
+                    <!--/* See hero.html: an empty alt must be a literal to survive. */-->
+                    <img class="cmp-bento__img"
+                         src="${card.fileReference}"
+                         alt="${card.alt}"
+                         loading="lazy"
+                         decoding="async"
+                         data-sly-test="${card.alt}"/>
+                    <img class="cmp-bento__img"
+                         src="${card.fileReference}"
+                         alt=""
+                         loading="lazy"
+                         decoding="async"
+                         data-sly-test="${!card.alt}"/>
+                </span>
+                <span class="cmp-bento__body">
+                    <span class="cmp-bento__title" data-sly-test="${card.title}">${card.title}</span>
+                    <span class="cmp-bento__text" data-sly-test="${card.description}">${card.description}</span>
+                    <span class="cmp-bento__arrow" data-sly-test="${card.url}" aria-hidden="true">&#8599;</span>
+                </span>
+            </a>
+        </article>
+    </div>
+</section>
+
+<sly data-sly-test="${!hasContent && wcmmode.edit}">
+    <div class="cq-placeholder" data-emptytext="${'Bento Grid' @ i18n}"></div>
+</sly>
