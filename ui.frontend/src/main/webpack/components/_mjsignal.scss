@@ -1,0 +1,91 @@
+//== MJ Investment Signal.
+//
+// The claim takes the left third and the ledger the right two thirds, ruled off from each
+// other. The figures are display serif at a size that competes with the statement — the
+// section is an argument, and both halves have to carry weight.
+
+.cmp-mjsignal {
+    @include mj-section($mj-ivory);
+
+    &__inner {
+        @include mj-container;
+
+        display: grid;
+        gap: clamp(2.5rem, 5vw, 5rem);
+        grid-template-columns: repeat(12, 1fr);
+    }
+
+    &__claim {
+        grid-column: 1 / span 5;
+    }
+
+    &__eyebrow {
+        @include mj-eyebrow($mj-bronze-deep);
+
+        margin-bottom: 1.5rem;
+    }
+
+    &__statement {
+        @include mj-heading(1.5rem, 2.5rem);
+    }
+
+    &__ledger {
+        display: grid;
+        gap: 0;
+        grid-column: 7 / -1;
+        margin: 0;
+    }
+
+    &__entry {
+        // The <dt> is written first for the accessibility tree; the figure is lifted above
+        // it visually with order, which is the whole reason this is a flex column.
+        border-top: 1px solid $mj-rule;
+        display: flex;
+        flex-direction: column;
+        padding: clamp(1.25rem, 2vw, 1.75rem) 0;
+
+        &:last-child {
+            border-bottom: 1px solid $mj-rule;
+        }
+    }
+
+    &__value {
+        @include mj-display(2rem, 3.25rem);
+
+        color: $mj-ink;
+        margin: 0;
+        order: -1;
+    }
+
+    &__label {
+        @include mj-meta($mj-graphite);
+
+        margin-top: 0.75rem;
+    }
+
+    &__note {
+        @include mj-body($mj-muted);
+
+        font-size: 0.875rem;
+        margin: 0.35rem 0 0;
+    }
+
+    &__footnote {
+        @include mj-meta;
+
+        font-size: 0.6875rem;
+        grid-column: 7 / -1;
+        text-transform: none;
+        letter-spacing: 0.02em;
+    }
+}
+
+@media (max-width: 900px) {
+    .cmp-mjsignal {
+        &__claim,
+        &__ledger,
+        &__footnote {
+            grid-column: 1 / -1;
+        }
+    }
+}

@@ -1,0 +1,62 @@
+<!--/*
+    MJ Feature — one Content Fragment given the space of a magazine opener.
+
+    The whole module is a single link target only when a CTA is authored; otherwise it is
+    plain editorial matter. Nesting the heading inside one large anchor would give screen
+    readers a link whose accessible name is the entire article summary, so the link stays
+    an explicit, short call to action at the end of the copy.
+*/-->
+<sly data-sly-use.feature="com.mysite.core.models.MjFeature"/>
+
+<section class="cmp-mjfeature cmp-mjfeature--${feature.variant}"
+         data-sly-test.hasContent="${!feature.empty}"
+         id="${feature.id}"
+         data-cmp-data-layer="${feature.data.json}">
+
+    <p class="cmp-mjfeature__eyebrow" data-sly-test="${feature.eyebrow}" data-cmp-reveal>${feature.eyebrow}</p>
+
+    <div class="cmp-mjfeature__inner">
+        <figure class="cmp-mjfeature__art" data-sly-test="${feature.fileReference}" data-cmp-reveal>
+            <img class="cmp-mjfeature__img"
+                 src="${feature.fileReference}"
+                 alt="${feature.alt}"
+                 loading="lazy"
+                 decoding="async"
+                 data-sly-test="${feature.alt}"/>
+            <img class="cmp-mjfeature__img"
+                 src="${feature.fileReference}"
+                 alt=""
+                 loading="lazy"
+                 decoding="async"
+                 data-sly-test="${!feature.alt}"/>
+        </figure>
+
+        <div class="cmp-mjfeature__copy" data-cmp-reveal>
+            <p class="cmp-mjfeature__meta">
+                <span class="cmp-mjfeature__kicker" data-sly-test="${feature.kicker}">${feature.kicker}</span>
+                <span class="cmp-mjfeature__date" data-sly-test="${feature.meta}">${feature.meta}</span>
+            </p>
+
+            <h2 class="cmp-mjfeature__title">${feature.title}</h2>
+
+            <p class="cmp-mjfeature__standfirst" data-sly-test="${feature.standfirst}">${feature.standfirst}</p>
+
+            <!--/* Case studies close on the outcome; insights close on the standfirst. */-->
+            <p class="cmp-mjfeature__outcome" data-sly-test="${feature.outcome}">
+                <span class="cmp-mjfeature__outcome-label">Outcome</span>
+                ${feature.outcome}
+            </p>
+
+            <a class="cmp-mjfeature__cta"
+               data-sly-test="${feature.ctaText && feature.ctaUrl}"
+               href="${feature.ctaUrl}"
+               id="${feature.ctaId}"
+               data-cmp-data-layer="${feature.ctaDataLayerJson}"
+               data-cmp-clickable>${feature.ctaText}<span class="cmp-mjfeature__cta-mark" aria-hidden="true">&#8594;</span></a>
+        </div>
+    </div>
+</section>
+
+<sly data-sly-test="${!hasContent && wcmmode.edit}">
+    <div class="cq-placeholder" data-emptytext="${'MJ Feature — pick a Content Fragment' @ i18n}"></div>
+</sly>

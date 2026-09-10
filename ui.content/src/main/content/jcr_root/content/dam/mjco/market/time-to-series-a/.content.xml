@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:dam="http://www.day.com/dam/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:dc="http://purl.org/dc/elements/1.1/"
+    jcr:primaryType="dam:Asset">
+    <jcr:content
+        jcr:primaryType="dam:AssetContent"
+        contentFragment="{Boolean}true"
+        jcr:title="Time to Series A">
+        <data
+            jcr:primaryType="nt:unstructured"
+            cq:model="/conf/mjco/settings/dam/cfm/models/market-metric">
+            <master
+                jcr:primaryType="nt:unstructured"
+                metric="Time to Series A"
+                value="22"
+                unit="months"
+                trend="up"
+                change="+4 mo"
+                series="15,16,17,18,20,21,22"
+                commentary="The gap between seed and Series A has widened by roughly a third since 2022. Seed rounds are now expected to fund more proof than they used to."
+                source="Placeholder source"
+                date="{Date}2026-06-30T00:00:00.000+00:00"/>
+        </data>
+        <metadata
+            jcr:primaryType="nt:unstructured"
+            dc:title="Time to Series A"/>
+    </jcr:content>
+</jcr:root>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <!--
+        Policies for MJ & Company.
+
+        The component library is shared with the rest of this code base — these policies
+        are what make it a different site: which components an author may place, where,
+        and with what constraints. Nothing here duplicates a component.
+    -->
+    <mysite jcr:primaryType="nt:unstructured">
+        <components jcr:primaryType="nt:unstructured">
+            <page jcr:primaryType="nt:unstructured">
+                <policy_mjco
+                    jcr:description="Client libraries for MJ &amp; Company. The site shares the code base's single bundle: a second bundle for one brand would cost a request to save bytes the first bundle already gzips away."
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="MJ &amp; Company Page"
+                    sling:resourceType="wcm/core/components/policy/policy"
+                    clientlibs="[mysite.dependencies,mysite.site]"
+                    clientlibsJsHead="mysite.dependencies">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                </policy_mjco>
+            </page>
+            <container jcr:primaryType="nt:unstructured">
+                <policy_mjco_root
+                    jcr:description="Outermost container. Structure only — authors never edit at this level."
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="MJ Root"
+                    sling:resourceType="wcm/core/components/policy/policy"
+                    layout="responsiveGrid">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                </policy_mjco_root>
+                <policy_mjco_sections
+                    jcr:description="The editable band of a page. Full-bleed MJ sections plus the Core Components that compose an editorial page."
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="MJ Sections"
+                    sling:resourceType="wcm/core/components/policy/policy"
+                    components="[group:MJ &amp; Company,mysite/components/text,mysite/components/title,mysite/components/image,mysite/components/separator,mysite/components/experiencefragment,mysite/components/contentfragment,mysite/components/embed,mysite/components/download,mysite/components/accordion]"
+                    layout="responsiveGrid">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                </policy_mjco_sections>
+                <policy_mjco_article
+                    jcr:description="The body of a detail page: prose and supporting media, no full-bleed sections."
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="MJ Article Body"
+                    sling:resourceType="wcm/core/components/policy/policy"
+                    components="[mysite/components/text,mysite/components/title,mysite/components/image,mysite/components/separator,mysite/components/embed,mysite/components/download,mysite/components/contentfragment,mysite/components/mjsignal,mysite/components/mjmarket]"
+                    layout="responsiveGrid">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                </policy_mjco_article>
+                <policy_mjco_header
+                    jcr:description="Masthead. Locked in the template; the navigation below it is policy-driven."
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="MJ Masthead"
+                    sling:resourceType="wcm/core/components/policy/policy"
+                    layout="simple">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                </policy_mjco_header>
+                <policy_mjco_footer
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="MJ Footer"
+                    sling:resourceType="wcm/core/components/policy/policy"
+                    layout="simple">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                </policy_mjco_footer>
+            </container>
+            <navigation jcr:primaryType="nt:unstructured">
+                <policy_mjco
+                    jcr:description="Primary navigation. One level only: a second level would turn a six-item masthead into a mega menu, which is the opposite of what this brand is."
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="MJ Primary Navigation"
+                    sling:resourceType="wcm/core/components/policy/policy"
+                    navigationRoot="/content/mjco/us/en"
+                    structureDepth="{Long}1"
+                    collectAllPages="{Boolean}false"
+                    skipNavigationRoot="{Boolean}true">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                </policy_mjco>
+            </navigation>
+            <breadcrumb jcr:primaryType="nt:unstructured">
+                <policy_mjco
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="MJ Breadcrumb"
+                    sling:resourceType="wcm/core/components/policy/policy"
+                    startLevel="{Long}3"
+                    hideCurrent="{Boolean}false">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                </policy_mjco>
+            </breadcrumb>
+            <text jcr:primaryType="nt:unstructured">
+                <policy_mjco
+                    jcr:description="Prose. The RTE is deliberately narrow: this site's hierarchy comes from the components around the text, not from formatting inside it."
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="MJ Text"
+                    sling:resourceType="wcm/core/components/policy/policy">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                </policy_mjco>
+            </text>
+            <title jcr:primaryType="nt:unstructured">
+                <policy_mjco
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="MJ Title"
+                    sling:resourceType="wcm/core/components/policy/policy"
+                    allowedTypes="[h2,h3,h4]"
+                    type="h2">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                </policy_mjco>
+            </title>
+            <image jcr:primaryType="nt:unstructured">
+                <policy_mjco
+                    jcr:description="Images are served by the AEM adaptive image servlet at the widths below, which are the MJ grid's column breaks."
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="MJ Image"
+                    sling:resourceType="wcm/core/components/policy/policy"
+                    allowedRenditionWidths="[320,480,720,960,1280,1600,2048]"
+                    jpegQuality="{Long}82"
+                    lazyLoadingEnabled="{Boolean}true"
+                    uiDisabled="[]">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                </policy_mjco>
+            </image>
+        </components>
+    </mysite>
+</jcr:root>

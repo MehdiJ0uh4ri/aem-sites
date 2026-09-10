@@ -9,6 +9,8 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 
 import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
+import com.adobe.cq.wcm.core.components.models.datalayer.ComponentData;
+import com.adobe.cq.wcm.core.components.models.datalayer.builder.DataLayerBuilder;
 import com.adobe.cq.wcm.core.components.util.AbstractComponentImpl;
 import com.mysite.core.models.Hero;
 
@@ -20,6 +22,8 @@ import com.mysite.core.models.Hero;
 public class HeroImpl extends AbstractComponentImpl implements Hero {
 
     public static final String RESOURCE_TYPE = "mysite/components/hero";
+
+    private static final String CTA_TYPE = "mysite/components/hero/cta";
 
     @ValueMapValue
     private String eyebrow;
@@ -85,6 +89,33 @@ public class HeroImpl extends AbstractComponentImpl implements Hero {
     }
 
     @Override
+    public String getPrimaryCtaId() {
+        return ctaId("primary", getPrimaryCtaUrl());
+    }
+
+    @Override
+    public String getPrimaryCtaDataLayerJson() {
+        return ChildDataLayer.json(getData() != null, getPrimaryCtaId(), CTA_TYPE,
+                primaryCtaText, getPrimaryCtaUrl());
+    }
+
+    @Override
+    public String getSecondaryCtaId() {
+        return ctaId("secondary", getSecondaryCtaUrl());
+    }
+
+    @Override
+    public String getSecondaryCtaDataLayerJson() {
+        return ChildDataLayer.json(getData() != null, getSecondaryCtaId(), CTA_TYPE,
+                secondaryCtaText, getSecondaryCtaUrl());
+    }
+
+    private String ctaId(String suffix, String url) {
+        // Only linked CTAs are rendered, so only those need an identity.
+        return StringUtils.isBlank(url) ? null : getId() + "-cta-" + suffix;
+    }
+
+    @Override
     public String getSecondaryCtaText() {
         return secondaryCtaText;
     }
@@ -97,6 +128,16 @@ public class HeroImpl extends AbstractComponentImpl implements Hero {
     @Override
     public boolean isEmpty() {
         return StringUtils.isBlank(title);
+    }
+
+    @Override
+    protected ComponentData getComponentData() {
+        // The primary CTA is the conversion action, so it becomes the entry's linkUrl.
+        return DataLayerBuilder.extending(super.getComponentData()).asComponent()
+                .withTitle(() -> StringUtils.defaultString(title))
+                .withDescription(() -> StringUtils.defaultString(description))
+                .withLinkUrl(() -> StringUtils.defaultString(getPrimaryCtaUrl()))
+                .build();
     }
 
     @Override

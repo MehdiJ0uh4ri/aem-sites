@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="MJ Editorial Hero"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/tabs"
+        maximized="{Boolean}true">
+        <items jcr:primaryType="nt:unstructured">
+            <statement
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Statement"
+                sling:resourceType="granite/ui/components/coral/foundation/container"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <eyebrow
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldDescription="Small label above the headline, e.g. the firm descriptor."
+                        fieldLabel="Eyebrow"
+                        name="./eyebrow"/>
+                    <lineOne
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldDescription="Set flush left at display size. Keep it to three or four words."
+                        fieldLabel="Headline, first line"
+                        name="./lineOne"
+                        required="{Boolean}true"/>
+                    <lineTwo
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldDescription="Indented into the type column. Leave empty for a single-line hero."
+                        fieldLabel="Headline, second line"
+                        name="./lineTwo"/>
+                    <standfirst
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                        fieldDescription="One or two sentences below the rule."
+                        fieldLabel="Standfirst"
+                        name="./standfirst"
+                        rows="{Long}3"/>
+                    <scrollCue
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldDescription="Label for the scroll cue in the lower margin. Leave empty to hide it."
+                        fieldLabel="Scroll cue"
+                        name="./scrollCue"/>
+                </items>
+            </statement>
+            <artwork
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Artwork"
+                sling:resourceType="granite/ui/components/coral/foundation/container"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <fileReference
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                        fieldDescription="Cinematic band under the statement. Use a 21:9 crop. Leave empty for a purely typographic hero."
+                        fieldLabel="Image"
+                        name="./fileReference"
+                        rootPath="/content/dam"/>
+                    <alt
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldDescription="Leave empty when the artwork is decorative, which it usually is here."
+                        fieldLabel="Alternative text"
+                        name="./alt"/>
+                </items>
+            </artwork>
+            <action
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Action"
+                sling:resourceType="granite/ui/components/coral/foundation/container"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <ctaText
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldDescription="One action only. The hero is a statement, not a conversion point."
+                        fieldLabel="Link label"
+                        name="./ctaText"/>
+                    <ctaLink
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                        fieldDescription="Internal page paths get .html appended automatically."
+                        fieldLabel="Link"
+                        name="./ctaLink"
+                        rootPath="/content"/>
+                </items>
+            </action>
+        </items>
+    </content>
+</jcr:root>

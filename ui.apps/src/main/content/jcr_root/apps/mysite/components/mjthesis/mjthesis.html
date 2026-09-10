@@ -1,0 +1,33 @@
+<!--/*
+    MJ Thesis.
+
+    The ordinals are hung in the margin and are decorative — the list is already an <ol>,
+    so a screen reader announces the position without them. They exist to give the column
+    a rhythm on the page, not to carry meaning.
+*/-->
+<sly data-sly-use.thesis="com.mysite.core.models.MjThesis"/>
+
+<section class="cmp-mjthesis"
+         data-sly-test.hasContent="${!thesis.empty}"
+         id="${thesis.id}"
+         data-cmp-data-layer="${thesis.data.json}">
+
+    <header class="cmp-mjthesis__head" data-cmp-reveal>
+        <p class="cmp-mjthesis__eyebrow" data-sly-test="${thesis.eyebrow}">${thesis.eyebrow}</p>
+        <h2 class="cmp-mjthesis__heading" data-sly-test="${thesis.heading}">${thesis.heading}</h2>
+    </header>
+
+    <ol class="cmp-mjthesis__list">
+        <li class="cmp-mjthesis__item" data-sly-repeat.item="${thesis.items}" data-cmp-reveal>
+            <span class="cmp-mjthesis__ordinal" aria-hidden="true">${item.ordinal}</span>
+            <div class="cmp-mjthesis__body">
+                <h3 class="cmp-mjthesis__title" data-sly-test="${item.title}">${item.title}</h3>
+                <p class="cmp-mjthesis__text" data-sly-test="${item.body}">${item.body}</p>
+            </div>
+        </li>
+    </ol>
+</section>
+
+<sly data-sly-test="${!hasContent && wcmmode.edit}">
+    <div class="cq-placeholder" data-emptytext="${'MJ Thesis' @ i18n}"></div>
+</sly>

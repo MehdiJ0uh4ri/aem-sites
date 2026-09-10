@@ -1,0 +1,169 @@
+//== MJ Feature.
+//
+// A magazine opener: the image breaks out past the copy column rather than sitting beside
+// it in a matched pair, and the copy overlaps the image's lower edge. The overlap is what
+// stops this reading as a card.
+
+.cmp-mjfeature {
+    @include mj-section($mj-paper);
+
+    &__eyebrow {
+        @include mj-eyebrow($mj-bronze-deep);
+        @include mj-container;
+
+        margin-bottom: clamp(2rem, 4vw, 3.5rem);
+    }
+
+    &__inner {
+        @include mj-container;
+
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+    }
+
+    &__art {
+        grid-column: 1 / span 9;
+        grid-row: 1;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    &__img {
+        @include mj-crop(16 / 9);
+
+        transform: scale(1.05);
+        transition: transform 1.4s $mj-ease;
+    }
+
+    &__art.is-revealed &__img {
+        transform: none;
+    }
+
+    &__copy {
+        align-self: end;
+        background: $mj-paper;
+        grid-column: 7 / -1;
+        grid-row: 1;
+        // The negative margin is the overlap. It is a fraction of the section padding so
+        // it scales with the rest of the rhythm.
+        margin-bottom: clamp(-4rem, -4vw, -1rem);
+        padding: clamp(1.5rem, 3vw, 3rem) 0 0 clamp(1.5rem, 3vw, 3rem);
+        position: relative;
+        z-index: 1;
+    }
+
+    &__meta {
+        @include mj-meta;
+
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.25rem;
+        margin-bottom: 1.25rem;
+    }
+
+    &__kicker {
+        color: $mj-bronze-deep;
+    }
+
+    &__title {
+        @include mj-heading(1.75rem, 3rem);
+
+        margin-bottom: 1.25rem;
+    }
+
+    &__standfirst {
+        @include mj-body;
+
+        margin-bottom: 1.5rem;
+    }
+
+    &__outcome {
+        @include mj-body($mj-ink);
+
+        border-left: 2px solid $mj-bronze;
+        margin-bottom: 1.5rem;
+        padding-left: 1.25rem;
+    }
+
+    &__outcome-label {
+        @include mj-eyebrow($mj-bronze-deep);
+
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    &__cta {
+        @include mj-cta;
+    }
+
+    // Case studies are the darker of the two variants: the story is the point, so the
+    // section drops to ink and lets the image be the only light in it.
+    &--casestudy {
+        background: $mj-ink;
+        color: $mj-ink-text;
+
+        .cmp-mjfeature__eyebrow,
+        .cmp-mjfeature__kicker,
+        .cmp-mjfeature__outcome-label {
+            color: $mj-bronze;
+        }
+
+        .cmp-mjfeature__meta {
+            color: $mj-ink-muted;
+        }
+
+        .cmp-mjfeature__copy {
+            background: $mj-ink;
+        }
+
+        .cmp-mjfeature__title,
+        .cmp-mjfeature__outcome {
+            color: $mj-ink-text;
+        }
+
+        .cmp-mjfeature__standfirst {
+            color: $mj-ink-muted;
+        }
+
+        .cmp-mjfeature__cta {
+            @include mj-cta($mj-ink-text, $mj-bronze);
+
+            &:hover,
+            &:focus-visible {
+                border-color: $mj-ink-text;
+                color: $mj-ink-text;
+            }
+
+            &:focus-visible {
+                outline-color: $mj-bronze;
+            }
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    .cmp-mjfeature {
+        &__art,
+        &__copy {
+            grid-column: 1 / -1;
+        }
+
+        &__copy {
+            // Stacked, the overlap has nothing to overlap: the copy follows the image.
+            grid-row: 2;
+            margin-bottom: 0;
+            padding-left: 0;
+        }
+
+        &__img {
+            aspect-ratio: 3 / 2;
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cmp-mjfeature__img {
+        transform: none;
+        transition: none;
+    }
+}

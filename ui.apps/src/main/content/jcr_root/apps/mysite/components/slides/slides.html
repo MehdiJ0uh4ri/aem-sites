@@ -1,0 +1,73 @@
+<!--/*
+    Slides — one markup shape, three layouts driven by a modifier class.
+
+    The track is a native scroll-snap container, so it is usable by keyboard, touch and
+    screen readers with no JavaScript at all; the arrow buttons are progressive
+    enhancement and hide themselves when the script does not run.
+
+    Each slide carries its own Adobe Client Data Layer entry so a click can be attributed
+    to the individual slide rather than only to the section.
+*/-->
+<sly data-sly-use.slides="com.mysite.core.models.Slides"/>
+
+<section class="cmp-slides cmp-slides--${slides.layout}"
+         data-sly-test.hasContent="${!slides.empty}"
+         id="${slides.id}"
+         data-cmp-is="slides"
+         data-cmp-data-layer="${slides.data.json}">
+
+    <header class="cmp-slides__head" data-cmp-reveal>
+        <p class="cmp-slides__eyebrow" data-sly-test="${slides.eyebrow}">${slides.eyebrow}</p>
+        <h2 class="cmp-slides__heading" data-sly-test="${slides.heading}">${slides.heading}</h2>
+        <p class="cmp-slides__desc" data-sly-test="${slides.description}">${slides.description}</p>
+    </header>
+
+    <div class="cmp-slides__viewport">
+        <ul class="cmp-slides__track" data-cmp-hook-slides="track">
+            <li class="cmp-slides__slide"
+                data-sly-repeat.slide="${slides.slides}"
+                id="${slide.id}"
+                data-cmp-data-layer="${slide.dataLayerJson}"
+                data-cmp-clickable="${slide.ctaUrl ? true : null}">
+
+                <div class="cmp-slides__media" data-sly-test="${slide.fileReference}">
+                    <img class="cmp-slides__img"
+                         src="${slide.fileReference}"
+                         alt="${slide.alt}"
+                         loading="lazy"
+                         decoding="async"
+                         data-sly-test="${slide.alt}"/>
+                    <img class="cmp-slides__img"
+                         src="${slide.fileReference}"
+                         alt=""
+                         loading="lazy"
+                         decoding="async"
+                         data-sly-test="${!slide.alt}"/>
+                </div>
+
+                <div class="cmp-slides__body">
+                    <h3 class="cmp-slides__title" data-sly-test="${slide.title}">${slide.title}</h3>
+                    <p class="cmp-slides__text" data-sly-test="${slide.description}">${slide.description}</p>
+                    <a class="cmp-slides__cta"
+                       data-sly-test="${slide.ctaText && slide.ctaUrl}"
+                       href="${slide.ctaUrl}">${slide.ctaText}</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="cmp-slides__controls" data-cmp-hook-slides="controls" hidden>
+        <button class="cmp-slides__nav"
+                type="button"
+                data-cmp-hook-slides="prev"
+                aria-label="${'Previous slide' @ i18n}">&#8592;</button>
+        <button class="cmp-slides__nav"
+                type="button"
+                data-cmp-hook-slides="next"
+                aria-label="${'Next slide' @ i18n}">&#8594;</button>
+    </div>
+</section>
+
+<sly data-sly-test="${!hasContent && wcmmode.edit}">
+    <div class="cq-placeholder" data-emptytext="${'Slides' @ i18n}"></div>
+</sly>

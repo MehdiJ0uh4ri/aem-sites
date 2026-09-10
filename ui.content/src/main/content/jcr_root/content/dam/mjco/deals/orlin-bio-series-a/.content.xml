@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:dam="http://www.day.com/dam/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:dc="http://purl.org/dc/elements/1.1/"
+    jcr:primaryType="dam:Asset">
+    <jcr:content
+        jcr:primaryType="dam:AssetContent"
+        contentFragment="{Boolean}true"
+        jcr:title="Orlin Bio">
+        <data
+            jcr:primaryType="nt:unstructured"
+            cq:model="/conf/mjco/settings/dam/cfm/models/deal">
+            <master
+                jcr:primaryType="nt:unstructured"
+                company="Orlin Bio"
+                date="{Date}2026-06-02T09:00:00.000+00:00"
+                investmentType="Series A"
+                sector="Health"
+                description="Led the Series A alongside two existing seed investors."/>
+        </data>
+        <metadata
+            jcr:primaryType="nt:unstructured"
+            dc:title="Orlin Bio"/>
+    </jcr:content>
+</jcr:root>

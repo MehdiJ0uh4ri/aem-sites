@@ -1,10 +1,86 @@
-.cmp-accordion {}
-.cmp-accordion__item {}
-.cmp-accordion__header {}
-.cmp-accordion__button {}
-.cmp-accordion__button--expanded {}
-.cmp-accordion__title {}
-.cmp-accordion__icon {}
-.cmp-accordion__panel {}
-.cmp-accordion__panel--expanded {}
-.cmp-accordion__panel--hidden {}
+//== Accordion
+//
+// This brands the Core Components Accordion v1 rather than reimplementing it: the
+// behaviour, ARIA wiring and keyboard support already ship in
+// core.wcm.components.accordion.v1, which clientlib-base embeds. Only the skin is ours,
+// so an AEM upgrade keeps the component's semantics intact.
+
+.cmp-accordion {
+    max-width: 820px;
+    margin: 1rem auto;
+    padding: clamp(2rem, 5vw, 3.5rem) clamp(1.25rem, 5vw, 3rem);
+}
+
+.cmp-accordion__item {
+    margin-bottom: 0.75rem;
+    border: 1px solid $ds-line;
+    border-radius: $ds-radius;
+    background: $ds-surface;
+    overflow: hidden;
+    transition: border-color 0.3s $ds-ease, background 0.3s $ds-ease;
+
+    &:hover {
+        border-color: rgba(255, 255, 255, 0.20);
+    }
+}
+
+.cmp-accordion__header {
+    margin: 0;
+}
+
+.cmp-accordion__button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    padding: 1.25rem 1.5rem;
+    border: 0;
+    background: transparent;
+    color: $ds-text;
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+}
+
+.cmp-accordion__title {
+    flex: 1 1 auto;
+}
+
+// The Core Components markup provides this element for the indicator.
+.cmp-accordion__icon {
+    flex: 0 0 auto;
+    width: 12px;
+    height: 12px;
+    border-right: 2px solid $ds-muted;
+    border-bottom: 2px solid $ds-muted;
+    transform: rotate(45deg) translate(-2px, -2px);
+    transition: transform 0.3s $ds-ease;
+}
+
+.cmp-accordion__button--expanded .cmp-accordion__icon {
+    transform: rotate(225deg) translate(-2px, -2px);
+}
+
+.cmp-accordion__panel {
+    padding: 0 1.5rem;
+    color: $ds-muted;
+    line-height: 1.65;
+}
+
+.cmp-accordion__panel--expanded {
+    padding-bottom: 1.5rem;
+}
+
+// Core Components hides collapsed panels with this class; make sure nothing overrides it.
+.cmp-accordion__panel--hidden {
+    display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cmp-accordion__item,
+    .cmp-accordion__icon {
+        transition: none;
+    }
+}

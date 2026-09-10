@@ -1,0 +1,39 @@
+<!--/*
+    MJ Engage — the closing section.
+
+    Each lane names its audience in a heading, so the three links ("Get in touch" three
+    times over) are distinguishable to anyone listing the page's links: the accessible name
+    is short, and the heading above it supplies the context.
+*/-->
+<sly data-sly-use.engage="com.mysite.core.models.MjEngage"/>
+
+<section class="cmp-mjengage"
+         data-sly-test.hasContent="${!engage.empty}"
+         id="${engage.id}"
+         data-cmp-data-layer="${engage.data.json}">
+
+    <div class="cmp-mjengage__inner">
+        <div class="cmp-mjengage__claim" data-cmp-reveal>
+            <p class="cmp-mjengage__eyebrow" data-sly-test="${engage.eyebrow}">${engage.eyebrow}</p>
+            <h2 class="cmp-mjengage__statement" data-sly-test="${engage.statement}">${engage.statement}</h2>
+        </div>
+
+        <div class="cmp-mjengage__lanes" data-cmp-reveal>
+            <div class="cmp-mjengage__lane"
+                 data-sly-repeat.lane="${engage.items}"
+                 id="${lane.id}"
+                 data-cmp-data-layer="${lane.dataLayerJson}">
+                <h3 class="cmp-mjengage__audience" data-sly-test="${lane.audience}">${lane.audience}</h3>
+                <p class="cmp-mjengage__text" data-sly-test="${lane.body}">${lane.body}</p>
+                <a class="cmp-mjengage__cta"
+                   data-sly-test="${lane.ctaText && lane.ctaUrl}"
+                   href="${lane.ctaUrl}"
+                   data-cmp-clickable>${lane.ctaText}<span class="cmp-mjengage__cta-mark" aria-hidden="true">&#8594;</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<sly data-sly-test="${!hasContent && wcmmode.edit}">
+    <div class="cq-placeholder" data-emptytext="${'MJ Engage' @ i18n}"></div>
+</sly>

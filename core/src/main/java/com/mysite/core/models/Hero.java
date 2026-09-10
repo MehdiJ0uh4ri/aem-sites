@@ -24,9 +24,21 @@ public interface Hero extends Component {
     /** @return resolved href for the primary CTA, {@code .html} appended for internal pages */
     String getPrimaryCtaUrl();
 
+    /** @return id for the primary CTA's data layer entry, or {@code null} */
+    String getPrimaryCtaId();
+
+    /** @return Adobe Client Data Layer entry for the primary CTA, or {@code null} */
+    String getPrimaryCtaDataLayerJson();
+
     String getSecondaryCtaText();
 
     String getSecondaryCtaUrl();
+
+    /** @return id for the secondary CTA's data layer entry, or {@code null} */
+    String getSecondaryCtaId();
+
+    /** @return Adobe Client Data Layer entry for the secondary CTA, or {@code null} */
+    String getSecondaryCtaDataLayerJson();
 
     /** @return {@code true} when there is no headline to render */
     boolean isEmpty();

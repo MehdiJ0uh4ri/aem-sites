@@ -35,11 +35,17 @@
         <div class="cmp-hero__actions"
              data-sly-test="${hero.primaryCtaText || hero.secondaryCtaText}">
             <a class="cmp-hero__cta cmp-hero__cta--primary"
-               data-sly-test="${hero.primaryCtaText}"
-               href="${hero.primaryCtaUrl}">${hero.primaryCtaText}</a>
+               data-sly-test="${hero.primaryCtaText && hero.primaryCtaUrl}"
+               href="${hero.primaryCtaUrl}"
+               id="${hero.primaryCtaId}"
+               data-cmp-data-layer="${hero.primaryCtaDataLayerJson}"
+               data-cmp-clickable>${hero.primaryCtaText}</a>
             <a class="cmp-hero__cta cmp-hero__cta--ghost"
-               data-sly-test="${hero.secondaryCtaText}"
-               href="${hero.secondaryCtaUrl}">${hero.secondaryCtaText}</a>
+               data-sly-test="${hero.secondaryCtaText && hero.secondaryCtaUrl}"
+               href="${hero.secondaryCtaUrl}"
+               id="${hero.secondaryCtaId}"
+               data-cmp-data-layer="${hero.secondaryCtaDataLayerJson}"
+               data-cmp-clickable>${hero.secondaryCtaText}</a>
         </div>
     </div>
 </section>

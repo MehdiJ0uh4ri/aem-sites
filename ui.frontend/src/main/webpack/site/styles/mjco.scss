@@ -1,0 +1,215 @@
+//== MJ & Company — page ground.
+//
+// Loaded after the component partials, so this is where the rules that have to win over
+// the archetype's own page styling live.
+//
+// Scoping: :has() with a forgiving selector list turns the brand on for any page carrying
+// an MJ section, and leaves every other page in this code base untouched. It is the same
+// mechanism the marketing design system already uses for its dark pages, extended rather
+// than replaced.
+
+body:has(#{$mj-sections}) {
+    background: $mj-paper;
+    color: $mj-ink;
+    font-family: $mj-sans;
+
+    // The archetype pads and constrains main.container for its own layout. MJ sections
+    // are full-bleed and hold their own measure, so the wrapper gets out of the way.
+    main.container {
+        margin: 0;
+        max-width: none;
+        padding: 0;
+    }
+
+    // The MJ sections butt directly against each other — the change of ground is the
+    // section break, so no rule or margin is needed between them.
+    .aem-Grid > .aem-GridColumn {
+        margin: 0;
+    }
+}
+
+// Selection and focus carry the accent, which is the only place the bronze appears
+// without being asked for.
+body:has(#{$mj-sections}) ::selection {
+    background: rgba(138, 106, 62, 0.22);
+}
+
+body:has(#{$mj-sections}) :focus-visible {
+    outline: 2px solid $mj-bronze-deep;
+    outline-offset: 3px;
+}
+
+// A skip target for keyboard users landing on a page whose first element is a full-height
+// hero. The header experience fragment supplies the link; this styles where it lands.
+body:has(#{$mj-sections}) [id="main-content"]:focus {
+    outline: none;
+}
+
+//== Chrome.
+//
+// The masthead, navigation, breadcrumb and footer are Core Components placed in the
+// template structure — no custom code. What makes them MJ is entirely here: the wordmark's
+// type, the hairline rules, and a navigation that is a line of words rather than a bar.
+//
+// Landmark semantics: Core Container renders a <div>, so the masthead and footer are not
+// yet <header>/<footer> elements. That is a Style System style with cq:styleElement on the
+// container policy, not a stylesheet change — see the notes with this work.
+
+#mjco-masthead {
+    align-items: baseline;
+    background: $mj-paper;
+    border-bottom: 1px solid $mj-rule;
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(1rem, 4vw, 3rem);
+    justify-content: space-between;
+    padding: clamp(1.25rem, 2vw, 1.75rem) $mj-gutter;
+
+    // Sticky, but only the rule and the wordmark persist — the masthead is 4rem tall and
+    // never grows a shadow or a backdrop blur on scroll.
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+#mjco-wordmark {
+    .cmp-text p {
+        margin: 0;
+    }
+
+    a {
+        // The wordmark is the brand: high-contrast serif, tight, with the ampersand given
+        // room. Everything else in the type system is sized against this.
+        color: $mj-ink;
+        font-family: $mj-serif;
+        font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+        letter-spacing: 0.01em;
+        text-decoration: none;
+        white-space: nowrap;
+    }
+}
+
+#mjco-nav {
+    .cmp-navigation__group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: clamp(1rem, 2.2vw, 2.25rem);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .cmp-navigation__item-link {
+        @include mj-meta($mj-graphite);
+
+        display: inline-block;
+        // 44px of hit area around 12px type, bought with padding rather than by
+        // enlarging the type.
+        padding: 0.9rem 0;
+        text-decoration: none;
+        transition: color 0.3s $mj-ease;
+
+        &:hover,
+        &:focus-visible {
+            color: $mj-bronze-deep;
+        }
+    }
+
+    .cmp-navigation__item--active > .cmp-navigation__item-link {
+        color: $mj-ink;
+        // The current section is marked with a rule, not a colour: colour alone would be
+        // the only signal, and this way it survives a monochrome rendering.
+        box-shadow: 0 1px 0 0 $mj-bronze;
+    }
+}
+
+#mjco-breadcrumb {
+    padding: clamp(1.5rem, 3vw, 2.5rem) $mj-gutter 0;
+
+    .cmp-breadcrumb__list {
+        @include mj-meta;
+
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        list-style: none;
+        margin: 0 auto;
+        max-width: $mj-max;
+        padding: 0;
+    }
+
+    .cmp-breadcrumb__item-link {
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
+            color: $mj-bronze-deep;
+        }
+    }
+
+    .cmp-breadcrumb__item:not(:last-child)::after {
+        content: "/";
+        margin-left: 0.75rem;
+        opacity: 0.4;
+    }
+}
+
+#mjco-footer {
+    background: $mj-ink;
+    color: $mj-ink-muted;
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    padding: clamp(3rem, 6vw, 5rem) $mj-gutter;
+
+    #mjco-footer-nav .cmp-navigation__group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: clamp(1rem, 2.5vw, 2.5rem);
+        list-style: none;
+        margin: 0 auto;
+        max-width: $mj-max;
+        padding: 0;
+        width: 100%;
+    }
+
+    #mjco-footer-nav .cmp-navigation__item-link {
+        @include mj-meta($mj-ink-muted);
+
+        display: inline-block;
+        padding: 0.9rem 0;
+        text-decoration: none;
+
+        &:hover,
+        &:focus-visible {
+            color: $mj-ink-text;
+        }
+    }
+
+    #mjco-disclosure {
+        margin: 0 auto;
+        max-width: $mj-max;
+        width: 100%;
+
+        p {
+            border-top: 1px solid $mj-ink-rule;
+            font-family: $mj-sans;
+            font-size: 0.75rem;
+            line-height: 1.6;
+            margin: 0;
+            max-width: 60ch;
+            padding-top: 1.5rem;
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    #mjco-masthead {
+        // The nav wraps to its own line rather than collapsing behind a hamburger: six
+        // words fit, and a menu that has to be opened is a menu that gets ignored.
+        position: static;
+    }
+
+    #mjco-nav .cmp-navigation__group {
+        gap: 0.75rem 1.25rem;
+    }
+}

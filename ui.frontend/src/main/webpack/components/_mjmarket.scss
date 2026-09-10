@@ -1,0 +1,155 @@
+//== MJ Market Band.
+//
+// Editorial data, not a dashboard: each metric is a short column with the figure at
+// display size, a sparkline reduced to a hairline, and a sentence of commentary that is
+// the actual content. The chrome a dashboard would add — axes, gridlines, legends, boxes —
+// is all absent on purpose.
+
+.cmp-mjmarket {
+    @include mj-section($mj-ink, $mj-ink-text);
+
+    &__head {
+        @include mj-container;
+
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(12, 1fr);
+        margin-bottom: clamp(3rem, 5vw, 5rem);
+    }
+
+    &__eyebrow {
+        @include mj-eyebrow($mj-bronze);
+
+        grid-column: 1 / -1;
+    }
+
+    &__heading {
+        @include mj-heading;
+
+        color: $mj-ink-text;
+        grid-column: 1 / span 6;
+    }
+
+    &__intro {
+        @include mj-body($mj-ink-muted);
+
+        align-self: end;
+        grid-column: 8 / -1;
+    }
+
+    &__grid {
+        @include mj-container;
+
+        display: grid;
+        gap: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 3rem);
+        grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
+    }
+
+    &__metric {
+        border-top: 1px solid $mj-ink-rule;
+        padding-top: 1.5rem;
+    }
+
+    &__label {
+        @include mj-meta($mj-ink-muted);
+    }
+
+    &__figure {
+        @include mj-display(2.25rem, 3.5rem);
+
+        align-items: baseline;
+        color: $mj-ink-text;
+        display: flex;
+        gap: 0.15em;
+        margin: 1rem 0 0;
+    }
+
+    &__unit {
+        font-family: $mj-sans;
+        font-size: 0.9rem;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        color: $mj-ink-muted;
+    }
+
+    &__change {
+        @include mj-meta($mj-ink-muted);
+
+        align-items: center;
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 0.75rem;
+    }
+
+    &__sr {
+        @include mj-visually-hidden;
+    }
+
+    // The glyph is drawn in CSS so nothing has to load for it, and it is aria-hidden in
+    // the markup — the direction is also spelled out in text next to it.
+    &__glyph {
+        border: 4px solid transparent;
+        display: inline-block;
+        height: 0;
+        width: 0;
+    }
+
+    &__spark {
+        display: block;
+        height: 2.25rem;
+        margin-top: 1.25rem;
+        width: 100%;
+
+        polyline {
+            stroke: $mj-ink-rule;
+            stroke-width: 1.25;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+    }
+
+    &__commentary {
+        @include mj-body($mj-ink-muted);
+
+        font-size: 0.9375rem;
+        margin-top: 1.25rem;
+    }
+
+    &__source {
+        @include mj-meta($mj-ink-muted);
+
+        font-size: 0.625rem;
+        letter-spacing: 0.06em;
+        margin-top: 1rem;
+        opacity: 0.7;
+        text-transform: none;
+    }
+
+    //-- Direction. Colour is never the only carrier: the glyph points, and the word is in
+    //   the markup for anyone who reads neither.
+    &__metric--up {
+        .cmp-mjmarket__glyph {
+            border-bottom-color: $mj-bronze;
+            border-top-width: 0;
+        }
+
+        .cmp-mjmarket__spark polyline {
+            stroke: $mj-bronze;
+        }
+    }
+
+    &__metric--down {
+        .cmp-mjmarket__glyph {
+            border-top-color: $mj-ink-muted;
+            border-bottom-width: 0;
+        }
+    }
+
+    &__metric--flat {
+        .cmp-mjmarket__glyph {
+            border: 0;
+            border-top: 1px solid $mj-ink-muted;
+            width: 0.6rem;
+        }
+    }
+}

@@ -1,0 +1,315 @@
+//== MJ Index — one component, three settings.
+//
+//   portfolio  a horizontal rail of cinematic cards, scroll-snapped
+//   deals      a ruled ledger, no images at all
+//   insights   an editorial list whose first item is given the lead
+//
+// Everything shared — head, metadata, link behaviour — is written once at the top; each
+// variant then only says how its list is set.
+
+.cmp-mjindex {
+    @include mj-section($mj-paper);
+
+    &__head {
+        @include mj-container;
+
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(12, 1fr);
+        margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+    }
+
+    &__eyebrow {
+        @include mj-eyebrow($mj-bronze-deep);
+
+        grid-column: 1 / -1;
+    }
+
+    &__heading {
+        @include mj-heading;
+
+        grid-column: 1 / span 6;
+    }
+
+    &__intro {
+        @include mj-body;
+
+        grid-column: 8 / -1;
+        align-self: end;
+    }
+
+    &__list {
+        @include mj-container;
+
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    &__article {
+        // The link's hit area is stretched over the article rather than the article being
+        // wrapped in an anchor, so the link's accessible name stays the item's title.
+        position: relative;
+    }
+
+    &__art {
+        overflow: hidden;
+    }
+
+    &__img {
+        @include mj-crop(4 / 3);
+
+        transition: transform 1.2s $mj-ease;
+    }
+
+    &__meta {
+        @include mj-meta;
+
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    &__kicker {
+        color: $mj-bronze-deep;
+    }
+
+    &__title {
+        @include mj-heading(1.125rem, 1.5rem);
+
+        margin: 0.75rem 0 0;
+    }
+
+    &__link {
+        color: inherit;
+        text-decoration: none;
+
+        &::after {
+            content: "";
+            inset: 0;
+            position: absolute;
+        }
+
+        &:focus-visible {
+            outline: 2px solid $mj-bronze-deep;
+            outline-offset: 4px;
+        }
+    }
+
+    &__summary {
+        @include mj-body($mj-muted);
+
+        font-size: 0.9375rem;
+        margin-top: 0.75rem;
+    }
+
+    &__status {
+        @include mj-meta($mj-bronze-deep);
+
+        margin-top: 0.75rem;
+    }
+
+    &__cta {
+        @include mj-cta;
+        @include mj-container;
+
+        display: inline-flex;
+        margin-top: clamp(2.5rem, 4vw, 4rem);
+    }
+
+    //-- Portfolio: a rail. Horizontal movement is the point — a portfolio is a sequence a
+    //   reader travels along, not a grid they scan.
+    &--portfolio {
+        background: $mj-ivory;
+
+        .cmp-mjindex__list {
+            display: grid;
+            gap: clamp(1rem, 2vw, 2rem);
+            grid-auto-columns: minmax(min(20rem, 78vw), 24rem);
+            grid-auto-flow: column;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            // The rail bleeds past the container on both sides so cards run to the edge
+            // of the viewport, which is what makes it feel like a rail and not a row.
+            margin-inline: calc(#{$mj-gutter} * -1);
+            padding-inline: $mj-gutter;
+            padding-bottom: 1.5rem;
+            scrollbar-width: thin;
+        }
+
+        .cmp-mjindex__item {
+            scroll-snap-align: start;
+        }
+
+        // focus-within rather than a sibling selector: the image precedes the link in
+        // the DOM, so keyboard focus can only be reached from the article.
+        .cmp-mjindex__article:hover .cmp-mjindex__img,
+        .cmp-mjindex__article:focus-within .cmp-mjindex__img {
+            transform: scale(1.03);
+        }
+
+        .cmp-mjindex__img {
+            aspect-ratio: 5 / 4;
+        }
+    }
+
+    //-- Deals: a ledger. No images: a financing is a fact, and the typography carries it.
+    &--deals {
+        .cmp-mjindex__item {
+            border-top: 1px solid $mj-rule;
+
+            &:last-child {
+                border-bottom: 1px solid $mj-rule;
+            }
+        }
+
+        .cmp-mjindex__article {
+            align-items: baseline;
+            display: grid;
+            gap: 0.5rem clamp(1rem, 3vw, 3rem);
+            // company | sector | date | type — the reading order of a transaction line.
+            grid-template-columns: minmax(12rem, 3fr) minmax(8rem, 2fr) minmax(7rem, 1.5fr) auto;
+            padding: clamp(1.25rem, 2.5vw, 2rem) 0;
+            transition: background-color 0.35s $mj-ease;
+        }
+
+        .cmp-mjindex__article:hover {
+            background: $mj-ivory;
+        }
+
+        // The markup order is metadata-then-title, which is right for a screen reader
+        // but not for a ledger. display:contents lifts the two metadata spans into the
+        // grid and each cell is then placed explicitly, so the visual row reads
+        // company / sector / date / type whatever order the markup is in.
+        .cmp-mjindex__meta {
+            display: contents;
+        }
+
+        .cmp-mjindex__title {
+            @include mj-heading(1.0625rem, 1.375rem);
+
+            grid-column: 1;
+            grid-row: 1;
+            margin: 0;
+        }
+
+        .cmp-mjindex__kicker {
+            grid-column: 2;
+            grid-row: 1;
+        }
+
+        .cmp-mjindex__date {
+            grid-column: 3;
+            grid-row: 1;
+        }
+
+        .cmp-mjindex__status {
+            grid-column: 4;
+            grid-row: 1;
+            margin: 0;
+            text-align: right;
+        }
+
+        .cmp-mjindex__summary {
+            // The description belongs to the row but not to the columns: it drops under
+            // the company name and runs the width of the first two columns.
+            grid-column: 1 / span 2;
+            grid-row: 2;
+            margin-top: 0.25rem;
+        }
+    }
+
+    //-- Insights: an editorial list. The first item is the lead and is given the width and
+    //   the image; the rest are set as a ruled column beside it.
+    &--insights {
+        .cmp-mjindex__list {
+            display: grid;
+            gap: clamp(2rem, 4vw, 3.5rem);
+            grid-template-columns: repeat(12, 1fr);
+        }
+
+        .cmp-mjindex__item {
+            grid-column: 7 / -1;
+
+            & + .cmp-mjindex__item {
+                border-top: 1px solid $mj-rule;
+                padding-top: clamp(1.5rem, 2.5vw, 2rem);
+            }
+        }
+
+        .cmp-mjindex__item:first-child {
+            grid-column: 1 / span 6;
+            grid-row: 1 / span 99;
+
+            .cmp-mjindex__title {
+                @include mj-heading(1.5rem, 2.25rem);
+            }
+        }
+
+        // Only the lead carries an image; the rest are titles and dates.
+        .cmp-mjindex__item:not(:first-child) .cmp-mjindex__art {
+            display: none;
+        }
+
+        .cmp-mjindex__item:not(:first-child) .cmp-mjindex__summary {
+            display: none;
+        }
+
+        .cmp-mjindex__article:hover .cmp-mjindex__img {
+            transform: scale(1.03);
+        }
+
+        .cmp-mjindex__item:first-child .cmp-mjindex__img {
+            aspect-ratio: 3 / 2;
+            margin-bottom: 1.5rem;
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    .cmp-mjindex {
+        &__heading,
+        &__intro {
+            grid-column: 1 / -1;
+        }
+
+        &--deals .cmp-mjindex__article {
+            // A four-column ledger cannot survive a phone. It becomes a stacked record:
+            // company, then its facts as a metadata line.
+            grid-template-columns: 1fr;
+        }
+
+        // Stacked, explicit placement has nothing to place against: everything returns
+        // to source order in one column.
+        &--deals .cmp-mjindex__meta {
+            display: flex;
+        }
+
+        &--deals .cmp-mjindex__title,
+        &--deals .cmp-mjindex__kicker,
+        &--deals .cmp-mjindex__date,
+        &--deals .cmp-mjindex__summary,
+        &--deals .cmp-mjindex__status {
+            grid-column: auto;
+            grid-row: auto;
+            text-align: left;
+        }
+
+        &--insights .cmp-mjindex__list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &--insights .cmp-mjindex__item:first-child,
+        &--insights .cmp-mjindex__item {
+            grid-column: 1 / -1;
+            grid-row: auto;
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cmp-mjindex__img {
+        transition: none;
+    }
+}

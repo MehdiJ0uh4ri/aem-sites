@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:template="/conf/mjco/settings/wcm/templates/mjco-section"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="About"
+        pageTitle="About | MJ &amp; Company"
+        jcr:description="Who MJ &amp; Company is and how the firm is organised."
+        sling:resourceType="mysite/components/page">
+        <root
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="mysite/components/container"
+            layout="responsiveGrid">
+            <sections
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/container"
+                layout="responsiveGrid">
+                <opener
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/mjhero"
+                    eyebrow="About"
+                    lineOne="A small firm,"
+                    lineTwo="deliberately."
+                    standfirst="Placeholder. Firm history, team and structure to be supplied by MJ &amp; Company — none of it is invented here."/>
+            </sections>
+        </root>
+    </jcr:content>
+</jcr:root>

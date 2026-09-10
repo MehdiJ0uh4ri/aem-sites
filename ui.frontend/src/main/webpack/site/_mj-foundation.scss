@@ -1,0 +1,154 @@
+//== MJ & Company — foundation.
+//
+// Imported before the component partials so they can use these mixins. The rules that
+// have to win over a component (the page ground) live in styles/mjco.scss, which webpack
+// loads last.
+
+//-- The archetype never sets a global box-sizing, and changing it site-wide would reflow
+//   the existing marketing components. Scope it to the MJ sections instead.
+@mixin mj-border-box {
+    &,
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+}
+
+//-- Section shell: full-bleed ground, contents held to the measure.
+@mixin mj-section($ground: transparent, $ink: $mj-ink) {
+    @include mj-border-box;
+
+    background: $ground;
+    color: $ink;
+    font-family: $mj-sans;
+    padding: $mj-section $mj-gutter;
+}
+
+@mixin mj-container {
+    margin: 0 auto;
+    max-width: $mj-max;
+    width: 100%;
+}
+
+//-- Eyebrow: the smallest type in the system. Letter-spaced because at this size the
+//   tracking is what makes it read as a label rather than as shrunken body copy.
+@mixin mj-eyebrow($ink: $mj-muted) {
+    color: $ink;
+    font-family: $mj-sans;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    line-height: 1.2;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+//-- Display type. Fluid between the mobile and large-desktop ends of the scale, so the
+//   headline is never resized in steps at a breakpoint.
+@mixin mj-display($min: 2.5rem, $max: 5.5rem) {
+    font-family: $mj-serif;
+    font-size: clamp(#{$min}, 6vw, #{$max});
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.02;
+    margin: 0;
+}
+
+@mixin mj-heading($min: 1.75rem, $max: 3rem) {
+    font-family: $mj-serif;
+    font-size: clamp(#{$min}, 3.6vw, #{$max});
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    line-height: 1.1;
+    margin: 0;
+}
+
+@mixin mj-body($ink: $mj-graphite) {
+    color: $ink;
+    font-family: $mj-sans;
+    font-size: clamp(1rem, 1.05vw, 1.125rem);
+    line-height: 1.6;
+    margin: 0;
+    max-width: $mj-measure;
+}
+
+//-- Metadata: dates, sectors, statuses. Small, tracked, never coloured for emphasis.
+@mixin mj-meta($ink: $mj-muted) {
+    color: $ink;
+    font-family: $mj-sans;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    line-height: 1.3;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+//-- The only call to action in the system: a word, a rule under it, and a mark that moves.
+//   No filled buttons anywhere on this site.
+@mixin mj-cta($ink: $mj-ink, $rule: $mj-bronze) {
+    align-items: baseline;
+    border-bottom: 1px solid $rule;
+    color: $ink;
+    display: inline-flex;
+    font-family: $mj-sans;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    gap: 0.5em;
+    letter-spacing: 0.1em;
+    padding-bottom: 0.35em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.35s $mj-ease, border-color 0.35s $mj-ease;
+
+    // The hit area has to clear 44px even though the text is 13px.
+    min-height: 44px;
+
+    &:hover,
+    &:focus-visible {
+        color: $mj-bronze-deep;
+        border-color: $mj-bronze-deep;
+    }
+
+    &:focus-visible {
+        outline: 2px solid $mj-bronze-deep;
+        outline-offset: 6px;
+    }
+
+    > span {
+        transition: transform 0.35s $mj-ease;
+    }
+
+    &:hover > span,
+    &:focus-visible > span {
+        transform: translateX(0.35em);
+    }
+}
+
+//-- Hairline rule used to open sections and separate ledger rows.
+@mixin mj-rule($colour: $mj-rule) {
+    background: $colour;
+    border: 0;
+    height: 1px;
+    width: 100%;
+}
+
+//-- Cinematic crop. Images on this site are wide by default; the exception is argued for
+//   where it is made, not here.
+@mixin mj-crop($ratio: 21 / 9) {
+    aspect-ratio: #{$ratio};
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+@mixin mj-visually-hidden {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}

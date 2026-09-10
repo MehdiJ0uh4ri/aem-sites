@@ -1,10 +1,8 @@
 package com.mysite.core.models.impl;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import javax.annotation.PostConstruct;
 
@@ -19,6 +17,8 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 
 import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
+import com.adobe.cq.wcm.core.components.models.datalayer.ComponentData;
+import com.adobe.cq.wcm.core.components.models.datalayer.builder.DataLayerBuilder;
 import com.adobe.cq.wcm.core.components.util.AbstractComponentImpl;
 import com.mysite.core.models.Bento;
 import com.mysite.core.models.BentoCard;
@@ -54,13 +54,22 @@ public class BentoImpl extends AbstractComponentImpl implements Bento {
             cards = Collections.emptyList();
             return;
         }
-        cards = StreamSupport.stream(cardsResource.getChildren().spliterator(), false)
-                .map(child -> child.adaptTo(BentoCard.class))
-                .filter(Objects::nonNull)
-                // A tile with neither a title nor artwork would render as an empty box.
-                .filter(card -> StringUtils.isNotBlank(card.getTitle())
-                        || StringUtils.isNotBlank(card.getFileReference()))
-                .collect(Collectors.toUnmodifiableList());
+        // getData() is null when the page has the data layer switched off, so this is
+        // also the switch for the per-tile entries.
+        boolean dataLayerEnabled = getData() != null;
+        String parentId = getId();
+
+        List<BentoCard> collected = new ArrayList<>();
+        int index = 0;
+        for (Resource child : cardsResource.getChildren()) {
+            BentoCardImpl card = new BentoCardImpl(child, parentId, index, dataLayerEnabled);
+            // A tile with neither a title nor artwork would render as an empty box.
+            if (card.hasContent()) {
+                collected.add(card);
+                index++;
+            }
+        }
+        cards = Collections.unmodifiableList(collected);
     }
 
     @Override
@@ -86,6 +95,16 @@ public class BentoImpl extends AbstractComponentImpl implements Bento {
     @Override
     public boolean isEmpty() {
         return cards.isEmpty();
+    }
+
+    @Override
+    protected ComponentData getComponentData() {
+        // Enrich the inherited entry so Analytics reports a readable name instead of
+        // just the resource type.
+        return DataLayerBuilder.extending(super.getComponentData()).asComponent()
+                .withTitle(() -> StringUtils.defaultString(heading))
+                .withDescription(() -> StringUtils.defaultString(description))
+                .build();
     }
 
     @Override

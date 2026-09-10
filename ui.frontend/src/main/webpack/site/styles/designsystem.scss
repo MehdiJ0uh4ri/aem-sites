@@ -36,3 +36,24 @@ body:has(.cmp-hero) {
         transition: none;
     }
 }
+
+//== Box model
+//
+// The archetype never sets a global box-sizing, so padding is added on top of a declared
+// height: the spotlight slide's `height: 100%` plus its padding overflowed the slide and
+// `overflow: hidden` clipped the title. Scope border-box to our sections rather than
+// changing it site-wide, which would reflow the stock archetype components.
+
+.cmp-hero,
+.cmp-bento,
+.cmp-slides,
+.cmp-marquee,
+.cmp-statsbar,
+.cmp-accordion {
+    &,
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+}

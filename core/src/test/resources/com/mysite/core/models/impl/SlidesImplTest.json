@@ -1,0 +1,49 @@
+{
+  "jcr:primaryType": "cq:PageContent",
+  "root": {
+    "jcr:primaryType": "nt:unstructured",
+    "slides-full": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/slides",
+      "eyebrow": "Workflow",
+      "heading": "From brief to launch",
+      "layout": "spotlight",
+      "slides": {
+        "jcr:primaryType": "nt:unstructured",
+        "item0": {
+          "jcr:primaryType": "nt:unstructured",
+          "title": "Plan",
+          "description": "Brief the work.",
+          "fileReference": "/content/dam/mysite/aurora.svg",
+          "ctaText": "See the numbers",
+          "ctaLink": "/content/mysite/us/en/stats-demo"
+        },
+        "item1": {
+          "jcr:primaryType": "nt:unstructured",
+          "title": "Build",
+          "fileReference": "/content/dam/mysite/mint.svg"
+        },
+        "item2": {
+          "jcr:primaryType": "nt:unstructured",
+          "description": "No title and no image, so it is dropped."
+        }
+      }
+    },
+    "slides-bad-layout": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/slides",
+      "layout": "carousel-3000",
+      "slides": {
+        "jcr:primaryType": "nt:unstructured",
+        "item0": {
+          "jcr:primaryType": "nt:unstructured",
+          "title": "Only slide"
+        }
+      }
+    },
+    "slides-empty": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/slides"
+    }
+  }
+}

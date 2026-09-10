@@ -38,3 +38,55 @@ $ds-radius:        20px;
 $ds-radius-lg:     28px;
 $ds-max:           1180px;
 $ds-ease:          cubic-bezier(0.22, 1, 0.36, 1);
+
+
+//== MJ & Company
+//
+// The MJ site is a second brand inside the same code base: its tokens live here so the
+// component partials — which webpack imports before styles/ — can reach them, exactly as
+// the $ds-* tokens above serve the marketing sections.
+//
+// Type: the production faces are licensed editorial cuts. Until they are in the DAM the
+// stacks below fall back to system faces with the right proportions rather than pulling
+// two webfont families over the wire for a placeholder. Swap the first entry in each
+// stack and nothing else changes.
+
+$mj-serif:  "MJ Editorial", "Canela", "Tiempos Headline", Georgia, "Times New Roman", serif;
+$mj-sans:   "MJ Grotesk", "Söhne", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+
+//-- Ground. Warm, not white: paper rather than screen.
+$mj-paper:      #faf8f4;
+$mj-ivory:      #f2eee5;
+$mj-ivory-deep: #e8e3d7;
+
+//-- Ink. Warm near-black, so it sits with the paper instead of against it.
+$mj-ink:        #14140f;
+$mj-graphite:   #3a3a33;
+$mj-muted:      #6b6b61;
+
+//-- Accent. One colour: a deep bronze. It reads as metal and age rather than as
+//   technology, which is the point — nothing here should look like a fintech interface.
+$mj-bronze:      #8a6a3e;
+//   The deep cut is the one used for text on paper: #8a6a3e alone is too light to carry
+//   body-size type at AA.
+$mj-bronze-deep: #6b5130;
+
+//-- Rules. Hairlines, always; the grid should be felt more than seen.
+$mj-rule:       rgba(20, 20, 15, 0.14);
+$mj-rule-soft:  rgba(20, 20, 15, 0.07);
+
+//-- Inverted sections (thesis, engage) sit on ink.
+$mj-ink-text:   #f2eee5;
+$mj-ink-muted:  rgba(242, 238, 229, 0.62);
+$mj-ink-rule:   rgba(242, 238, 229, 0.16);
+
+//-- Measure and rhythm.
+$mj-max:        1320px;
+$mj-measure:    68ch;
+$mj-gutter:     clamp(1.25rem, 4vw, 4rem);
+$mj-section:    clamp(5rem, 11vw, 11rem);
+$mj-ease:       cubic-bezier(0.22, 1, 0.36, 1);
+
+//-- Every MJ section carries the brand ground, so one selector list is the switch
+//   between the archetype's styling and this one.
+$mj-sections: ".cmp-mjhero, .cmp-mjsignal, .cmp-mjfeature, .cmp-mjindex, .cmp-mjmarket, .cmp-mjthesis, .cmp-mjengage";

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Template">
+    <jcr:content
+        cq:templateType="/conf/mjco/settings/wcm/template-types/page"
+        jcr:description="Detail pages — one per Insight, Portfolio Company, Deal or Case Study. The opener and body are authored; the related band at the foot is dynamic."
+        jcr:primaryType="cq:PageContent"
+        jcr:title="MJ Detail"
+        status="enabled"/>
+</jcr:root>

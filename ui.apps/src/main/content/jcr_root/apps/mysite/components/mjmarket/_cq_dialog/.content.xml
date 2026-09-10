@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="MJ Market Band"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/container"
+        margin="{Boolean}true">
+        <items jcr:primaryType="nt:unstructured">
+            <eyebrow
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                fieldLabel="Eyebrow"
+                name="./eyebrow"/>
+            <heading
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                fieldLabel="Heading"
+                name="./heading"/>
+            <intro
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                fieldDescription="The reading of the market these figures support."
+                fieldLabel="Introduction"
+                name="./intro"
+                rows="{Long}3"/>
+            <parentPath
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                fieldDescription="Folder of Market Metric fragments. Each one carries its own value, trend, series and commentary."
+                fieldLabel="Metric folder"
+                name="./parentPath"
+                required="{Boolean}true"
+                rootPath="/content/dam"/>
+            <limit
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                fieldDescription="Defaults to 4. More than four stops reading as editorial and starts reading as a dashboard."
+                fieldLabel="Maximum metrics"
+                min="{Long}1"
+                name="./limit"/>
+        </items>
+    </content>
+</jcr:root>

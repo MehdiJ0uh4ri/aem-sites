@@ -8,4 +8,13 @@
     </filter>
     <filter root="/content/dam/mysite/asset.jpg" mode="merge"/>
     <filter root="/content/experience-fragments/mysite" mode="merge"/>
+
+    <!--
+        MJ & Company. A second site on the same component library: its own configuration,
+        its own content, its own fragments. merge so that authored changes made in AEM are
+        not wiped by a redeploy of the seed content below.
+    -->
+    <filter root="/conf/mjco" mode="merge"/>
+    <filter root="/content/mjco" mode="merge"/>
+    <filter root="/content/dam/mjco" mode="merge"/>
 </workspaceFilter>

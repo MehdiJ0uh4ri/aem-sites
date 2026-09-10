@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Template">
+    <jcr:content
+        cq:templateType="/conf/mjco/settings/wcm/template-types/page"
+        jcr:description="The homepage. One page uses this template — it exists so the opening of the site can be composed without the breadcrumb and section chrome every other page needs."
+        jcr:primaryType="cq:PageContent"
+        jcr:title="MJ Home"
+        status="enabled"/>
+</jcr:root>

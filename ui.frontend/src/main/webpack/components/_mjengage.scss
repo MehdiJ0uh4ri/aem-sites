@@ -1,0 +1,75 @@
+//== MJ Engage.
+//
+// The close. One statement on ivory, then the lanes as ruled columns — no filled buttons,
+// no urgency, no form. The invitation is the design.
+
+.cmp-mjengage {
+    @include mj-section($mj-ivory-deep);
+
+    &__inner {
+        @include mj-container;
+
+        display: grid;
+        gap: clamp(3rem, 6vw, 5rem);
+        grid-template-columns: repeat(12, 1fr);
+    }
+
+    &__claim {
+        grid-column: 1 / span 5;
+    }
+
+    &__eyebrow {
+        @include mj-eyebrow($mj-bronze-deep);
+
+        margin-bottom: 1.5rem;
+    }
+
+    &__statement {
+        @include mj-heading(1.75rem, 3rem);
+
+        max-width: 18ch;
+    }
+
+    &__lanes {
+        display: grid;
+        gap: clamp(2rem, 3vw, 3rem);
+        grid-column: 7 / -1;
+        grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 1fr));
+    }
+
+    &__lane {
+        border-top: 1px solid $mj-rule;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding-top: 1.5rem;
+    }
+
+    &__audience {
+        @include mj-meta($mj-ink);
+
+        font-size: 0.8125rem;
+    }
+
+    &__text {
+        @include mj-body;
+
+        flex: 1;
+        font-size: 0.9375rem;
+    }
+
+    &__cta {
+        @include mj-cta;
+
+        align-self: start;
+    }
+}
+
+@media (max-width: 900px) {
+    .cmp-mjengage {
+        &__claim,
+        &__lanes {
+            grid-column: 1 / -1;
+        }
+    }
+}

@@ -1,0 +1,38 @@
+<!--/*
+    MJ Investment Signal.
+
+    The statement is the heading and the figures are its evidence, so the markup puts the
+    claim in the <h2> and the ledger in a description list underneath. A screen reader then
+    hears "assets under management: $410M" rather than a bare number, which a visual
+    dashboard layout would have lost.
+*/-->
+<sly data-sly-use.signal="com.mysite.core.models.MjSignal"/>
+
+<section class="cmp-mjsignal"
+         data-sly-test.hasContent="${!signal.empty}"
+         id="${signal.id}"
+         data-cmp-data-layer="${signal.data.json}">
+
+    <div class="cmp-mjsignal__inner">
+        <div class="cmp-mjsignal__claim" data-cmp-reveal>
+            <p class="cmp-mjsignal__eyebrow" data-sly-test="${signal.eyebrow}">${signal.eyebrow}</p>
+            <h2 class="cmp-mjsignal__statement" data-sly-test="${signal.statement}">${signal.statement}</h2>
+        </div>
+
+        <dl class="cmp-mjsignal__ledger" data-sly-test="${signal.items}" data-cmp-reveal>
+            <!--/* A dt must precede its dd, so the label is written first and the CSS
+                   flips the visual order to put the figure on top. */-->
+            <div class="cmp-mjsignal__entry" data-sly-repeat.item="${signal.items}">
+                <dt class="cmp-mjsignal__label">${item.label}</dt>
+                <dd class="cmp-mjsignal__value">${item.value}</dd>
+                <dd class="cmp-mjsignal__note" data-sly-test="${item.note}">${item.note}</dd>
+            </div>
+        </dl>
+
+        <p class="cmp-mjsignal__footnote" data-sly-test="${signal.footnote}">${signal.footnote}</p>
+    </div>
+</section>
+
+<sly data-sly-test="${!hasContent && wcmmode.edit}">
+    <div class="cq-placeholder" data-emptytext="${'MJ Investment Signal' @ i18n}"></div>
+</sly>

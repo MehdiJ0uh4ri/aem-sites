@@ -1,0 +1,77 @@
+//== MJ Thesis.
+//
+// A reading column with the ordinals hung in the left margin. There is no image in this
+// section and there should not be one: the beliefs are the content, and giving them
+// photography would make them look like they needed the help.
+
+.cmp-mjthesis {
+    @include mj-section($mj-ink, $mj-ink-text);
+
+    &__head {
+        @include mj-container;
+
+        margin-bottom: clamp(3rem, 6vw, 5.5rem);
+    }
+
+    &__eyebrow {
+        @include mj-eyebrow($mj-bronze);
+
+        margin-bottom: 1.5rem;
+    }
+
+    &__heading {
+        @include mj-heading(1.75rem, 3.5rem);
+
+        color: $mj-ink-text;
+        max-width: 22ch;
+    }
+
+    &__list {
+        @include mj-container;
+
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    &__item {
+        border-top: 1px solid $mj-ink-rule;
+        display: grid;
+        // The ordinal column is fixed; the reading column is capped by its measure, not
+        // by the container, so the text never runs to an unreadable line length.
+        gap: clamp(1rem, 3vw, 3rem);
+        grid-template-columns: 4rem minmax(0, 60ch);
+        padding: clamp(2rem, 3.5vw, 3rem) 0;
+
+        &:last-child {
+            border-bottom: 1px solid $mj-ink-rule;
+        }
+    }
+
+    &__ordinal {
+        @include mj-display(1.25rem, 1.5rem);
+
+        color: $mj-bronze;
+        line-height: 1.4;
+    }
+
+    &__title {
+        @include mj-heading(1.25rem, 1.75rem);
+
+        color: $mj-ink-text;
+        margin-bottom: 1rem;
+    }
+
+    &__text {
+        @include mj-body($mj-ink-muted);
+    }
+}
+
+@media (max-width: 700px) {
+    .cmp-mjthesis__item {
+        // The hanging margin is the first thing to go: on a phone it eats a quarter of
+        // the line length for a decorative number.
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+}

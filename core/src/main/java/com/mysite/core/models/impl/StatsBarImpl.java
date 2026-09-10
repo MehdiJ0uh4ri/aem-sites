@@ -19,6 +19,8 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 
 import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
+import com.adobe.cq.wcm.core.components.models.datalayer.ComponentData;
+import com.adobe.cq.wcm.core.components.models.datalayer.builder.DataLayerBuilder;
 import com.adobe.cq.wcm.core.components.util.AbstractComponentImpl;
 import com.mysite.core.models.StatsBar;
 import com.mysite.core.models.StatsItem;
@@ -84,6 +86,13 @@ public class StatsBarImpl extends AbstractComponentImpl implements StatsBar {
     @Override
     public boolean isEmpty() {
         return items.isEmpty();
+    }
+
+    @Override
+    protected ComponentData getComponentData() {
+        return DataLayerBuilder.extending(super.getComponentData()).asComponent()
+                .withTitle(() -> StringUtils.defaultString(heading))
+                .build();
     }
 
     @Override

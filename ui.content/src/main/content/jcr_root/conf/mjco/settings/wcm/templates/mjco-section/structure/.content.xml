@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:deviceGroups="[mobile/groups/responsive]"
+        cq:template="/conf/mjco/settings/wcm/templates/mjco-section"
+        jcr:primaryType="cq:PageContent"
+        sling:resourceType="mysite/components/page">
+        <root
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="mysite/components/container"
+            layout="responsiveGrid">
+            <!--
+                Masthead. Locked in the structure: the wordmark and the primary navigation
+                are the same on every page and are not an authoring decision. The
+                navigation reads the page tree through its policy, so adding a section
+                page adds a nav item with no template change.
+            -->
+            <header
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/container"
+                id="mjco-masthead"
+                layout="simple">
+                <wordmark
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/text"
+                    id="mjco-wordmark"
+                    text="&lt;p&gt;&lt;a href=&quot;/content/mjco/us/en.html&quot;&gt;MJ &amp;amp; Company&lt;/a&gt;&lt;/p&gt;"
+                    textIsRich="{Boolean}true"/>
+                <navigation
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/navigation"
+                    id="mjco-nav"/>
+            </header>
+            <breadcrumb
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/breadcrumb"
+                id="mjco-breadcrumb"/>
+            <sections
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/container"
+                editable="{Boolean}true"
+                id="main-content"
+                layout="responsiveGrid"/>
+            <!--
+                Footer. Also locked: the disclosure line is a compliance surface, not copy
+                an author should be able to reword page by page.
+            -->
+            <footer
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/container"
+                id="mjco-footer"
+                layout="simple">
+                <navigation
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/navigation"
+                    id="mjco-footer-nav"/>
+                <disclosure
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/text"
+                    id="mjco-disclosure"
+                    text="&lt;p&gt;MJ &amp;amp; Company. Placeholder site. Nothing on these pages is an offer to sell or a solicitation of an offer to buy any security.&lt;/p&gt;"
+                    textIsRich="{Boolean}true"/>
+            </footer>
+        </root>
+        <cq:responsive jcr:primaryType="nt:unstructured">
+            <breakpoints jcr:primaryType="nt:unstructured">
+                <phone
+                    jcr:primaryType="nt:unstructured"
+                    title="Smaller Screen"
+                    width="{Long}768"/>
+                <tablet
+                    jcr:primaryType="nt:unstructured"
+                    title="Tablet"
+                    width="{Long}1200"/>
+            </breakpoints>
+        </cq:responsive>
+    </jcr:content>
+</jcr:root>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:dam="http://www.day.com/dam/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:dc="http://purl.org/dc/elements/1.1/"
+    jcr:primaryType="dam:Asset">
+    <jcr:content
+        jcr:primaryType="dam:AssetContent"
+        contentFragment="{Boolean}true"
+        jcr:title="Halden Freight">
+        <data
+            jcr:primaryType="nt:unstructured"
+            cq:model="/conf/mjco/settings/dam/cfm/models/deal">
+            <master
+                jcr:primaryType="nt:unstructured"
+                company="Halden Freight"
+                date="{Date}2026-02-18T09:00:00.000+00:00"
+                investmentType="Series B"
+                sector="Logistics"
+                description="Follow-on at Series B; the firm has participated in every round since seed."/>
+        </data>
+        <metadata
+            jcr:primaryType="nt:unstructured"
+            dc:title="Halden Freight"/>
+    </jcr:content>
+</jcr:root>

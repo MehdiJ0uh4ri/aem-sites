@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:dam="http://www.day.com/dam/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:dc="http://purl.org/dc/elements/1.1/"
+    jcr:primaryType="dam:Asset">
+    <jcr:content
+        jcr:primaryType="dam:AssetContent"
+        contentFragment="{Boolean}true"
+        jcr:title="U.S. venture deployed">
+        <data
+            jcr:primaryType="nt:unstructured"
+            cq:model="/conf/mjco/settings/dam/cfm/models/market-metric">
+            <master
+                jcr:primaryType="nt:unstructured"
+                metric="U.S. venture deployed"
+                value="$41.2"
+                unit="B"
+                trend="down"
+                change="-18%"
+                series="62,58,55,49,47,44,41"
+                commentary="Deployment is down but not evenly: the decline is concentrated in growth rounds, while seed activity is close to flat."
+                source="Placeholder source"
+                date="{Date}2026-06-30T00:00:00.000+00:00"/>
+        </data>
+        <metadata
+            jcr:primaryType="nt:unstructured"
+            dc:title="U.S. venture deployed"/>
+    </jcr:content>
+</jcr:root>

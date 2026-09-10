@@ -1,0 +1,118 @@
+//== MJ Editorial Hero.
+//
+// The composition is a 12-column grid with the headline starting at column 1 and its
+// second line pushed to column 3: the indent is what makes the opening read as set type
+// rather than as a centred banner. Artwork is a band below the statement, never behind it.
+
+.cmp-mjhero {
+    @include mj-section($mj-paper);
+
+    padding-bottom: clamp(3rem, 6vw, 6rem);
+    position: relative;
+
+    &__statement {
+        @include mj-container;
+
+        display: grid;
+        gap: clamp(1.5rem, 2.5vw, 2.5rem);
+        grid-template-columns: repeat(12, 1fr);
+    }
+
+    &__eyebrow {
+        @include mj-eyebrow($mj-bronze-deep);
+
+        grid-column: 1 / -1;
+    }
+
+    &__title {
+        @include mj-display(2.75rem, 6.5rem);
+
+        grid-column: 1 / -1;
+    }
+
+    &__line {
+        display: block;
+
+        // The indent is a fraction of the grid, not a fixed length, so the relationship
+        // between the two lines holds at every width.
+        &--two {
+            margin-left: 16.6666%;
+        }
+    }
+
+    &__rule {
+        @include mj-rule;
+
+        grid-column: 1 / -1;
+    }
+
+    &__standfirst {
+        @include mj-body;
+
+        // Standfirst sits in the right half against the flush-left headline: the
+        // asymmetry is the composition.
+        grid-column: 6 / -1;
+        max-width: 46ch;
+    }
+
+    &__cta {
+        @include mj-cta;
+
+        grid-column: 6 / -1;
+        justify-self: start;
+    }
+
+    &__band {
+        @include mj-container;
+
+        margin-top: clamp(3rem, 7vw, 7rem);
+        overflow: hidden;
+    }
+
+    &__img {
+        @include mj-crop(21 / 9);
+
+        // A very slow settle as the band arrives. The transform is on the image, not on
+        // scroll position: no parallax, nothing tied to the scrollbar.
+        transform: scale(1.04);
+        transition: transform 1.6s $mj-ease;
+    }
+
+    &__band.is-revealed &__img {
+        transform: none;
+    }
+
+    &__cue {
+        @include mj-meta;
+
+        margin-top: clamp(2rem, 4vw, 3.5rem);
+        text-align: center;
+    }
+}
+
+@media (max-width: 900px) {
+    .cmp-mjhero {
+        &__standfirst,
+        &__cta {
+            grid-column: 1 / -1;
+        }
+
+        &__line--two {
+            // On a narrow column the indent stops reading as composition and starts
+            // reading as a mistake, so it is dropped rather than scaled down.
+            margin-left: 0;
+        }
+
+        &__img {
+            // 21:9 leaves a letterbox sliver on a phone; 3:2 keeps the image an image.
+            aspect-ratio: 3 / 2;
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cmp-mjhero__img {
+        transform: none;
+        transition: none;
+    }
+}

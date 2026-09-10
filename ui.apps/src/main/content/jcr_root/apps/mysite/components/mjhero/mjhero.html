@@ -1,0 +1,57 @@
+<!--/*
+    MJ Editorial Hero.
+
+    The headline is two lines on an asymmetric baseline rather than a block of text beside
+    an image: the second line is indented into the type column so the composition reads as
+    set rather than centred. Artwork, when there is any, is a band below the statement — it
+    never sits behind the type, so contrast never depends on which image an author picked.
+*/-->
+<sly data-sly-use.hero="com.mysite.core.models.MjHero"/>
+
+<section class="cmp-mjhero"
+         data-sly-test.hasContent="${!hero.empty}"
+         id="${hero.id}"
+         data-cmp-data-layer="${hero.data.json}">
+
+    <div class="cmp-mjhero__statement" data-cmp-reveal>
+        <p class="cmp-mjhero__eyebrow" data-sly-test="${hero.eyebrow}">${hero.eyebrow}</p>
+
+        <h1 class="cmp-mjhero__title">
+            <span class="cmp-mjhero__line cmp-mjhero__line--one">${hero.lineOne}</span>
+            <span class="cmp-mjhero__line cmp-mjhero__line--two"
+                  data-sly-test="${hero.lineTwo}">${hero.lineTwo}</span>
+        </h1>
+
+        <div class="cmp-mjhero__rule" role="presentation"></div>
+
+        <p class="cmp-mjhero__standfirst" data-sly-test="${hero.standfirst}">${hero.standfirst}</p>
+
+        <a class="cmp-mjhero__cta"
+           data-sly-test="${hero.ctaText && hero.ctaUrl}"
+           href="${hero.ctaUrl}"
+           id="${hero.ctaId}"
+           data-cmp-data-layer="${hero.ctaDataLayerJson}"
+           data-cmp-clickable>${hero.ctaText}<span class="cmp-mjhero__cta-mark" aria-hidden="true">&#8594;</span></a>
+    </div>
+
+    <div class="cmp-mjhero__band" data-sly-test="${hero.fileReference}" data-cmp-reveal>
+        <!--/* HTL drops an attribute whose expression is empty, so a decorative alt=""
+               has to be written as a literal on its own variant. */-->
+        <img class="cmp-mjhero__img"
+             src="${hero.fileReference}"
+             alt="${hero.alt}"
+             decoding="async"
+             data-sly-test="${hero.alt}"/>
+        <img class="cmp-mjhero__img"
+             src="${hero.fileReference}"
+             alt=""
+             decoding="async"
+             data-sly-test="${!hero.alt}"/>
+    </div>
+
+    <p class="cmp-mjhero__cue" data-sly-test="${hero.scrollCue}" aria-hidden="true">${hero.scrollCue}</p>
+</section>
+
+<sly data-sly-test="${!hasContent && wcmmode.edit}">
+    <div class="cq-placeholder" data-emptytext="${'MJ Editorial Hero' @ i18n}"></div>
+</sly>

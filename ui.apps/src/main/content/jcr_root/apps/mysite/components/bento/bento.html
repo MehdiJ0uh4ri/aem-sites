@@ -23,7 +23,10 @@
                  data-sly-repeat.card="${bento.cards}">
             <a class="cmp-bento__inner"
                data-sly-element="${card.url ? 'a' : 'div'}"
-               href="${card.url}">
+               href="${card.url}"
+               id="${card.id}"
+               data-cmp-data-layer="${card.dataLayerJson}"
+               data-cmp-clickable="${card.url ? true : null}">
                 <span class="cmp-bento__media" data-sly-test="${card.fileReference}">
                     <!--/* See hero.html: an empty alt must be a literal to survive. */-->
                     <img class="cmp-bento__img"

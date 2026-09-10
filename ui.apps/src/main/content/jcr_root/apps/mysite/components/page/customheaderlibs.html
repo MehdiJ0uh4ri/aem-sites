@@ -18,3 +18,19 @@
 </sly>
 
 <sly data-sly-resource="${'contexthub' @ resourceType='granite/contexthub/components/contexthub'}"/>
+
+<!--/*
+    Adobe Experience Platform Tags (formerly Launch).
+
+    Tags is how this site would deliver Adobe Analytics, Target and the Web SDK: the embed
+    reads the Adobe Client Data Layer that the components below populate. The embed URL
+    comes from OSGi configuration, so each environment points at its own Tags library via
+    run-mode config folders (config.author, config.publish, ...) with no code change.
+
+    Shipped disabled - set enabled and embedUrl in
+    apps/mysite/osgiconfig/config/com.mysite.core.services.impl.AdobeTagsServiceImpl.cfg.json
+*/-->
+<sly data-sly-use.adobeTags="com.mysite.core.models.AdobeTags"
+     data-sly-test="${adobeTags.enabled}">
+    <script src="${adobeTags.embedUrl}" async="${adobeTags.async}"></script>
+</sly>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:template="/conf/mjco/settings/wcm/templates/mjco-section"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="Insights"
+        pageTitle="Insights | MJ &amp; Company"
+        jcr:description="Published writing from MJ &amp; Company on markets, infrastructure, health and investment practice."
+        sling:resourceType="mysite/components/page">
+        <root
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="mysite/components/container"
+            layout="responsiveGrid">
+            <sections
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/container"
+                layout="responsiveGrid">
+                <opener
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/mjhero"
+                    eyebrow="Insights"
+                    lineOne="What we think,"
+                    lineTwo="written down."
+                    standfirst="We publish our reasoning because it is the only way to be held to it. The archive includes the pieces that did not age well."
+                    fileReference="/content/dam/mjco/images/hero-insights.jpg"/>
+                <index
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/mjindex"
+                    variant="insights"
+                    parentPath="/content/dam/mjco/insights"
+                    detailRoot="/content/mjco/us/en/insights"
+                    limit="{Long}24"/>
+            </sections>
+        </root>
+    </jcr:content>
+</jcr:root>

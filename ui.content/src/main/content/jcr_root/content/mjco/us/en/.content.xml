@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:template="/conf/mjco/settings/wcm/templates/mjco-home"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="en"
+        pageTitle="MJ &amp; Company | U.S. Venture Capital"
+        jcr:description="MJ &amp; Company is a U.S. venture capital firm holding a concentrated portfolio in industry, energy, health and the software that runs them."
+        sling:resourceType="mysite/components/page">
+        <root
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="mysite/components/container"
+            layout="responsiveGrid">
+            <sections
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/container"
+                layout="responsiveGrid">
+                <hero
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/mjhero"
+                    eyebrow="MJ &amp; Company — U.S. Venture Capital"
+                    lineOne="We invest where"
+                    lineTwo="conviction is scarce."
+                    standfirst="A concentrated portfolio of U.S. companies building in industry, energy, health and the software that runs them. We take positions early, we hold them, and we say why."
+                    ctaText="Our approach"
+                    ctaLink="/content/mjco/us/en/approach"
+                    scrollCue="Scroll"
+                    fileReference="/content/dam/mjco/images/hero-home.jpg"/>
+                <signal
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/mjsignal"
+                    eyebrow="Investment signal"
+                    statement="We would rather be wrong in fewer places. A concentrated book is not a risk we tolerate — it is the whole method."
+                    footnote="Placeholder figures. Replace with verified firm data before publication.">
+                    <items jcr:primaryType="nt:unstructured">
+                        <item0
+                            jcr:primaryType="nt:unstructured"
+                            value="$000M"
+                            label="Committed capital"
+                            note="Placeholder"/>
+                        <item1
+                            jcr:primaryType="nt:unstructured"
+                            value="00"
+                            label="Active positions"
+                            note="Placeholder"/>
+                        <item2
+                            jcr:primaryType="nt:unstructured"
+                            value="0000"
+                            label="First fund"
+                            note="Placeholder"/>
+                        <item3
+                            jcr:primaryType="nt:unstructured"
+                            value="00%"
+                            label="Led or co-led"
+                            note="Placeholder"/>
+                    </items>
+                </signal>
+                <featured
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/mjfeature"
+                    variant="insight"
+                    eyebrow="Featured insight"
+                    fragmentPath="/content/dam/mjco/insights/the-cost-of-capital-reset"
+                    ctaText="Read the piece"
+                    ctaLink="/content/mjco/us/en/insights/the-cost-of-capital-reset"/>
+                <portfolio
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/mjindex"
+                    variant="portfolio"
+                    eyebrow="Portfolio"
+                    heading="Twenty-odd companies, and the reasons we hold them."
+                    intro="Each position was taken with a written thesis. Where the thesis has broken, the entry says so."
+                    parentPath="/content/dam/mjco/portfolio"
+                    detailRoot="/content/mjco/us/en/portfolio"
+                    limit="{Long}6"
+                    ctaText="The full portfolio"
+                    ctaLink="/content/mjco/us/en/portfolio"/>
+                <deals
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/mjindex"
+                    variant="deals"
+                    eyebrow="Deals"
+                    heading="Recent activity."
+                    parentPath="/content/dam/mjco/deals"
+                    detailRoot="/content/mjco/us/en/deals"
+                    limit="{Long}5"
+                    ctaText="All transactions"
+                    ctaLink="/content/mjco/us/en/deals"/>
+                <market
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/mjmarket"
+                    eyebrow="Market intelligence"
+                    heading="What the numbers are actually saying."
+                    intro="Four figures we watch, and what we think each one means. Published quarterly, sourced, and revised when we are wrong."
+                    parentPath="/content/dam/mjco/market"
+                    limit="{Long}4"/>
+                <casestudy
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/mjfeature"
+                    variant="casestudy"
+                    eyebrow="Case study"
+                    fragmentPath="/content/dam/mjco/case-studies/caldera-grid"
+                    ctaText="Read the case study"
+                    ctaLink="/content/mjco/us/en/case-studies/caldera-grid"/>
+                <thesis
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/mjthesis"
+                    eyebrow="Point of view"
+                    heading="Four things we believe that are not universally held.">
+                    <items jcr:primaryType="nt:unstructured">
+                        <item0
+                            jcr:primaryType="nt:unstructured"
+                            title="The constraint is rarely the technology."
+                            body="By the time a company reaches us, the question is almost never whether the thing can be built. It is whether anyone is organised to buy it. We spend our diligence on the second question."/>
+                        <item1
+                            jcr:primaryType="nt:unstructured"
+                            title="Ownership is a decision, not an outcome."
+                            body="Firms describe their ownership as though it happened to them. It is chosen — in the first cheque, and in every round after it. We choose deliberately and we write the choice down."/>
+                        <item2
+                            jcr:primaryType="nt:unstructured"
+                            title="The best companies are legible early."
+                            body="Not obviously successful — legible. A founder who can explain what would have to be true is more informative than one who can explain why it already is."/>
+                        <item3
+                            jcr:primaryType="nt:unstructured"
+                            title="Published thinking is a form of accountability."
+                            body="We publish our reasoning because it is the only way to be held to it. The archive includes the pieces that did not age well."/>
+                    </items>
+                </thesis>
+                <engage
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/mjengage"
+                    eyebrow="Engage"
+                    statement="If you are building something durable, we would like to hear the argument.">
+                    <items jcr:primaryType="nt:unstructured">
+                        <item0
+                            jcr:primaryType="nt:unstructured"
+                            audience="Founders"
+                            body="Send the thesis, not the deck. We read everything that arrives and reply either way."
+                            ctaText="Write to us"
+                            ctaLink="/content/mjco/us/en/engage"/>
+                        <item1
+                            jcr:primaryType="nt:unstructured"
+                            audience="Investors"
+                            body="Our reporting, our marks and our reasoning are available to prospective limited partners on request."
+                            ctaText="Request materials"
+                            ctaLink="/content/mjco/us/en/engage"/>
+                        <item2
+                            jcr:primaryType="nt:unstructured"
+                            audience="Portfolio"
+                            body="Operating resources, introductions and the parts of the network that are actually useful."
+                            ctaText="Portfolio resources"
+                            ctaLink="/content/mjco/us/en/engage"/>
+                    </items>
+                </engage>
+            </sections>
+        </root>
+    </jcr:content>
+</jcr:root>

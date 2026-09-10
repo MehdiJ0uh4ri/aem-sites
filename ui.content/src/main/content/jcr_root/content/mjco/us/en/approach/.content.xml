@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:template="/conf/mjco/settings/wcm/templates/mjco-section"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="Investment Approach"
+        pageTitle="Investment Approach | MJ &amp; Company"
+        jcr:description="How MJ &amp; Company selects, sizes and holds positions."
+        sling:resourceType="mysite/components/page">
+        <root
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="mysite/components/container"
+            layout="responsiveGrid">
+            <sections
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/container"
+                layout="responsiveGrid">
+                <opener
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/mjhero"
+                    eyebrow="Investment approach"
+                    lineOne="Fewer positions,"
+                    lineTwo="held longer."
+                    standfirst="The method is not complicated. It is just unusual to state it and then be measured against it."/>
+                <signal
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/mjsignal"
+                    eyebrow="How we size"
+                    statement="Concentration is the decision. Everything downstream — diligence, board work, reserves — follows from having fewer things to be right about."
+                    footnote="Placeholder figures. Replace with verified firm data before publication."/>
+            </sections>
+        </root>
+    </jcr:content>
+</jcr:root>

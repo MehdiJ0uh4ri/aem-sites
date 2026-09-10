@@ -1,0 +1,65 @@
+<!--/*
+    MJ Market Band.
+
+    The sparkline is decoration over data that is already stated in text: every figure has
+    its value, its change and its commentary in the markup, so the SVG is aria-hidden and
+    nothing is lost when it is not perceived. Trend is spelled out for screen readers
+    rather than carried by the arrow glyph or by colour alone.
+*/-->
+<sly data-sly-use.market="com.mysite.core.models.MjMarket"/>
+
+<section class="cmp-mjmarket"
+         data-sly-test.hasContent="${!market.empty}"
+         id="${market.id}"
+         data-cmp-data-layer="${market.data.json}">
+
+    <header class="cmp-mjmarket__head" data-cmp-reveal>
+        <p class="cmp-mjmarket__eyebrow" data-sly-test="${market.eyebrow}">${market.eyebrow}</p>
+        <h2 class="cmp-mjmarket__heading" data-sly-test="${market.heading}">${market.heading}</h2>
+        <p class="cmp-mjmarket__intro" data-sly-test="${market.intro}">${market.intro}</p>
+    </header>
+
+    <div class="cmp-mjmarket__grid" data-cmp-reveal>
+        <article class="cmp-mjmarket__metric cmp-mjmarket__metric--${metric.trend}"
+                 data-sly-repeat.metric="${market.metrics}">
+
+            <h3 class="cmp-mjmarket__label">${metric.label}</h3>
+
+            <p class="cmp-mjmarket__figure">
+                <span class="cmp-mjmarket__value">${metric.value}</span><span
+                      class="cmp-mjmarket__unit" data-sly-test="${metric.unit}">${metric.unit}</span>
+            </p>
+
+            <p class="cmp-mjmarket__change" data-sly-test="${metric.change}">
+                <span class="cmp-mjmarket__glyph" aria-hidden="true"></span>
+                <!--/* The glyph and the colour both encode direction, so the word itself
+                       is carried in text for anyone who perceives neither. */-->
+                <span class="cmp-mjmarket__sr">${metric.trend}</span>
+                <span class="cmp-mjmarket__delta">${metric.change}</span>
+            </p>
+
+            <svg class="cmp-mjmarket__spark"
+                 data-sly-test="${metric.sparkline}"
+                 viewBox="0 0 100 28"
+                 preserveAspectRatio="none"
+                 aria-hidden="true"
+                 focusable="false">
+                <polyline points="${metric.sparkline}"
+                          fill="none"
+                          vector-effect="non-scaling-stroke"/>
+            </svg>
+
+            <p class="cmp-mjmarket__commentary" data-sly-test="${metric.commentary}">${metric.commentary}</p>
+
+            <p class="cmp-mjmarket__source" data-sly-test="${metric.source || metric.asOf}">
+                <span data-sly-test="${metric.source}">${metric.source}</span><span
+                      data-sly-test="${metric.source && metric.asOf}">, </span><span
+                      data-sly-test="${metric.asOf}">${metric.asOf}</span>
+            </p>
+        </article>
+    </div>
+</section>
+
+<sly data-sly-test="${!hasContent && wcmmode.edit}">
+    <div class="cq-placeholder" data-emptytext="${'MJ Market Band — pick a metric folder' @ i18n}"></div>
+</sly>

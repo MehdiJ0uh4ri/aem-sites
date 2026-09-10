@@ -5,6 +5,15 @@ package com.mysite.core.models;
  */
 public interface BentoCard {
 
+    /** @return id unique within the page, derived from the parent component id */
+    String getId();
+
+    /**
+     * @return the Adobe Client Data Layer entry for this tile, or {@code null} when the
+     *         data layer is switched off for the page
+     */
+    String getDataLayerJson();
+
     String getTitle();
 
     String getDescription();

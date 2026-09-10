@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="MJ Index"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/tabs"
+        maximized="{Boolean}true">
+        <items jcr:primaryType="nt:unstructured">
+            <intro
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Section"
+                sling:resourceType="granite/ui/components/coral/foundation/container"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <eyebrow
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldLabel="Eyebrow"
+                        name="./eyebrow"/>
+                    <heading
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldLabel="Heading"
+                        name="./heading"/>
+                    <intro
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                        fieldLabel="Introduction"
+                        name="./intro"
+                        rows="{Long}3"/>
+                </items>
+            </intro>
+            <source
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Source"
+                sling:resourceType="granite/ui/components/coral/foundation/container"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <variant
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                        fieldDescription="Selects which fragment fields are read and how the list is set. Match it to the model in the folder below."
+                        fieldLabel="Variant"
+                        name="./variant">
+                        <items jcr:primaryType="nt:unstructured">
+                            <insights
+                                jcr:primaryType="nt:unstructured"
+                                selected="{Boolean}true"
+                                text="Insights — editorial list"
+                                value="insights"/>
+                            <portfolio
+                                jcr:primaryType="nt:unstructured"
+                                text="Portfolio — horizontal cards"
+                                value="portfolio"/>
+                            <deals
+                                jcr:primaryType="nt:unstructured"
+                                text="Deals — ruled ledger"
+                                value="deals"/>
+                        </items>
+                    </variant>
+                    <parentPath
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                        fieldDescription="Folder of Content Fragments to list. Anything in it that is not a fragment is ignored."
+                        fieldLabel="Fragment folder"
+                        name="./parentPath"
+                        required="{Boolean}true"
+                        rootPath="/content/dam"/>
+                    <detailRoot
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                        fieldDescription="Page under which one detail page exists per fragment, named after the fragment. Leave empty to render the list without links."
+                        fieldLabel="Detail pages root"
+                        name="./detailRoot"
+                        rootPath="/content"/>
+                    <limit
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                        fieldDescription="How many to show, newest first. Defaults to 6, capped at 48."
+                        fieldLabel="Maximum items"
+                        min="{Long}1"
+                        name="./limit"/>
+                </items>
+            </source>
+            <action
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Action"
+                sling:resourceType="granite/ui/components/coral/foundation/container"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <ctaText
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldDescription="Link to the full index, e.g. All insights."
+                        fieldLabel="Link label"
+                        name="./ctaText"/>
+                    <ctaLink
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                        fieldLabel="Link"
+                        name="./ctaLink"
+                        rootPath="/content"/>
+                </items>
+            </action>
+        </items>
+    </content>
+</jcr:root>
