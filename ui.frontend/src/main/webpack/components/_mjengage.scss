@@ -1,75 +1,107 @@
-//== MJ Engage.
+//== MJ Engage — the close.
 //
-// The close. One statement on ivory, then the lanes as ruled columns — no filled buttons,
-// no urgency, no form. The invitation is the design.
+// A dark full-bleed frame, the invitation set at display scale across it, and the audience
+// lanes as a rail along the foot. No filled buttons, no form, no urgency: the last thing
+// on the page should feel like a door left open, not a conversion point.
 
 .cmp-mjengage {
-    @include mj-section($mj-ivory-deep);
+    @include mj-border-box;
+
+    background: $mj-ink;
+    color: $mj-ink-text;
+    font-family: $mj-sans;
+    position: relative;
+    isolation: isolate;
+
+    &__stage {
+        inset: 0;
+        overflow: hidden;
+        position: absolute;
+
+        // The backdrop carries the mood, not the message, so it sits well back.
+        &::after {
+            background: linear-gradient(180deg,
+                rgba(20, 20, 15, 0.62) 0%,
+                rgba(20, 20, 15, 0.86) 100%);
+            content: "";
+            inset: 0;
+            position: absolute;
+        }
+    }
+
+    &__img {
+        display: block;
+        height: 100%;
+        object-fit: cover;
+        width: 100%;
+    }
 
     &__inner {
         @include mj-container;
 
         display: grid;
-        gap: clamp(3rem, 6vw, 5rem);
-        grid-template-columns: repeat(12, 1fr);
-    }
-
-    &__claim {
-        grid-column: 1 / span 5;
+        gap: clamp(3rem, 8vw, 7rem);
+        padding: clamp(5rem, 12vw, 10rem) $mj-gutter clamp(3rem, 6vw, 5rem);
+        position: relative;
+        z-index: 1;
     }
 
     &__eyebrow {
-        @include mj-eyebrow($mj-bronze-deep);
+        @include mj-eyebrow($mj-bronze);
 
         margin-bottom: 1.5rem;
     }
 
     &__statement {
-        @include mj-heading(1.75rem, 3rem);
+        @include mj-display(2.25rem, 6rem);
 
+        color: $mj-ink-text;
         max-width: 18ch;
     }
 
     &__lanes {
+        border-top: 1px solid $mj-ink-rule;
         display: grid;
-        gap: clamp(2rem, 3vw, 3rem);
-        grid-column: 7 / -1;
-        grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 1fr));
+        gap: clamp(1.5rem, 3vw, 3rem);
+        grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
+        padding-top: clamp(1.5rem, 3vw, 2.5rem);
     }
 
     &__lane {
-        border-top: 1px solid $mj-rule;
         display: flex;
         flex-direction: column;
         gap: 1rem;
-        padding-top: 1.5rem;
     }
 
     &__audience {
-        @include mj-meta($mj-ink);
+        @include mj-meta($mj-bronze);
 
         font-size: 0.8125rem;
     }
 
     &__text {
-        @include mj-body;
+        @include mj-body($mj-ink-muted);
 
         flex: 1;
         font-size: 0.9375rem;
     }
 
     &__cta {
-        @include mj-cta;
+        @include mj-cta($mj-ink-text, $mj-bronze);
 
         align-self: start;
-    }
-}
 
-@media (max-width: 900px) {
-    .cmp-mjengage {
-        &__claim,
-        &__lanes {
-            grid-column: 1 / -1;
+        &:hover,
+        &:focus-visible {
+            border-color: $mj-ink-text;
+            color: $mj-ink-text;
+        }
+    }
+
+    // Without a backdrop the section is plain ink — still the close, just quieter.
+    &--plain {
+        .cmp-mjengage__inner {
+            padding-top: clamp(4rem, 9vw, 8rem);
         }
     }
 }

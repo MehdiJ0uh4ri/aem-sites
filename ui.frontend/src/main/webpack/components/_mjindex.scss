@@ -1,18 +1,20 @@
 //== MJ Index — one component, three settings.
 //
-//   portfolio  a horizontal rail of cinematic cards, scroll-snapped
-//   deals      a ruled ledger, no images at all
+//   portfolio  a rail of variable-scale cards; no two neighbours are the same size
+//   deals      a ledger scrolling past a photograph pinned for the length of the section
 //   insights   an editorial list whose first item is given the lead
 //
-// Everything shared — head, metadata, link behaviour — is written once at the top; each
-// variant then only says how its list is set.
+// Shared behaviour is written once at the top; each variant then only says how its list
+// is set. The point of the variants is that they should not resemble each other.
 
 .cmp-mjindex {
     @include mj-section($mj-paper);
 
-    &__head {
+    &__main {
         @include mj-container;
+    }
 
+    &__head {
         display: grid;
         gap: 1rem;
         grid-template-columns: repeat(12, 1fr);
@@ -28,19 +30,17 @@
     &__heading {
         @include mj-heading;
 
-        grid-column: 1 / span 6;
+        grid-column: 1 / span 7;
     }
 
     &__intro {
         @include mj-body;
 
-        grid-column: 8 / -1;
         align-self: end;
+        grid-column: 9 / -1;
     }
 
     &__list {
-        @include mj-container;
-
         list-style: none;
         margin: 0;
         padding: 0;
@@ -57,8 +57,10 @@
     }
 
     &__img {
-        @include mj-crop(4 / 3);
-
+        display: block;
+        height: 100%;
+        object-fit: cover;
+        width: 100%;
         transition: transform 1.2s $mj-ease;
     }
 
@@ -111,99 +113,176 @@
 
     &__cta {
         @include mj-cta;
-        @include mj-container;
 
         display: inline-flex;
         margin-top: clamp(2.5rem, 4vw, 4rem);
     }
 
-    //-- Portfolio: a rail. Horizontal movement is the point — a portfolio is a sequence a
-    //   reader travels along, not a grid they scan.
+    &__aside {
+        display: none;
+    }
+
+    //-- Portfolio: a rail of variable-scale cards.
+    //
+    // Horizontal movement because a portfolio is a sequence a reader travels along. The
+    // sizes are deliberately uneven — a rail of identical cards is a grid that happens to
+    // scroll, and reads as one.
     &--portfolio {
         background: $mj-ivory;
 
+        // Flex, not grid-auto-flow: column. With auto column tracks the track sizes
+        // itself to the card's text, so a width set on the item is ignored and the rail
+        // comes out with six different card widths. flex-basis sizes the card itself.
         .cmp-mjindex__list {
-            display: grid;
+            display: flex;
+            align-items: flex-start;
             gap: clamp(1rem, 2vw, 2rem);
-            grid-auto-columns: minmax(min(20rem, 78vw), 24rem);
-            grid-auto-flow: column;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
-            // The rail bleeds past the container on both sides so cards run to the edge
-            // of the viewport, which is what makes it feel like a rail and not a row.
+            // The rail bleeds past the container on both sides so cards run to the edge of
+            // the viewport, which is what makes it a rail and not a row.
             margin-inline: calc(#{$mj-gutter} * -1);
-            padding-inline: $mj-gutter;
-            padding-bottom: 1.5rem;
+            padding: 0 $mj-gutter 1.5rem;
             scrollbar-width: thin;
         }
 
         .cmp-mjindex__item {
+            flex: 0 0 min(22rem, 74vw);
+            min-width: 0;
             scroll-snap-align: start;
         }
 
-        // focus-within rather than a sibling selector: the image precedes the link in
-        // the DOM, so keyboard focus can only be reached from the article.
+        // The lead card is wider and takes the portrait crop.
+        .cmp-mjindex__item:first-child {
+            flex-basis: min(30rem, 84vw);
+
+            .cmp-mjindex__title { @include mj-heading(1.5rem, 2rem); }
+        }
+
+        // Three crops in rotation, so no two neighbours share a silhouette.
+        .cmp-mjindex__item:nth-child(3n + 1) .cmp-mjindex__img { aspect-ratio: 4 / 5; }
+        .cmp-mjindex__item:nth-child(3n + 2) .cmp-mjindex__img { aspect-ratio: 5 / 4; }
+        .cmp-mjindex__item:nth-child(3n + 3) .cmp-mjindex__img { aspect-ratio: 1 / 1; }
+
+        // One gentle drop in the cycle. The previous version offset every even card and
+        // the rail read as a staircase falling off the page rather than as a rhythm.
+        .cmp-mjindex__item:nth-child(3n + 2) {
+            margin-top: clamp(1rem, 3vw, 3rem);
+        }
+
         .cmp-mjindex__article:hover .cmp-mjindex__img,
         .cmp-mjindex__article:focus-within .cmp-mjindex__img {
             transform: scale(1.03);
         }
-
-        .cmp-mjindex__img {
-            aspect-ratio: 5 / 4;
-        }
     }
 
-    //-- Deals: a ledger. No images: a financing is a fact, and the typography carries it.
+    //-- Deals: a ledger scrolling past a held image.
+    //
+    // No images in the rows themselves: a financing is a fact and the typography carries
+    // it. The photograph is the section's constant, pinned while the record moves.
     &--deals {
-        .cmp-mjindex__item {
-            border-top: 1px solid $mj-rule;
+        background: $mj-ink;
+        color: $mj-ink-text;
+        display: grid;
+        gap: clamp(2rem, 5vw, 4rem);
+        padding-inline: 0;
 
-            &:last-child {
-                border-bottom: 1px solid $mj-rule;
-            }
+        // The held column has to run the full height of the band, so the section's own
+        // block padding moves onto the ledger. Left on the section it showed as a dead
+        // strip above and below the photograph.
+        padding-block: 0;
+
+        .cmp-mjindex__main {
+            padding-block: $mj-section;
         }
+
+        // One column unless there is actually an image to hold beside the ledger.
+        // Declaring the two-column track list unconditionally meant that an unauthored
+        // image left the ledger crushed into a 4fr column with two thirds of the section
+        // empty beside it - the layout has to follow the content that exists.
+        grid-template-columns: minmax(0, 1fr);
+
+        &:has(.cmp-mjindex__aside) {
+            grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+        }
+
+        .cmp-mjindex__main {
+            padding-inline: $mj-gutter;
+        }
+
+        &:has(.cmp-mjindex__aside) .cmp-mjindex__main {
+            padding-left: 0;
+            padding-right: $mj-gutter;
+        }
+
+        .cmp-mjindex__aside {
+            display: block;
+            // Pinned for the length of the ledger. Pure CSS: nothing here is tied to a
+            // scroll handler.
+            position: sticky;
+            top: 0;
+            height: 100svh;
+            overflow: hidden;
+        }
+
+        .cmp-mjindex__aside-img {
+            display: block;
+            height: 100%;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .cmp-mjindex__heading {
+            @include mj-heading;
+
+            color: $mj-ink-text;
+            grid-column: 1 / -1;
+        }
+
+        .cmp-mjindex__intro {
+            color: $mj-ink-muted;
+            grid-column: 1 / -1;
+        }
+
+        .cmp-mjindex__eyebrow { color: $mj-bronze; }
+
+        .cmp-mjindex__item {
+            border-top: 1px solid $mj-ink-rule;
+
+            &:last-child { border-bottom: 1px solid $mj-ink-rule; }
+        }
+
+        // The markup order is metadata-then-title, which is right for a screen reader but
+        // not for a ledger. display:contents lifts the metadata spans into the grid and
+        // each cell is placed explicitly, so the visual row reads company / sector / date
+        // / type whatever order the markup is in.
+        .cmp-mjindex__meta { display: contents; }
 
         .cmp-mjindex__article {
             align-items: baseline;
             display: grid;
-            gap: 0.5rem clamp(1rem, 3vw, 3rem);
-            // company | sector | date | type — the reading order of a transaction line.
-            grid-template-columns: minmax(12rem, 3fr) minmax(8rem, 2fr) minmax(7rem, 1.5fr) auto;
+            gap: 0.5rem clamp(1rem, 2.5vw, 2.5rem);
+            grid-template-columns: minmax(9rem, 3fr) minmax(6rem, 2fr) minmax(6rem, 1.5fr) auto;
             padding: clamp(1.25rem, 2.5vw, 2rem) 0;
             transition: background-color 0.35s $mj-ease;
         }
 
-        .cmp-mjindex__article:hover {
-            background: $mj-ivory;
-        }
-
-        // The markup order is metadata-then-title, which is right for a screen reader
-        // but not for a ledger. display:contents lifts the two metadata spans into the
-        // grid and each cell is then placed explicitly, so the visual row reads
-        // company / sector / date / type whatever order the markup is in.
-        .cmp-mjindex__meta {
-            display: contents;
-        }
+        .cmp-mjindex__article:hover { background: rgba(242, 238, 229, 0.04); }
 
         .cmp-mjindex__title {
-            @include mj-heading(1.0625rem, 1.375rem);
+            @include mj-heading(1.0625rem, 1.5rem);
 
+            color: $mj-ink-text;
             grid-column: 1;
             grid-row: 1;
             margin: 0;
         }
 
-        .cmp-mjindex__kicker {
-            grid-column: 2;
-            grid-row: 1;
-        }
-
-        .cmp-mjindex__date {
-            grid-column: 3;
-            grid-row: 1;
-        }
+        .cmp-mjindex__kicker { color: $mj-bronze; grid-column: 2; grid-row: 1; }
+        .cmp-mjindex__date   { color: $mj-ink-muted; grid-column: 3; grid-row: 1; }
 
         .cmp-mjindex__status {
+            color: $mj-ink-muted;
             grid-column: 4;
             grid-row: 1;
             margin: 0;
@@ -211,16 +290,24 @@
         }
 
         .cmp-mjindex__summary {
-            // The description belongs to the row but not to the columns: it drops under
-            // the company name and runs the width of the first two columns.
+            color: $mj-ink-muted;
             grid-column: 1 / span 2;
             grid-row: 2;
             margin-top: 0.25rem;
         }
+
+        .cmp-mjindex__cta {
+            @include mj-cta($mj-ink-text, $mj-bronze);
+
+            &:hover,
+            &:focus-visible { border-color: $mj-ink-text; color: $mj-ink-text; }
+        }
+
+        .cmp-mjindex__link:focus-visible { outline-color: $mj-bronze; }
     }
 
-    //-- Insights: an editorial list. The first item is the lead and is given the width and
-    //   the image; the rest are set as a ruled column beside it.
+    //-- Insights: an editorial list. The lead takes the width and the image; the rest are
+    //   a ruled column beside it.
     &--insights {
         .cmp-mjindex__list {
             display: grid;
@@ -229,7 +316,7 @@
         }
 
         .cmp-mjindex__item {
-            grid-column: 7 / -1;
+            grid-column: 8 / -1;
 
             & + .cmp-mjindex__item {
                 border-top: 1px solid $mj-rule;
@@ -238,30 +325,21 @@
         }
 
         .cmp-mjindex__item:first-child {
-            grid-column: 1 / span 6;
+            grid-column: 1 / span 7;
             grid-row: 1 / span 99;
 
-            .cmp-mjindex__title {
-                @include mj-heading(1.5rem, 2.25rem);
-            }
+            .cmp-mjindex__title { @include mj-heading(1.75rem, 2.75rem); }
+            .cmp-mjindex__img { aspect-ratio: 16 / 10; margin-bottom: 1.5rem; }
         }
 
-        // Only the lead carries an image; the rest are titles and dates.
-        .cmp-mjindex__item:not(:first-child) .cmp-mjindex__art {
-            display: none;
-        }
-
+        // Only the lead carries an image and a summary; the rest are titles and dates.
+        .cmp-mjindex__item:not(:first-child) .cmp-mjindex__art,
         .cmp-mjindex__item:not(:first-child) .cmp-mjindex__summary {
             display: none;
         }
 
         .cmp-mjindex__article:hover .cmp-mjindex__img {
             transform: scale(1.03);
-        }
-
-        .cmp-mjindex__item:first-child .cmp-mjindex__img {
-            aspect-ratio: 3 / 2;
-            margin-bottom: 1.5rem;
         }
     }
 }
@@ -273,26 +351,39 @@
             grid-column: 1 / -1;
         }
 
-        &--deals .cmp-mjindex__article {
-            // A four-column ledger cannot survive a phone. It becomes a stacked record:
-            // company, then its facts as a metadata line.
+        // A pinned column and a four-column ledger both need width they do not have here.
+        &--deals {
             grid-template-columns: 1fr;
+            padding-inline: 0;
+
+            .cmp-mjindex__aside {
+                position: static;
+                height: 46svh;
+            }
+
+            .cmp-mjindex__main {
+                padding-inline: $mj-gutter;
+            }
+
+            .cmp-mjindex__article {
+                grid-template-columns: 1fr;
+            }
+
+            .cmp-mjindex__meta { display: flex; }
+
+            .cmp-mjindex__title,
+            .cmp-mjindex__kicker,
+            .cmp-mjindex__date,
+            .cmp-mjindex__summary,
+            .cmp-mjindex__status {
+                grid-column: auto;
+                grid-row: auto;
+                text-align: left;
+            }
         }
 
-        // Stacked, explicit placement has nothing to place against: everything returns
-        // to source order in one column.
-        &--deals .cmp-mjindex__meta {
-            display: flex;
-        }
-
-        &--deals .cmp-mjindex__title,
-        &--deals .cmp-mjindex__kicker,
-        &--deals .cmp-mjindex__date,
-        &--deals .cmp-mjindex__summary,
-        &--deals .cmp-mjindex__status {
-            grid-column: auto;
-            grid-row: auto;
-            text-align: left;
+        &--portfolio .cmp-mjindex__item:nth-child(n) {
+            margin-top: 0;
         }
 
         &--insights .cmp-mjindex__list {
@@ -300,8 +391,8 @@
             flex-direction: column;
         }
 
-        &--insights .cmp-mjindex__item:first-child,
-        &--insights .cmp-mjindex__item {
+        &--insights .cmp-mjindex__item,
+        &--insights .cmp-mjindex__item:first-child {
             grid-column: 1 / -1;
             grid-row: auto;
         }

@@ -41,6 +41,19 @@
                 sling:resourceType="granite/ui/components/coral/foundation/container"
                 margin="{Boolean}true">
                 <items jcr:primaryType="nt:unstructured">
+                    <fileReference
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                        fieldDescription="Tall crop (4:5) held at the left of the band. Leave empty for a type-only signal."
+                        fieldLabel="Image column"
+                        name="./fileReference"
+                        rootPath="/content/dam"/>
+                    <alt
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldDescription="Leave empty when the image only sets a mood, which here it usually does."
+                        fieldLabel="Alternative text"
+                        name="./alt"/>
                     <items
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="granite/ui/components/coral/foundation/form/multifield"

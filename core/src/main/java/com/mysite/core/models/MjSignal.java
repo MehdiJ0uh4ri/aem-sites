@@ -8,9 +8,10 @@ import com.adobe.cq.wcm.core.components.models.Component;
  * Model for the Investment Signal band: a statement of conviction set against a ledger
  * of figures.
  *
- * <p>The ledger is typographic, not a dashboard — the figures are rendered as editorial
- * display type on a ruled baseline grid, so a reader takes the claim first and the
- * numbers as evidence.</p>
+ * <p>The ledger is typographic, not a dashboard — the figures are set at display scale,
+ * overlapping and running off the right edge, against a tall image column on the left.
+ * The composition is the point: a reader should register the numbers as a mass before
+ * reading any single one.</p>
  */
 public interface MjSignal extends Component {
 
@@ -23,6 +24,11 @@ public interface MjSignal extends Component {
 
     /** @return source or as-of note printed under the ledger, or {@code null} */
     String getFootnote();
+
+    /** @return DAM path of the tall image column, or {@code null} when the band is type only */
+    String getFileReference();
+
+    String getAlt();
 
     boolean isEmpty();
 }

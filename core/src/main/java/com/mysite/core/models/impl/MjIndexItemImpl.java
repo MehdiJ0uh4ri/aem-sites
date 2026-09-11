@@ -35,29 +35,29 @@ class MjIndexItemImpl implements MjIndexItem {
     MjIndexItemImpl(Resource resource, ContentFragment fragment, String variant, String detailRoot,
                     String parentId, boolean dataLayerEnabled) {
         if (MjIndex.VARIANT_PORTFOLIO.equals(variant)) {
-            this.title = FragmentReader.text(fragment, "companyName", "title");
-            this.kicker = FragmentReader.text(fragment, "sector");
-            this.meta = FragmentReader.text(fragment, "location");
-            this.summary = FragmentReader.text(fragment, "description", "summary");
-            this.status = FragmentReader.text(fragment, "status");
-            this.fileReference = FragmentReader.text(fragment, "featuredImage", "logo");
-            this.sortKey = FragmentReader.text(fragment, "investmentYear");
+            this.title = FragmentReader.text(fragment, resource, "companyName", "title");
+            this.kicker = FragmentReader.text(fragment, resource, "sector");
+            this.meta = FragmentReader.text(fragment, resource, "location");
+            this.summary = FragmentReader.text(fragment, resource, "description", "summary");
+            this.status = FragmentReader.text(fragment, resource, "status");
+            this.fileReference = FragmentReader.text(fragment, resource, "featuredImage", "logo");
+            this.sortKey = FragmentReader.text(fragment, resource, "investmentYear");
         } else if (MjIndex.VARIANT_DEALS.equals(variant)) {
-            this.title = FragmentReader.text(fragment, "company", "title");
-            this.kicker = FragmentReader.text(fragment, "sector");
-            this.meta = FragmentReader.date(fragment, "date");
-            this.summary = FragmentReader.text(fragment, "description", "summary");
-            this.status = FragmentReader.text(fragment, "investmentType");
+            this.title = FragmentReader.text(fragment, resource, "company", "title");
+            this.kicker = FragmentReader.text(fragment, resource, "sector");
+            this.meta = FragmentReader.date(fragment, resource, "date");
+            this.summary = FragmentReader.text(fragment, resource, "description", "summary");
+            this.status = FragmentReader.text(fragment, resource, "investmentType");
             this.fileReference = null;
-            this.sortKey = FragmentReader.text(fragment, "date");
+            this.sortKey = FragmentReader.text(fragment, resource, "date");
         } else {
-            this.title = FragmentReader.text(fragment, "title");
-            this.kicker = FragmentReader.text(fragment, "category");
-            this.meta = FragmentReader.date(fragment, "publicationDate");
-            this.summary = FragmentReader.text(fragment, "summary");
+            this.title = FragmentReader.text(fragment, resource, "title");
+            this.kicker = FragmentReader.text(fragment, resource, "category");
+            this.meta = FragmentReader.date(fragment, resource, "publicationDate");
+            this.summary = FragmentReader.text(fragment, resource, "summary");
             this.status = null;
-            this.fileReference = FragmentReader.text(fragment, "heroImage", "featuredImage");
-            this.sortKey = FragmentReader.text(fragment, "publicationDate");
+            this.fileReference = FragmentReader.text(fragment, resource, "heroImage", "featuredImage");
+            this.sortKey = FragmentReader.text(fragment, resource, "publicationDate");
         }
         // Fragment images are art direction for a card the title already names.
         this.alt = "";
@@ -83,7 +83,7 @@ class MjIndexItemImpl implements MjIndexItem {
         if (StringUtils.isBlank(detailRoot) || resource == null) {
             return null;
         }
-        String slug = StringUtils.defaultIfBlank(FragmentReader.text(fragment, "slug"), resource.getName());
+        String slug = StringUtils.defaultIfBlank(FragmentReader.text(fragment, resource, "slug"), resource.getName());
         return LinkUtil.toUrl(StringUtils.removeEnd(detailRoot, "/") + "/" + slug);
     }
 

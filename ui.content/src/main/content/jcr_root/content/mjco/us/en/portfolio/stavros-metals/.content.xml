@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:template="/conf/mjco/settings/wcm/templates/mjco-detail"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="Stavros Metals"
+        pageTitle="Stavros Metals | MJ &amp; Company"
+        sling:resourceType="mysite/components/page">
+        <root
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="mysite/components/container"
+            layout="responsiveGrid">
+            <opener
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/container"
+                layout="responsiveGrid">
+                <opener
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/mjhero"
+                    eyebrow="Portfolio company"
+                    lineOne="Stavros Metals"/>
+            </opener>
+            <body
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/container"
+                layout="responsiveGrid">
+                <!-- The fragment itself, rendered by the Core Content Fragment component.
+                     No custom code: a detail page is exactly what that component is for. -->
+                <fragment
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/contentfragment"
+                    fragmentPath="/content/dam/mjco/portfolio/stavros-metals"
+                    displayMode="singleText"/>
+            </body>
+        </root>
+    </jcr:content>
+</jcr:root>

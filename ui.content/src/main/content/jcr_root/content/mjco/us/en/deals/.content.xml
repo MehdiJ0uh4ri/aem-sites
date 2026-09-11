@@ -4,6 +4,7 @@
     <jcr:content
         cq:template="/conf/mjco/settings/wcm/templates/mjco-section"
         jcr:primaryType="cq:PageContent"
+        navTitle="Deals"
         jcr:title="Deals"
         pageTitle="Deals | MJ &amp; Company"
         jcr:description="A record of MJ &amp; Company financings: company, date, sector and investment type."

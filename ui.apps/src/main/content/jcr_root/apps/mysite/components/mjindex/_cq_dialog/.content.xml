@@ -75,6 +75,19 @@
                         fieldLabel="Detail pages root"
                         name="./detailRoot"
                         rootPath="/content"/>
+                    <fileReference
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                        fieldDescription="Tall crop pinned beside the list while it scrolls. Used by the Deals variant; ignored by the others."
+                        fieldLabel="Held image"
+                        name="./fileReference"
+                        rootPath="/content/dam"/>
+                    <alt
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldDescription="Leave empty when the image only sets a mood, which here it usually does."
+                        fieldLabel="Alternative text"
+                        name="./alt"/>
                     <limit
                         jcr:primaryType="nt:unstructured"
                         sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"

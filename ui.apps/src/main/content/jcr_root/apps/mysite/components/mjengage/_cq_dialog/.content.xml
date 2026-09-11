@@ -20,6 +20,19 @@
                 fieldLabel="Statement"
                 name="./statement"
                 rows="{Long}2"/>
+            <fileReference
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                fieldDescription="Full-bleed ultra-wide crop behind the closing line. Leave empty for a plain dark close."
+                fieldLabel="Backdrop"
+                name="./fileReference"
+                rootPath="/content/dam"/>
+            <alt
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                fieldDescription="Leave empty when the image only sets a mood, which here it usually does."
+                fieldLabel="Alternative text"
+                name="./alt"/>
             <items
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="granite/ui/components/coral/foundation/form/multifield"

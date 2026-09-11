@@ -2,10 +2,10 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
     jcr:primaryType="cq:Template">
     <jcr:content
-        jcr:primaryType="nt:unstructured"
+        jcr:primaryType="cq:PageContent"
         jcr:title="Market Metric"
         jcr:description="One figure with the reading of it. The commentary matters: a number the firm will not interpret is a number it should not publish."
-        sling:resourceType="dam/cfm/models/console/components/data/entity"
+        sling:resourceType="dam/cfm/models/console/components/data/entity/default"
         status="enabled">
         <model
             jcr:primaryType="nt:unstructured"
@@ -13,89 +13,102 @@
             <cq:dialog
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="granite/ui/components/coral/foundation/container">
-                <items jcr:primaryType="nt:unstructured">
-                    <metric
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                        fieldLabel="Metric"
-                        name="metric"
-                        valueType="string"
-                        metaType="text-single"
-                        listOrder="{Long}1"
-                        required="{Boolean}true"/>
-                    <value
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                        fieldLabel="Value"
-                        name="value"
-                        valueType="string"
-                        metaType="text-single"
-                        listOrder="{Long}2"
-                        fieldDescription="As it should read, e.g. $41.2B. Formatting is an editorial decision, not a rendering one."
-                        required="{Boolean}true"/>
-                    <unit
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                        fieldLabel="Unit"
-                        name="unit"
-                        valueType="string"
-                        metaType="text-single"
-                        listOrder="{Long}3"
-                        fieldDescription="Optional suffix set smaller beside the value."/>
-                    <date
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/datepicker"
-                        fieldLabel="As of"
-                        name="date"
-                        valueType="string"
-                        metaType="date-time"
-                        listOrder="{Long}4"/>
-                    <trend
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                        fieldLabel="Trend"
-                        name="trend"
-                        valueType="string"
-                        metaType="text-single"
-                        listOrder="{Long}5"
-                        fieldDescription="up, down or flat. Anything else is treated as flat."/>
-                    <change
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                        fieldLabel="Change"
-                        name="change"
-                        valueType="string"
-                        metaType="text-single"
-                        listOrder="{Long}6"
-                        fieldDescription="Period on period, e.g. +12%."/>
-                    <series
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                        fieldLabel="Series"
-                        name="series"
-                        valueType="string"
-                        metaType="text-single"
-                        listOrder="{Long}7"
-                        fieldDescription="Comma-separated numbers for the sparkline. At least two. The line shows shape only - the value beside it carries the level."/>
-                    <source
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                        fieldLabel="Source"
-                        name="source"
-                        valueType="string"
-                        metaType="text-single"
-                        listOrder="{Long}8"
-                        fieldDescription="An unattributed figure on an investment firm site is a liability."/>
-                    <commentary
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
-                        fieldLabel="Commentary"
-                        name="commentary"
-                        valueType="string"
-                        metaType="text-multi"
-                        listOrder="{Long}9"
-                        fieldDescription="What the figure means. This is the content; the number is the illustration."/>
-                </items>
+                <content
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/container">
+                    <items jcr:primaryType="nt:unstructured">
+                        <metric
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Metric"
+                            name="metric"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}1"
+                            required="{Boolean}true"/>
+                        <value
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Value"
+                            name="value"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}2"
+                            fieldDescription="As it should read, e.g. $41.2B. Formatting is an editorial decision, not a rendering one."
+                            required="{Boolean}true"/>
+                        <unit
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Unit"
+                            name="unit"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}3"
+                            fieldDescription="Optional suffix set smaller beside the value."/>
+                        <date
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/datepicker"
+                            fieldLabel="As of"
+                            name="date"
+                            valueType="calendar/datetime"
+                            metaType="date-time"
+                            renderType="datepicker"
+                            listOrder="{Long}4"/>
+                        <trend
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Trend"
+                            name="trend"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}5"
+                            fieldDescription="up, down or flat. Anything else is treated as flat."/>
+                        <change
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Change"
+                            name="change"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}6"
+                            fieldDescription="Period on period, e.g. +12%."/>
+                        <series
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Series"
+                            name="series"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}7"
+                            fieldDescription="Comma-separated numbers for the sparkline. At least two. The line shows shape only - the value beside it carries the level."/>
+                        <source
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Source"
+                            name="source"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}8"
+                            fieldDescription="An unattributed figure on an investment firm site is a liability."/>
+                        <commentary
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Commentary"
+                            name="commentary"
+                            valueType="string/multiline"
+                            metaType="text-multi"
+                            renderType="text"
+                            listOrder="{Long}9"
+                            fieldDescription="What the figure means. This is the content; the number is the illustration."/>
+                    </items>
+                </content>
             </cq:dialog>
         </model>
     </jcr:content>

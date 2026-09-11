@@ -1,29 +1,33 @@
 //== MJ Thesis.
 //
-// A reading column with the ordinals hung in the left margin. There is no image in this
-// section and there should not be one: the beliefs are the content, and giving them
-// photography would make them look like they needed the help.
+// No photograph here, and none wanted: the beliefs are the content, and illustrating them
+// would say they could not carry themselves. The visual idea is the numerals — set at
+// display scale in bronze, hung outside the reading measure, they give the section a
+// rhythm that is unmistakably typographic.
 
 .cmp-mjthesis {
-    @include mj-section($mj-ink, $mj-ink-text);
+    @include mj-section($mj-ivory);
 
     &__head {
         @include mj-container;
 
-        margin-bottom: clamp(3rem, 6vw, 5.5rem);
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        margin-bottom: clamp(3rem, 6vw, 5rem);
     }
 
     &__eyebrow {
-        @include mj-eyebrow($mj-bronze);
+        @include mj-eyebrow($mj-bronze-deep);
 
+        grid-column: 1 / -1;
         margin-bottom: 1.5rem;
     }
 
     &__heading {
-        @include mj-heading(1.75rem, 3.5rem);
+        @include mj-heading(1.75rem, 4rem);
 
-        color: $mj-ink-text;
-        max-width: 22ch;
+        grid-column: 1 / span 9;
+        max-width: 24ch;
     }
 
     &__list {
@@ -35,43 +39,55 @@
     }
 
     &__item {
-        border-top: 1px solid $mj-ink-rule;
+        border-top: 1px solid $mj-rule;
         display: grid;
-        // The ordinal column is fixed; the reading column is capped by its measure, not
-        // by the container, so the text never runs to an unreadable line length.
-        gap: clamp(1rem, 3vw, 3rem);
-        grid-template-columns: 4rem minmax(0, 60ch);
-        padding: clamp(2rem, 3.5vw, 3rem) 0;
+        // The numeral column is wide enough to hold display-scale type; the reading column
+        // is capped by its measure, not by the container, so the text never runs long.
+        //
+        // justify-content centres the pair inside the container. Left-anchored, these two
+        // tracks came to about half the width of a 1440 viewport and the section read as
+        // though the right half had failed to load. The rules still span the full
+        // container, so the ruled structure is unchanged.
+        gap: clamp(1.5rem, 4vw, 4rem);
+        grid-template-columns: clamp(4rem, 11vw, 11rem) minmax(0, 62ch);
+        justify-content: center;
+        padding: clamp(2.5rem, 4.5vw, 4rem) 0;
 
         &:last-child {
-            border-bottom: 1px solid $mj-ink-rule;
+            border-bottom: 1px solid $mj-rule;
         }
     }
 
     &__ordinal {
-        @include mj-display(1.25rem, 1.5rem);
+        @include mj-display(2.75rem, 7rem);
 
         color: $mj-bronze;
-        line-height: 1.4;
+        line-height: 0.86;
+        // Optically aligned to the cap height of the belief beside it rather than to the
+        // box, which at this size sits noticeably low.
+        margin-top: -0.06em;
     }
 
     &__title {
-        @include mj-heading(1.25rem, 1.75rem);
+        @include mj-heading(1.375rem, 2rem);
 
-        color: $mj-ink-text;
         margin-bottom: 1rem;
     }
 
     &__text {
-        @include mj-body($mj-ink-muted);
+        @include mj-body;
     }
 }
 
 @media (max-width: 700px) {
     .cmp-mjthesis__item {
-        // The hanging margin is the first thing to go: on a phone it eats a quarter of
-        // the line length for a decorative number.
+        // The hanging numeral becomes a lead-in above the belief: at this width a column
+        // for it would take a third of the line length.
         grid-template-columns: 1fr;
-        gap: 0.75rem;
+        gap: 0.5rem;
+    }
+
+    .cmp-mjthesis__ordinal {
+        font-size: 2.25rem;
     }
 }

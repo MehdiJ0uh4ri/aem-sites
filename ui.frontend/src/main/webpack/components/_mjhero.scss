@@ -1,118 +1,184 @@
 //== MJ Editorial Hero.
 //
-// The composition is a 12-column grid with the headline starting at column 1 and its
-// second line pushed to column 3: the indent is what makes the opening read as set type
-// rather than as a centred banner. Artwork is a band below the statement, never behind it.
+// Cinematic variant: the image fills the viewport and the headline is composited over it
+// with mix-blend-mode: difference. The type inverts against whatever passes beneath it, so
+// it stays legible without a scrim dimming the photograph — which is the usual, and much
+// duller, way to solve this.
+//
+// The blend needs its own stacking context or it composites against the page background
+// instead of the image, which is what `isolation: isolate` on the section is for.
 
 .cmp-mjhero {
-    @include mj-section($mj-paper);
+    @include mj-border-box;
 
-    padding-bottom: clamp(3rem, 6vw, 6rem);
+    font-family: $mj-sans;
     position: relative;
 
-    &__statement {
-        @include mj-container;
+    &__stage {
+        inset: 0;
+        overflow: hidden;
+        position: absolute;
+    }
 
-        display: grid;
-        gap: clamp(1.5rem, 2.5vw, 2.5rem);
-        grid-template-columns: repeat(12, 1fr);
+    &__img {
+        display: block;
+        height: 100%;
+        object-fit: cover;
+        width: 100%;
+
+        // A very slow settle on arrival. Not tied to the scrollbar: no parallax.
+        animation: cmp-mjhero-settle 2.4s $mj-ease both;
     }
 
     &__eyebrow {
         @include mj-eyebrow($mj-bronze-deep);
-
-        grid-column: 1 / -1;
     }
 
     &__title {
-        @include mj-display(2.75rem, 6.5rem);
-
-        grid-column: 1 / -1;
+        @include mj-display(3rem, 11rem);
     }
 
     &__line {
         display: block;
 
-        // The indent is a fraction of the grid, not a fixed length, so the relationship
+        // The indent is a fraction of the measure, not a fixed length, so the relationship
         // between the two lines holds at every width.
         &--two {
             margin-left: 16.6666%;
         }
     }
 
-    &__rule {
-        @include mj-rule;
-
-        grid-column: 1 / -1;
+    &__foot {
+        align-items: end;
+        display: grid;
+        gap: clamp(1rem, 3vw, 3rem);
+        grid-template-columns: minmax(0, 46ch) 1fr auto;
     }
 
     &__standfirst {
         @include mj-body;
-
-        // Standfirst sits in the right half against the flush-left headline: the
-        // asymmetry is the composition.
-        grid-column: 6 / -1;
-        max-width: 46ch;
     }
 
     &__cta {
         @include mj-cta;
 
-        grid-column: 6 / -1;
         justify-self: start;
-    }
-
-    &__band {
-        @include mj-container;
-
-        margin-top: clamp(3rem, 7vw, 7rem);
-        overflow: hidden;
-    }
-
-    &__img {
-        @include mj-crop(21 / 9);
-
-        // A very slow settle as the band arrives. The transform is on the image, not on
-        // scroll position: no parallax, nothing tied to the scrollbar.
-        transform: scale(1.04);
-        transition: transform 1.6s $mj-ease;
-    }
-
-    &__band.is-revealed &__img {
-        transform: none;
     }
 
     &__cue {
         @include mj-meta;
 
-        margin-top: clamp(2rem, 4vw, 3.5rem);
-        text-align: center;
+        justify-self: end;
+        writing-mode: vertical-rl;
+    }
+
+    //-- Cinematic: full viewport, type over image.
+    &--cinematic {
+        // svh so a mobile browser's collapsing toolbar does not crop the composition.
+        min-height: 100svh;
+        isolation: isolate;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        gap: clamp(2rem, 5vw, 4rem);
+        padding: clamp(1.5rem, 4vw, 3rem) $mj-gutter clamp(2rem, 5vw, 4rem);
+
+        .cmp-mjhero__eyebrow,
+        .cmp-mjhero__title,
+        .cmp-mjhero__foot {
+            @include mj-container;
+
+            position: relative;
+            z-index: 1;
+        }
+
+        .cmp-mjhero__title {
+            align-self: center;
+            color: #fff;
+            mix-blend-mode: difference;
+        }
+
+        .cmp-mjhero__eyebrow {
+            color: $mj-bronze;
+            mix-blend-mode: difference;
+        }
+
+        .cmp-mjhero__standfirst,
+        .cmp-mjhero__cue {
+            color: $mj-ink-text;
+            text-shadow: 0 1px 24px rgba(20, 20, 15, 0.55);
+        }
+
+        .cmp-mjhero__cta {
+            @include mj-cta($mj-ink-text, $mj-bronze);
+
+            &:hover,
+            &:focus-visible {
+                border-color: $mj-ink-text;
+                color: $mj-ink-text;
+            }
+        }
+    }
+
+    //-- Typographic: no image, and none implied. Paper, ink, and a lot of air.
+    &--typographic {
+        background: $mj-paper;
+        color: $mj-ink;
+        display: grid;
+        gap: clamp(1.5rem, 3vw, 2.5rem);
+        padding: clamp(6rem, 14vw, 12rem) $mj-gutter clamp(4rem, 8vw, 7rem);
+
+        .cmp-mjhero__eyebrow,
+        .cmp-mjhero__title,
+        .cmp-mjhero__foot {
+            @include mj-container;
+        }
+
+        .cmp-mjhero__title {
+            @include mj-display(2.75rem, 8rem);
+        }
+    }
+}
+
+@keyframes cmp-mjhero-settle {
+    from { transform: scale(1.07); }
+    to   { transform: none; }
+}
+
+// Without blend support the headline would sit white-on-white over a light image, so the
+// stage is dimmed instead. Worse art direction, but legible — which wins.
+@supports not (mix-blend-mode: difference) {
+    .cmp-mjhero--cinematic .cmp-mjhero__stage::after {
+        background: linear-gradient(180deg, rgba(20, 20, 15, 0.55), rgba(20, 20, 15, 0.35));
+        content: "";
+        inset: 0;
+        position: absolute;
+    }
+
+    .cmp-mjhero--cinematic .cmp-mjhero__title {
+        mix-blend-mode: normal;
     }
 }
 
 @media (max-width: 900px) {
     .cmp-mjhero {
-        &__standfirst,
-        &__cta {
-            grid-column: 1 / -1;
-        }
-
         &__line--two {
             // On a narrow column the indent stops reading as composition and starts
             // reading as a mistake, so it is dropped rather than scaled down.
             margin-left: 0;
         }
 
-        &__img {
-            // 21:9 leaves a letterbox sliver on a phone; 3:2 keeps the image an image.
-            aspect-ratio: 3 / 2;
+        &__foot {
+            grid-template-columns: 1fr;
+        }
+
+        &__cue {
+            display: none;
         }
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .cmp-mjhero__img {
-        transform: none;
-        transition: none;
+        animation: none;
     }
 }

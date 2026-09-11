@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:tiff="http://ns.adobe.com/tiff/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dam="http://www.day.com/dam/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="dam:Asset">
+    <jcr:content
+        jcr:lastModified="{Date}2026-09-10T00:00:00.000Z"
+        jcr:lastModifiedBy="admin"
+        jcr:primaryType="dam:AssetContent">
+        <metadata
+            jcr:primaryType="nt:unstructured"
+            dc:title="Placeholder - closing backdrop"
+            dc:format="image/jpeg"
+            dc:description="Generated placeholder. Abstract architectural composition in the MJ palette - not photography, and not to be published as though it were."
+            dam:MIMEtype="image/jpeg"
+            dam:size="{Long}58996"
+            tiff:ImageWidth="{Long}3200"
+            tiff:ImageLength="{Long}900"/>
+    </jcr:content>
+</jcr:root>

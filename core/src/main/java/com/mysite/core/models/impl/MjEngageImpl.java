@@ -40,6 +40,12 @@ public class MjEngageImpl extends AbstractComponentImpl implements MjEngage {
     @ValueMapValue
     private String statement;
 
+    @ValueMapValue
+    private String fileReference;
+
+    @ValueMapValue
+    private String alt;
+
     @ChildResource(name = NN_ITEMS)
     private Resource itemsResource;
 
@@ -74,6 +80,17 @@ public class MjEngageImpl extends AbstractComponentImpl implements MjEngage {
     @Override
     public String getStatement() {
         return statement;
+    }
+
+    @Override
+    public String getFileReference() {
+        return fileReference;
+    }
+
+    @Override
+    public String getAlt() {
+        // Composition, not information: the copy beside it already says what it is.
+        return StringUtils.defaultString(alt);
     }
 
     @Override

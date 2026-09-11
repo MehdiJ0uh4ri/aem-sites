@@ -4,6 +4,7 @@
     <jcr:content
         cq:template="/conf/mjco/settings/wcm/templates/mjco-section"
         jcr:primaryType="cq:PageContent"
+        navTitle="About"
         jcr:title="About"
         pageTitle="About | MJ &amp; Company"
         jcr:description="Who MJ &amp; Company is and how the firm is organised."

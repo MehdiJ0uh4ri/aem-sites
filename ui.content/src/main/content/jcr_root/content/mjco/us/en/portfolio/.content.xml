@@ -4,6 +4,7 @@
     <jcr:content
         cq:template="/conf/mjco/settings/wcm/templates/mjco-section"
         jcr:primaryType="cq:PageContent"
+        navTitle="Portfolio"
         jcr:title="Portfolio"
         pageTitle="Portfolio | MJ &amp; Company"
         jcr:description="Every company MJ &amp; Company holds, with its sector, its vintage and its current status."

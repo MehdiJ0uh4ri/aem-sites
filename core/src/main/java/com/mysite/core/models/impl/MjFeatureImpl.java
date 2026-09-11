@@ -4,6 +4,7 @@ import javax.annotation.PostConstruct;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
@@ -71,21 +72,23 @@ public class MjFeatureImpl extends AbstractComponentImpl implements MjFeature {
     @PostConstruct
     private void init() {
         ContentFragment fragment = FragmentReader.fragment(resourceResolver, fragmentPath);
+        Resource fragmentResource = StringUtils.isBlank(fragmentPath)
+                ? null : resourceResolver.getResource(fragmentPath);
         boolean caseStudy = VARIANT_CASESTUDY.equals(getVariant());
 
         if (caseStudy) {
-            kicker = FragmentReader.text(fragment, "company");
-            title = FragmentReader.text(fragment, "title");
-            standfirst = FragmentReader.text(fragment, "challenge", "summary");
-            outcome = FragmentReader.text(fragment, "outcome");
-            meta = FragmentReader.date(fragment, "investmentYear", "publicationDate");
+            kicker = FragmentReader.text(fragment, fragmentResource, "company");
+            title = FragmentReader.text(fragment, fragmentResource, "title");
+            standfirst = FragmentReader.text(fragment, fragmentResource, "challenge", "summary");
+            outcome = FragmentReader.text(fragment, fragmentResource, "outcome");
+            meta = FragmentReader.date(fragment, fragmentResource, "investmentYear", "publicationDate");
         } else {
-            kicker = FragmentReader.text(fragment, "category");
-            title = FragmentReader.text(fragment, "title");
-            standfirst = FragmentReader.text(fragment, "summary");
-            meta = FragmentReader.date(fragment, "publicationDate");
+            kicker = FragmentReader.text(fragment, fragmentResource, "category");
+            title = FragmentReader.text(fragment, fragmentResource, "title");
+            standfirst = FragmentReader.text(fragment, fragmentResource, "summary");
+            meta = FragmentReader.date(fragment, fragmentResource, "publicationDate");
         }
-        fileReference = FragmentReader.text(fragment, "heroImage", "featuredImage");
+        fileReference = FragmentReader.text(fragment, fragmentResource, "heroImage", "featuredImage");
 
         // Overrides last, so an editor can retitle a feature on the homepage without
         // editing the fragment every other page reuses.

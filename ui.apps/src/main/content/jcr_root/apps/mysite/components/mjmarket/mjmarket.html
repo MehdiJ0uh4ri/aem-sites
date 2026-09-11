@@ -1,8 +1,12 @@
 <!--/*
     MJ Market Band.
 
-    The sparkline is decoration over data that is already stated in text: every figure has
-    its value, its change and its commentary in the markup, so the SVG is aria-hidden and
+    The first metric is set as a lead: display-scale figure and a filled area chart across
+    the width of the band. The rest follow as a row of hairlines. Equal weight for every
+    figure is what turns a market view into a dashboard, so the weighting is deliberate.
+
+    The chart is decoration over data that is already stated in text: every figure has its
+    value, its change and its commentary in the markup, so the SVG is aria-hidden and
     nothing is lost when it is not perceived. Trend is spelled out for screen readers
     rather than carried by the arrow glyph or by colour alone.
 */-->
@@ -44,7 +48,13 @@
                  preserveAspectRatio="none"
                  aria-hidden="true"
                  focusable="false">
-                <polyline points="${metric.sparkline}"
+                <!--/* The area is only painted on the lead metric; the stylesheet leaves
+                       it transparent everywhere else, so one markup shape serves both. */-->
+                <polygon class="cmp-mjmarket__area"
+                         data-sly-test="${metric.sparklineArea}"
+                         points="${metric.sparklineArea}"/>
+                <polyline class="cmp-mjmarket__line"
+                          points="${metric.sparkline}"
                           fill="none"
                           vector-effect="non-scaling-stroke"/>
             </svg>

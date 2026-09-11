@@ -2,9 +2,10 @@
     MJ Index — Portfolio, Deals and Insights from one component.
 
     All three variants emit the same list of articles; only the class on the section
-    changes, and the stylesheet decides whether that becomes a horizontal card rail, a
-    ruled ledger or an editorial list. The alternative — three components — would have
-    meant three dialogs and three models for one behaviour.
+    changes, and the stylesheet decides whether that becomes a variable-scale card rail, a
+    ledger pinned beside a full-height image, or an editorial list with a lead. The
+    alternative — three components — would have meant three dialogs and three models for
+    one behaviour.
 
     Each item is linked through its title rather than by wrapping the whole card in an
     anchor: the stretched hit area is a CSS concern, so the link's accessible name stays
@@ -17,50 +18,68 @@
          id="${index.id}"
          data-cmp-data-layer="${index.data.json}">
 
-    <header class="cmp-mjindex__head" data-cmp-reveal>
-        <p class="cmp-mjindex__eyebrow" data-sly-test="${index.eyebrow}">${index.eyebrow}</p>
-        <h2 class="cmp-mjindex__heading" data-sly-test="${index.heading}">${index.heading}</h2>
-        <p class="cmp-mjindex__intro" data-sly-test="${index.intro}">${index.intro}</p>
-    </header>
+    <!--/* Held at the left of the deals ledger and pinned while it scrolls past. */-->
+    <div class="cmp-mjindex__aside" data-sly-test="${index.fileReference}">
+        <img class="cmp-mjindex__aside-img"
+             src="${index.fileReference}"
+             alt="${index.alt}"
+             loading="lazy"
+             decoding="async"
+             data-sly-test="${index.alt}"/>
+        <img class="cmp-mjindex__aside-img"
+             src="${index.fileReference}"
+             alt=""
+             loading="lazy"
+             decoding="async"
+             data-sly-test="${!index.alt}"/>
+    </div>
 
-    <ol class="cmp-mjindex__list" data-cmp-reveal>
-        <li class="cmp-mjindex__item" data-sly-repeat.item="${index.items}">
-            <article class="cmp-mjindex__article"
-                     id="${item.id}"
-                     data-cmp-data-layer="${item.dataLayerJson}">
+    <div class="cmp-mjindex__main">
+        <header class="cmp-mjindex__head" data-cmp-reveal>
+            <p class="cmp-mjindex__eyebrow" data-sly-test="${index.eyebrow}">${index.eyebrow}</p>
+            <h2 class="cmp-mjindex__heading" data-sly-test="${index.heading}">${index.heading}</h2>
+            <p class="cmp-mjindex__intro" data-sly-test="${index.intro}">${index.intro}</p>
+        </header>
 
-                <div class="cmp-mjindex__art" data-sly-test="${item.fileReference}">
-                    <img class="cmp-mjindex__img"
-                         src="${item.fileReference}"
-                         alt=""
-                         loading="lazy"
-                         decoding="async"/>
-                </div>
+        <ol class="cmp-mjindex__list" data-cmp-reveal>
+            <li class="cmp-mjindex__item" data-sly-repeat.item="${index.items}">
+                <article class="cmp-mjindex__article"
+                         id="${item.id}"
+                         data-cmp-data-layer="${item.dataLayerJson}">
 
-                <p class="cmp-mjindex__meta">
-                    <span class="cmp-mjindex__kicker" data-sly-test="${item.kicker}">${item.kicker}</span>
-                    <span class="cmp-mjindex__date" data-sly-test="${item.meta}">${item.meta}</span>
-                </p>
+                    <div class="cmp-mjindex__art" data-sly-test="${item.fileReference}">
+                        <img class="cmp-mjindex__img"
+                             src="${item.fileReference}"
+                             alt=""
+                             loading="lazy"
+                             decoding="async"/>
+                    </div>
 
-                <h3 class="cmp-mjindex__title">
-                    <a class="cmp-mjindex__link"
-                       data-sly-test="${item.url}"
-                       href="${item.url}"
-                       data-cmp-clickable>${item.title}</a>
-                    <span data-sly-test="${!item.url}">${item.title}</span>
-                </h3>
+                    <p class="cmp-mjindex__meta">
+                        <span class="cmp-mjindex__kicker" data-sly-test="${item.kicker}">${item.kicker}</span>
+                        <span class="cmp-mjindex__date" data-sly-test="${item.meta}">${item.meta}</span>
+                    </p>
 
-                <p class="cmp-mjindex__summary" data-sly-test="${item.summary}">${item.summary}</p>
+                    <h3 class="cmp-mjindex__title">
+                        <a class="cmp-mjindex__link"
+                           data-sly-test="${item.url}"
+                           href="${item.url}"
+                           data-cmp-clickable>${item.title}</a>
+                        <span data-sly-test="${!item.url}">${item.title}</span>
+                    </h3>
 
-                <p class="cmp-mjindex__status" data-sly-test="${item.status}">${item.status}</p>
-            </article>
-        </li>
-    </ol>
+                    <p class="cmp-mjindex__summary" data-sly-test="${item.summary}">${item.summary}</p>
 
-    <a class="cmp-mjindex__cta"
-       data-sly-test="${index.ctaText && index.ctaUrl}"
-       href="${index.ctaUrl}"
-       data-cmp-clickable>${index.ctaText}<span class="cmp-mjindex__cta-mark" aria-hidden="true">&#8594;</span></a>
+                    <p class="cmp-mjindex__status" data-sly-test="${item.status}">${item.status}</p>
+                </article>
+            </li>
+        </ol>
+
+        <a class="cmp-mjindex__cta"
+           data-sly-test="${index.ctaText && index.ctaUrl}"
+           href="${index.ctaUrl}"
+           data-cmp-clickable>${index.ctaText}<span class="cmp-mjindex__cta-mark" aria-hidden="true">&#8594;</span></a>
+    </div>
 </section>
 
 <sly data-sly-test="${!hasContent && wcmmode.edit}">

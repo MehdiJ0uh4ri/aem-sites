@@ -1,0 +1,14 @@
+{
+  "jcr:primaryType": "cq:PageContent",
+  "root": {
+    "jcr:primaryType": "nt:unstructured",
+    "portfolio": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/mjindex",
+      "variant": "portfolio",
+      "parentPath": "/content/dam/mjco/portfolio",
+      "detailRoot": "/content/mjco/us/en/portfolio",
+      "limit": 6
+    }
+  }
+}

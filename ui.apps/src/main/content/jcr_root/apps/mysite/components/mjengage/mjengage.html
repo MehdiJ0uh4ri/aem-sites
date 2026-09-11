@@ -1,5 +1,8 @@
 <!--/*
-    MJ Engage — the closing section.
+    MJ Engage — the close.
+
+    A full-bleed dark backdrop with the closing line set at display scale over it, and the
+    audience lanes as a rail along the foot. No filled buttons, no form, no urgency.
 
     Each lane names its audience in a heading, so the three links ("Get in touch" three
     times over) are distinguishable to anyone listing the page's links: the accessible name
@@ -7,10 +10,25 @@
 */-->
 <sly data-sly-use.engage="com.mysite.core.models.MjEngage"/>
 
-<section class="cmp-mjengage"
+<section class="cmp-mjengage cmp-mjengage--${engage.fileReference ? 'backdrop' : 'plain'}"
          data-sly-test.hasContent="${!engage.empty}"
          id="${engage.id}"
          data-cmp-data-layer="${engage.data.json}">
+
+    <div class="cmp-mjengage__stage" data-sly-test="${engage.fileReference}">
+        <img class="cmp-mjengage__img"
+             src="${engage.fileReference}"
+             alt="${engage.alt}"
+             loading="lazy"
+             decoding="async"
+             data-sly-test="${engage.alt}"/>
+        <img class="cmp-mjengage__img"
+             src="${engage.fileReference}"
+             alt=""
+             loading="lazy"
+             decoding="async"
+             data-sly-test="${!engage.alt}"/>
+    </div>
 
     <div class="cmp-mjengage__inner">
         <div class="cmp-mjengage__claim" data-cmp-reveal>

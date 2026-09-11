@@ -7,11 +7,11 @@
         jcr:primaryType="dam:AssetContent">
         <metadata
             jcr:primaryType="nt:unstructured"
-            dc:title="Placeholder - Verity Labs case study"
+            dc:title="Placeholder - case-verity-labs"
             dc:format="image/jpeg"
             dc:description="Generated placeholder. Abstract architectural composition in the MJ palette - not photography, and not to be published as though it were."
             dam:MIMEtype="image/jpeg"
-            dam:size="{Long}26060"
+            dam:size="{Long}30218"
             tiff:ImageWidth="{Long}1920"
             tiff:ImageLength="{Long}1080"/>
     </jcr:content>

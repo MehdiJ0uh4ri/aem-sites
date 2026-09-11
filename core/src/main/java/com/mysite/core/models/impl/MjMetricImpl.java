@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.resource.Resource;
 
 import com.adobe.cq.dam.cfm.ContentFragment;
 import com.mysite.core.models.MjMetric;
@@ -31,18 +32,20 @@ class MjMetricImpl implements MjMetric {
     private final String asOf;
     private final List<String> series;
     private final String sparkline;
+    private final String sparklineArea;
 
-    MjMetricImpl(ContentFragment fragment) {
-        this.label = FragmentReader.text(fragment, "metric", "label", "title");
-        this.value = FragmentReader.text(fragment, "value");
-        this.unit = FragmentReader.text(fragment, "unit");
-        this.trend = normaliseTrend(FragmentReader.text(fragment, "trend"));
-        this.change = FragmentReader.text(fragment, "change");
-        this.commentary = FragmentReader.text(fragment, "commentary");
-        this.source = FragmentReader.text(fragment, "source");
-        this.asOf = FragmentReader.date(fragment, "date", "asOf");
-        this.series = parseSeries(FragmentReader.text(fragment, "series"));
+    MjMetricImpl(ContentFragment fragment, Resource resource) {
+        this.label = FragmentReader.text(fragment, resource, "metric", "label", "title");
+        this.value = FragmentReader.text(fragment, resource, "value");
+        this.unit = FragmentReader.text(fragment, resource, "unit");
+        this.trend = normaliseTrend(FragmentReader.text(fragment, resource, "trend"));
+        this.change = FragmentReader.text(fragment, resource, "change");
+        this.commentary = FragmentReader.text(fragment, resource, "commentary");
+        this.source = FragmentReader.text(fragment, resource, "source");
+        this.asOf = FragmentReader.date(fragment, resource, "date", "asOf");
+        this.series = parseSeries(FragmentReader.text(fragment, resource, "series"));
         this.sparkline = plot(this.series);
+        this.sparklineArea = close(this.sparkline);
     }
 
     boolean hasContent() {
@@ -154,9 +157,31 @@ class MjMetricImpl implements MjMetric {
         return asOf;
     }
 
+    /**
+     * Closes the line down to the baseline so it can be filled.
+     *
+     * <p>Derived from the line rather than plotted again: two independent passes over the
+     * same series would be two chances for the fill and the stroke to disagree.</p>
+     *
+     * @param points the polyline points, or {@code null}
+     * @return polygon points, or {@code null}
+     */
+    private static String close(String points) {
+        if (points == null) {
+            return null;
+        }
+        return String.format(Locale.ROOT, "0.00,%.2f %s %.2f,%.2f",
+                VIEW_HEIGHT, points, VIEW_WIDTH, VIEW_HEIGHT);
+    }
+
     @Override
     public String getSparkline() {
         return sparkline;
+    }
+
+    @Override
+    public String getSparklineArea() {
+        return sparklineArea;
     }
 
     @Override

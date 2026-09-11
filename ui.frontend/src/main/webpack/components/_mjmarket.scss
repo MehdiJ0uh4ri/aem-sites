@@ -1,12 +1,15 @@
 //== MJ Market Band.
 //
-// Editorial data, not a dashboard: each metric is a short column with the figure at
-// display size, a sparkline reduced to a hairline, and a sentence of commentary that is
-// the actual content. The chrome a dashboard would add — axes, gridlines, legends, boxes —
-// is all absent on purpose.
+// Weighted, not gridded. The first metric is the lead: display-scale figure beside a
+// filled area chart running the width of the band. The rest follow underneath as a row of
+// hairlines. Giving every figure equal size is what turns a market view into a dashboard,
+// so the hierarchy here is the whole idea.
+//
+// The chrome a dashboard would add — axes, gridlines, legends, boxes — is absent on
+// purpose. The commentary under each figure is the content; the chart is the illustration.
 
 .cmp-mjmarket {
-    @include mj-section($mj-ink, $mj-ink-text);
+    @include mj-section($mj-paper);
 
     &__head {
         @include mj-container;
@@ -14,11 +17,11 @@
         display: grid;
         gap: 1rem;
         grid-template-columns: repeat(12, 1fr);
-        margin-bottom: clamp(3rem, 5vw, 5rem);
+        margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
     }
 
     &__eyebrow {
-        @include mj-eyebrow($mj-bronze);
+        @include mj-eyebrow($mj-bronze-deep);
 
         grid-column: 1 / -1;
     }
@@ -26,59 +29,61 @@
     &__heading {
         @include mj-heading;
 
-        color: $mj-ink-text;
-        grid-column: 1 / span 6;
+        grid-column: 1 / span 7;
     }
 
     &__intro {
-        @include mj-body($mj-ink-muted);
+        @include mj-body;
 
         align-self: end;
-        grid-column: 8 / -1;
+        grid-column: 9 / -1;
     }
 
     &__grid {
         @include mj-container;
 
         display: grid;
-        gap: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 3rem);
-        grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
+        gap: clamp(2rem, 3.5vw, 3rem) clamp(1.5rem, 3vw, 3rem);
+        // auto-fit rather than a fixed three: an author pointing the band at a single
+        // fragment (or at a folder holding two) otherwise gets one figure stranded beside
+        // two empty columns.
+        grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
     }
 
     &__metric {
-        border-top: 1px solid $mj-ink-rule;
-        padding-top: 1.5rem;
+        border-top: 1px solid $mj-rule;
+        padding-top: 1.25rem;
     }
 
     &__label {
-        @include mj-meta($mj-ink-muted);
+        @include mj-meta($mj-muted);
     }
 
     &__figure {
-        @include mj-display(2.25rem, 3.5rem);
+        @include mj-display(2rem, 3rem);
 
         align-items: baseline;
-        color: $mj-ink-text;
+        color: $mj-ink;
         display: flex;
         gap: 0.15em;
-        margin: 1rem 0 0;
+        margin: 0.75rem 0 0;
     }
 
     &__unit {
+        color: $mj-muted;
         font-family: $mj-sans;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         font-weight: 500;
         letter-spacing: 0.06em;
-        color: $mj-ink-muted;
     }
 
     &__change {
-        @include mj-meta($mj-ink-muted);
+        @include mj-meta($mj-muted);
 
         align-items: center;
         display: flex;
         gap: 0.5rem;
-        margin-top: 0.75rem;
+        margin-top: 0.6rem;
     }
 
     &__sr {
@@ -86,7 +91,7 @@
     }
 
     // The glyph is drawn in CSS so nothing has to load for it, and it is aria-hidden in
-    // the markup — the direction is also spelled out in text next to it.
+    // the markup — the direction is spelled out in text beside it.
     &__glyph {
         border: 4px solid transparent;
         display: inline-block;
@@ -96,60 +101,125 @@
 
     &__spark {
         display: block;
-        height: 2.25rem;
-        margin-top: 1.25rem;
+        height: 2rem;
+        margin-top: 1rem;
         width: 100%;
 
-        polyline {
-            stroke: $mj-ink-rule;
+        .cmp-mjmarket__line {
+            stroke: $mj-rule;
             stroke-width: 1.25;
             stroke-linecap: round;
             stroke-linejoin: round;
         }
+
+        // Transparent everywhere but the lead, so one markup shape serves both.
+        .cmp-mjmarket__area {
+            fill: none;
+        }
     }
 
     &__commentary {
-        @include mj-body($mj-ink-muted);
+        @include mj-body($mj-muted);
 
-        font-size: 0.9375rem;
-        margin-top: 1.25rem;
+        font-size: 0.9rem;
+        margin-top: 1rem;
     }
 
     &__source {
-        @include mj-meta($mj-ink-muted);
+        @include mj-meta($mj-muted);
 
         font-size: 0.625rem;
         letter-spacing: 0.06em;
-        margin-top: 1rem;
+        margin-top: 0.75rem;
         opacity: 0.7;
         text-transform: none;
     }
 
+    //-- The lead. Full width, figure left, area chart right.
+    //
+    // :not(:only-child) because the lead treatment is a hierarchy, and hierarchy needs
+    // something to rank above. A band showing one metric renders it as a metric, not as a
+    // lead with a display-scale figure and a fourteen-rem chart over empty space.
+    &__metric:first-child:not(:only-child) {
+        border-top: 0;
+        border-bottom: 1px solid $mj-rule;
+        grid-column: 1 / -1;
+        display: grid;
+        gap: clamp(1.5rem, 4vw, 4rem);
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+        padding-bottom: clamp(2rem, 4vw, 3.5rem);
+        margin-bottom: clamp(1rem, 2vw, 2rem);
+
+        .cmp-mjmarket__figure {
+            @include mj-display(3.5rem, 7.5rem);
+        }
+
+        .cmp-mjmarket__unit {
+            font-size: 1.05rem;
+        }
+
+        .cmp-mjmarket__spark {
+            align-self: center;
+            grid-column: 2;
+            grid-row: 1 / span 6;
+            height: clamp(8rem, 16vw, 14rem);
+            margin-top: 0;
+        }
+
+        .cmp-mjmarket__area {
+            fill: rgba(138, 106, 62, 0.16);
+        }
+
+        .cmp-mjmarket__line {
+            stroke: $mj-bronze;
+            stroke-width: 1.75;
+        }
+
+        .cmp-mjmarket__commentary {
+            font-size: 1.0625rem;
+            max-width: 42ch;
+        }
+    }
+
     //-- Direction. Colour is never the only carrier: the glyph points, and the word is in
     //   the markup for anyone who reads neither.
-    &__metric--up {
-        .cmp-mjmarket__glyph {
-            border-bottom-color: $mj-bronze;
-            border-top-width: 0;
-        }
-
-        .cmp-mjmarket__spark polyline {
-            stroke: $mj-bronze;
-        }
+    &__metric--up .cmp-mjmarket__glyph {
+        border-bottom-color: $mj-bronze-deep;
+        border-top-width: 0;
     }
 
-    &__metric--down {
-        .cmp-mjmarket__glyph {
-            border-top-color: $mj-ink-muted;
-            border-bottom-width: 0;
-        }
+    &__metric--down .cmp-mjmarket__glyph {
+        border-top-color: $mj-muted;
+        border-bottom-width: 0;
     }
 
-    &__metric--flat {
-        .cmp-mjmarket__glyph {
-            border: 0;
-            border-top: 1px solid $mj-ink-muted;
-            width: 0.6rem;
+    &__metric--flat .cmp-mjmarket__glyph {
+        border: 0;
+        border-top: 1px solid $mj-muted;
+        width: 0.6rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .cmp-mjmarket {
+        &__heading,
+        &__intro {
+            grid-column: 1 / -1;
+        }
+
+        &__grid {
+            grid-template-columns: 1fr;
+        }
+
+        &__metric:first-child {
+            grid-template-columns: 1fr;
+
+            .cmp-mjmarket__spark {
+                grid-column: 1;
+                grid-row: auto;
+                height: 8rem;
+                margin-top: 1rem;
+            }
         }
     }
 }

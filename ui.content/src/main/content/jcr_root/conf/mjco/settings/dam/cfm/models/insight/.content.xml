@@ -2,10 +2,10 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
     jcr:primaryType="cq:Template">
     <jcr:content
-        jcr:primaryType="nt:unstructured"
+        jcr:primaryType="cq:PageContent"
         jcr:title="Insight"
         jcr:description="A published piece of writing. The unit of the firm's public thinking: everything else on the site links to one."
-        sling:resourceType="dam/cfm/models/console/components/data/entity"
+        sling:resourceType="dam/cfm/models/console/components/data/entity/default"
         status="enabled">
         <model
             jcr:primaryType="nt:unstructured"
@@ -13,96 +13,110 @@
             <cq:dialog
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="granite/ui/components/coral/foundation/container">
-                <items jcr:primaryType="nt:unstructured">
-                    <title
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                        fieldLabel="Title"
-                        name="title"
-                        valueType="string"
-                        metaType="text-single"
-                        listOrder="{Long}1"
-                        required="{Boolean}true"/>
-                    <slug
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                        fieldLabel="Slug"
-                        name="slug"
-                        valueType="string"
-                        metaType="text-single"
-                        listOrder="{Long}2"
-                        fieldDescription="URL segment for the detail page. Defaults to the fragment name when empty."/>
-                    <category
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                        fieldLabel="Category"
-                        name="category"
-                        valueType="string"
-                        metaType="text-single"
-                        listOrder="{Long}3"
-                        fieldDescription="One word, e.g. Markets, Infrastructure, Health."/>
-                    <author
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                        fieldLabel="Author"
-                        name="author"
-                        valueType="string"
-                        metaType="text-single"
-                        listOrder="{Long}4"/>
-                    <publicationDate
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/datepicker"
-                        fieldLabel="Publication date"
-                        name="publicationDate"
-                        valueType="string"
-                        metaType="date-time"
-                        listOrder="{Long}5"
-                        fieldDescription="Drives the ordering of every index this appears in."/>
-                    <heroImage
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
-                        fieldLabel="Hero image"
-                        name="heroImage"
-                        valueType="string"
-                        metaType="content-reference"
-                        listOrder="{Long}6"
-                        fieldDescription="Wide crop, 16:9 or wider."/>
-                    <summary
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
-                        fieldLabel="Summary"
-                        name="summary"
-                        valueType="string"
-                        metaType="text-multi"
-                        listOrder="{Long}7"
-                        fieldDescription="The standfirst. Two sentences at most - it is set at display size on the homepage."/>
-                    <body
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
-                        fieldLabel="Body"
-                        name="body"
-                        valueType="string"
-                        metaType="text-multi"
-                        listOrder="{Long}8"/>
-                    <tags
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="cq/gui/components/coral/common/form/tagfield"
-                        fieldLabel="Tags"
-                        name="tags"
-                        valueType="string"
-                        metaType="tags"
-                        listOrder="{Long}9"
-                        fieldDescription="Sector and theme taxonomy. Drives related content."/>
-                    <relatedContent
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
-                        fieldLabel="Related content"
-                        name="relatedContent"
-                        valueType="string[]"
-                        metaType="fragment-reference"
-                        listOrder="{Long}10"
-                        multiple="{Boolean}true"/>
-                </items>
+                <content
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/container">
+                    <items jcr:primaryType="nt:unstructured">
+                        <title
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Title"
+                            name="title"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}1"
+                            required="{Boolean}true"/>
+                        <slug
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Slug"
+                            name="slug"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}2"
+                            fieldDescription="URL segment for the detail page. Defaults to the fragment name when empty."/>
+                        <category
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Category"
+                            name="category"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}3"
+                            fieldDescription="One word, e.g. Markets, Infrastructure, Health."/>
+                        <author
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Author"
+                            name="author"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}4"/>
+                        <publicationDate
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/datepicker"
+                            fieldLabel="Publication date"
+                            name="publicationDate"
+                            valueType="calendar/datetime"
+                            metaType="date-time"
+                            renderType="datepicker"
+                            listOrder="{Long}5"
+                            fieldDescription="Drives the ordering of every index this appears in."/>
+                        <heroImage
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Hero image"
+                            name="heroImage"
+                            valueType="string/reference"
+                            metaType="reference"
+                            renderType="text"
+                            listOrder="{Long}6"
+                            fieldDescription="Wide crop, 16:9 or wider."/>
+                        <summary
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Summary"
+                            name="summary"
+                            valueType="string/multiline"
+                            metaType="text-multi"
+                            renderType="text"
+                            listOrder="{Long}7"
+                            fieldDescription="The standfirst. Two sentences at most - it is set at display size on the homepage."/>
+                        <body
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Body"
+                            name="body"
+                            valueType="string/multiline"
+                            metaType="text-multi"
+                            renderType="text"
+                            listOrder="{Long}8"/>
+                        <tags
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Tags"
+                            name="tags"
+                            valueType="string/tags[]"
+                            metaType="tags"
+                            renderType="text"
+                            listOrder="{Long}9"
+                            fieldDescription="Sector and theme taxonomy. Drives related content."/>
+                        <relatedContent
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Related content"
+                            name="relatedContent"
+                            valueType="string/content-fragment[]"
+                            metaType="fragment-reference"
+                            renderType="text"
+                            listOrder="{Long}10"
+                            multiple="{Boolean}true"/>
+                    </items>
+                </content>
             </cq:dialog>
         </model>
     </jcr:content>

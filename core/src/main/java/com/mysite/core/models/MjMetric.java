@@ -37,6 +37,13 @@ public interface MjMetric {
     /** @return the sparkline points as an SVG {@code polyline} value, or {@code null} */
     String getSparkline();
 
+    /**
+     * @return the same series closed down to the baseline as an SVG {@code polygon}, so
+     *         the lead metric can be set as a filled area rather than a hairline, or
+     *         {@code null}
+     */
+    String getSparklineArea();
+
     /** @return the raw series behind the sparkline, exposed as the accessible table */
     List<String> getSeries();
 }

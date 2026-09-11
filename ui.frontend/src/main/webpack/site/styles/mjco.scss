@@ -12,20 +12,18 @@ body:has(#{$mj-sections}) {
     background: $mj-paper;
     color: $mj-ink;
     font-family: $mj-sans;
+    // The masthead is absolutely positioned over the hero on cinematic pages, so the page
+    // needs to be its containing block.
+    position: relative;
 
-    // The archetype pads and constrains main.container for its own layout. MJ sections
-    // are full-bleed and hold their own measure, so the wrapper gets out of the way.
-    main.container {
-        margin: 0;
-        max-width: none;
-        padding: 0;
-    }
-
-    // The MJ sections butt directly against each other — the change of ground is the
-    // section break, so no rule or margin is needed between them.
-    .aem-Grid > .aem-GridColumn {
-        margin: 0;
-    }
+    // Nothing is reset on the AEM grid here on purpose.
+    //
+    // Two rules used to live at this point: one targeting main.container, which this
+    // page's DOM does not contain (Core Page v3 renders div.root.container), and one
+    // zeroing the margin on every .aem-GridColumn. The first was dead. The second reached
+    // across the whole responsive grid to remove margins the grid does not set anyway —
+    // and would have silently cancelled any offset an author applied to a column. The MJ
+    // sections carry their own block rhythm, so neither is needed.
 }
 
 // Selection and focus carry the accent, which is the only place the bronze appears
@@ -54,6 +52,26 @@ body:has(#{$mj-sections}) [id="main-content"]:focus {
 // Landmark semantics: Core Container renders a <div>, so the masthead and footer are not
 // yet <header>/<footer> elements. That is a Style System style with cq:styleElement on the
 // container policy, not a stylesheet change — see the notes with this work.
+
+// The masthead floats over the cinematic hero rather than pushing it down the page: the
+// opening frame should start at the top of the viewport, not below a bar. It picks up its
+// paper ground again as soon as it sticks.
+body:has(.cmp-mjhero--cinematic) #mjco-masthead {
+    background: transparent;
+    border-bottom-color: transparent;
+    position: absolute;
+    inset: 0 0 auto;
+    mix-blend-mode: difference;
+
+    #mjco-wordmark a,
+    .cmp-navigation__item-link {
+        color: #fff;
+    }
+
+    .cmp-navigation__item--active > .cmp-navigation__item-link {
+        box-shadow: 0 1px 0 0 #fff;
+    }
+}
 
 #mjco-masthead {
     align-items: baseline;

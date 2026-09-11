@@ -1,55 +1,20 @@
-//== MJ Feature.
+//== MJ Feature — two variants, two genuinely different compositions.
 //
-// A magazine opener: the image breaks out past the copy column rather than sitting beside
-// it in a matched pair, and the copy overlaps the image's lower edge. The overlap is what
-// stops this reading as a card.
+//   insight    the image breaks the container and runs off the right edge of the viewport;
+//              the headline crosses onto it from the left, overlapping the crop.
+//   casestudy  full-bleed and immersive; the story is set into the lower left of the frame.
+//
+// Sharing a stylesheet is fine. Sharing a layout is what made the first version of this
+// page read as a template, so the two branches below have almost nothing in common.
 
 .cmp-mjfeature {
-    @include mj-section($mj-paper);
+    @include mj-border-box;
+
+    font-family: $mj-sans;
+    position: relative;
 
     &__eyebrow {
         @include mj-eyebrow($mj-bronze-deep);
-        @include mj-container;
-
-        margin-bottom: clamp(2rem, 4vw, 3.5rem);
-    }
-
-    &__inner {
-        @include mj-container;
-
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-    }
-
-    &__art {
-        grid-column: 1 / span 9;
-        grid-row: 1;
-        margin: 0;
-        overflow: hidden;
-    }
-
-    &__img {
-        @include mj-crop(16 / 9);
-
-        transform: scale(1.05);
-        transition: transform 1.4s $mj-ease;
-    }
-
-    &__art.is-revealed &__img {
-        transform: none;
-    }
-
-    &__copy {
-        align-self: end;
-        background: $mj-paper;
-        grid-column: 7 / -1;
-        grid-row: 1;
-        // The negative margin is the overlap. It is a fraction of the section padding so
-        // it scales with the rest of the rhythm.
-        margin-bottom: clamp(-4rem, -4vw, -1rem);
-        padding: clamp(1.5rem, 3vw, 3rem) 0 0 clamp(1.5rem, 3vw, 3rem);
-        position: relative;
-        z-index: 1;
     }
 
     &__meta {
@@ -65,64 +30,207 @@
         color: $mj-bronze-deep;
     }
 
-    &__title {
-        @include mj-heading(1.75rem, 3rem);
-
-        margin-bottom: 1.25rem;
-    }
-
     &__standfirst {
         @include mj-body;
-
-        margin-bottom: 1.5rem;
-    }
-
-    &__outcome {
-        @include mj-body($mj-ink);
-
-        border-left: 2px solid $mj-bronze;
-        margin-bottom: 1.5rem;
-        padding-left: 1.25rem;
-    }
-
-    &__outcome-label {
-        @include mj-eyebrow($mj-bronze-deep);
-
-        display: block;
-        margin-bottom: 0.5rem;
     }
 
     &__cta {
         @include mj-cta;
     }
 
-    // Case studies are the darker of the two variants: the story is the point, so the
-    // section drops to ink and lets the image be the only light in it.
+    &__img {
+        display: block;
+        height: 100%;
+        object-fit: cover;
+        width: 100%;
+    }
+
+    // ------------------------------------------------------------ insight
+
+    &--insight {
+        background: $mj-paper;
+        color: $mj-ink;
+        overflow: hidden;
+        padding: $mj-section 0;
+
+        .cmp-mjfeature__eyebrow {
+            @include mj-container;
+
+            margin-bottom: clamp(2rem, 4vw, 3.5rem);
+            padding-inline: $mj-gutter;
+        }
+
+        // A plain 12-column grid across the full width of the section. The section has no
+        // inline padding, so column 12 ends at the viewport edge and the art bleeds off it
+        // by simply spanning to -1 — no negative margin involved.
+        //
+        // The previous version used margin-right: calc(50% - 50vw) on the art. Percentage
+        // margins resolve against the grid *area*, not the container, so the art was
+        // thrown off to the right and most of it left the screen.
+        .cmp-mjfeature__inner {
+            align-items: center;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+        }
+
+        .cmp-mjfeature__art {
+            grid-column: 6 / -1;
+            grid-row: 1;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .cmp-mjfeature__img {
+            // Square rather than 4:5. Across half a wide viewport a portrait crop is over
+            // a thousand pixels tall and the copy floats in the middle of a dead field.
+            aspect-ratio: 1 / 1;
+            height: auto;
+            transform: scale(1.06);
+            transition: transform 1.6s $mj-ease;
+        }
+
+        .cmp-mjfeature__art.is-revealed .cmp-mjfeature__img {
+            transform: none;
+        }
+
+        // Ends one column *inside* the art, so the two overlap by design.
+        .cmp-mjfeature__copy {
+            grid-column: 1 / 7;
+            grid-row: 1;
+            padding-left: $mj-gutter;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cmp-mjfeature__title {
+            @include mj-heading(2rem, 4.25rem);
+
+            margin-bottom: 1.5rem;
+            // Runs past its column and crosses onto the photograph.
+            width: 118%;
+        }
+
+        .cmp-mjfeature__standfirst {
+            margin-bottom: 1.5rem;
+            max-width: 38ch;
+        }
+
+        // An insight has one beat, so the wrapper is not a layout.
+        .cmp-mjfeature__beats {
+            display: block;
+        }
+
+        .cmp-mjfeature__beat-label {
+            display: none;
+        }
+    }
+
+    // ---------------------------------------------------------- case study
+
     &--casestudy {
         background: $mj-ink;
         color: $mj-ink-text;
+        display: grid;
+        align-items: end;
+        min-height: 92svh;
+        isolation: isolate;
+        padding: clamp(3rem, 8vw, 7rem) $mj-gutter;
 
-        .cmp-mjfeature__eyebrow,
-        .cmp-mjfeature__kicker,
-        .cmp-mjfeature__outcome-label {
+        .cmp-mjfeature__art {
+            grid-area: 1 / 1;
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            // The photograph is the section.
+            margin-inline: calc(#{$mj-gutter} * -1);
+            width: calc(100% + #{$mj-gutter} * 2);
+        }
+
+        .cmp-mjfeature__img {
+            transform: scale(1.05);
+            transition: transform 2s $mj-ease;
+        }
+
+        .cmp-mjfeature__art.is-revealed .cmp-mjfeature__img {
+            transform: none;
+        }
+
+        // A scrim only under the copy, gradiented out well before the top of the frame,
+        // so the image keeps its range everywhere the text is not.
+        &::after {
+            background: linear-gradient(0deg,
+                rgba(20, 20, 15, 0.92) 0%,
+                rgba(20, 20, 15, 0.72) 34%,
+                rgba(20, 20, 15, 0) 68%);
+            content: "";
+            grid-area: 1 / 1;
+            margin-inline: calc(#{$mj-gutter} * -1);
+            width: calc(100% + #{$mj-gutter} * 2);
+        }
+
+        .cmp-mjfeature__eyebrow {
             color: $mj-bronze;
+            grid-area: 1 / 1;
+            align-self: start;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cmp-mjfeature__inner {
+            @include mj-container;
+
+            display: grid;
+            grid-area: 1 / 1;
+            align-self: end;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cmp-mjfeature__copy {
+            max-width: 52ch;
         }
 
         .cmp-mjfeature__meta {
             color: $mj-ink-muted;
         }
 
-        .cmp-mjfeature__copy {
-            background: $mj-ink;
+        .cmp-mjfeature__title {
+            @include mj-heading(1.875rem, 3.5rem);
+
+            color: $mj-ink-text;
+            margin-bottom: 1.5rem;
         }
 
-        .cmp-mjfeature__title,
+        // The two beats. Challenge and outcome are set as a pair of ruled columns so the
+        // story reads as a before and an after rather than as one paragraph.
+        .cmp-mjfeature__standfirst,
         .cmp-mjfeature__outcome {
-            color: $mj-ink-text;
+            border-top: 1px solid $mj-ink-rule;
+            font-size: 0.9375rem;
+            margin: 0;
+            padding-top: 1rem;
         }
 
         .cmp-mjfeature__standfirst {
             color: $mj-ink-muted;
+        }
+
+        .cmp-mjfeature__outcome {
+            color: $mj-ink-text;
+        }
+
+        .cmp-mjfeature__beats {
+            display: grid;
+            gap: clamp(1.25rem, 3vw, 2.5rem);
+            grid-template-columns: 1fr 1fr;
+            margin-bottom: 2rem;
+        }
+
+        .cmp-mjfeature__beat-label {
+            @include mj-eyebrow($mj-bronze);
+
+            display: block;
+            margin-bottom: 0.5rem;
         }
 
         .cmp-mjfeature__cta {
@@ -133,30 +241,42 @@
                 border-color: $mj-ink-text;
                 color: $mj-ink-text;
             }
-
-            &:focus-visible {
-                outline-color: $mj-bronze;
-            }
         }
     }
 }
 
 @media (max-width: 900px) {
     .cmp-mjfeature {
-        &__art,
-        &__copy {
-            grid-column: 1 / -1;
+        &--insight {
+            .cmp-mjfeature__inner {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding-inline: $mj-gutter;
+            }
+
+            .cmp-mjfeature__art {
+                grid-column: 1;
+                grid-row: 1;
+                margin-right: calc(#{$mj-gutter} * -1);
+            }
+
+            .cmp-mjfeature__copy {
+                grid-column: 1;
+                grid-row: 2;
+            }
+
+            .cmp-mjfeature__title {
+                // Nothing to overlap once the columns collapse.
+                width: 100%;
+            }
+
+            .cmp-mjfeature__img {
+                aspect-ratio: 3 / 2;
+            }
         }
 
-        &__copy {
-            // Stacked, the overlap has nothing to overlap: the copy follows the image.
-            grid-row: 2;
-            margin-bottom: 0;
-            padding-left: 0;
-        }
-
-        &__img {
-            aspect-ratio: 3 / 2;
+        &--casestudy .cmp-mjfeature__beats {
+            grid-template-columns: 1fr;
         }
     }
 }

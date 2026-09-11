@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:template="/conf/mjco/settings/wcm/templates/mjco-section"
+        jcr:primaryType="cq:PageContent"
+        navTitle="Case Studies"
+        jcr:title="Case Studies"
+        pageTitle="Case Studies | MJ &amp; Company"
+        sling:resourceType="mysite/components/page">
+        <root
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="mysite/components/container"
+            layout="responsiveGrid">
+            <sections
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/container"
+                layout="responsiveGrid">
+                <opener
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/mjhero"
+                    eyebrow="Case studies"
+                    lineOne="What we believed,"
+                    lineTwo="and what happened."/>
+            </sections>
+        </root>
+    </jcr:content>
+</jcr:root>

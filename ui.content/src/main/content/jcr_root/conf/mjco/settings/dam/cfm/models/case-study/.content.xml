@@ -2,10 +2,10 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
     jcr:primaryType="cq:Template">
     <jcr:content
-        jcr:primaryType="nt:unstructured"
+        jcr:primaryType="cq:PageContent"
         jcr:title="Case Study"
         jcr:description="The long form of an investment: what was believed, what was done, what happened."
-        sling:resourceType="dam/cfm/models/console/components/data/entity"
+        sling:resourceType="dam/cfm/models/console/components/data/entity/default"
         status="enabled">
         <model
             jcr:primaryType="nt:unstructured"
@@ -13,93 +13,107 @@
             <cq:dialog
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="granite/ui/components/coral/foundation/container">
-                <items jcr:primaryType="nt:unstructured">
-                    <title
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                        fieldLabel="Title"
-                        name="title"
-                        valueType="string"
-                        metaType="text-single"
-                        listOrder="{Long}1"
-                        required="{Boolean}true"/>
-                    <slug
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                        fieldLabel="Slug"
-                        name="slug"
-                        valueType="string"
-                        metaType="text-single"
-                        listOrder="{Long}2"/>
-                    <company
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                        fieldLabel="Company"
-                        name="company"
-                        valueType="string"
-                        metaType="text-single"
-                        listOrder="{Long}3"/>
-                    <investmentYear
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                        fieldLabel="Investment year"
-                        name="investmentYear"
-                        valueType="string"
-                        metaType="text-single"
-                        listOrder="{Long}4"/>
-                    <challenge
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
-                        fieldLabel="Challenge"
-                        name="challenge"
-                        valueType="string"
-                        metaType="text-multi"
-                        listOrder="{Long}5"
-                        fieldDescription="The situation the company was in."/>
-                    <investmentThesis
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
-                        fieldLabel="Investment thesis"
-                        name="investmentThesis"
-                        valueType="string"
-                        metaType="text-multi"
-                        listOrder="{Long}6"
-                        fieldDescription="What the firm believed that others did not."/>
-                    <story
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
-                        fieldLabel="Story"
-                        name="story"
-                        valueType="string"
-                        metaType="text-multi"
-                        listOrder="{Long}7"/>
-                    <outcome
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
-                        fieldLabel="Outcome"
-                        name="outcome"
-                        valueType="string"
-                        metaType="text-multi"
-                        listOrder="{Long}8"
-                        fieldDescription="Stated without embellishment. Where an outcome is not yet known, say so."/>
-                    <heroImage
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
-                        fieldLabel="Hero image"
-                        name="heroImage"
-                        valueType="string"
-                        metaType="content-reference"
-                        listOrder="{Long}9"/>
-                    <relatedContent
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
-                        fieldLabel="Related content"
-                        name="relatedContent"
-                        valueType="string[]"
-                        metaType="fragment-reference"
-                        listOrder="{Long}10"
-                        multiple="{Boolean}true"/>
-                </items>
+                <content
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/container">
+                    <items jcr:primaryType="nt:unstructured">
+                        <title
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Title"
+                            name="title"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}1"
+                            required="{Boolean}true"/>
+                        <slug
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Slug"
+                            name="slug"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}2"/>
+                        <company
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Company"
+                            name="company"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}3"/>
+                        <investmentYear
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Investment year"
+                            name="investmentYear"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}4"/>
+                        <challenge
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Challenge"
+                            name="challenge"
+                            valueType="string/multiline"
+                            metaType="text-multi"
+                            renderType="text"
+                            listOrder="{Long}5"
+                            fieldDescription="The situation the company was in."/>
+                        <investmentThesis
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Investment thesis"
+                            name="investmentThesis"
+                            valueType="string/multiline"
+                            metaType="text-multi"
+                            renderType="text"
+                            listOrder="{Long}6"
+                            fieldDescription="What the firm believed that others did not."/>
+                        <story
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Story"
+                            name="story"
+                            valueType="string/multiline"
+                            metaType="text-multi"
+                            renderType="text"
+                            listOrder="{Long}7"/>
+                        <outcome
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Outcome"
+                            name="outcome"
+                            valueType="string/multiline"
+                            metaType="text-multi"
+                            renderType="text"
+                            listOrder="{Long}8"
+                            fieldDescription="Stated without embellishment. Where an outcome is not yet known, say so."/>
+                        <heroImage
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Hero image"
+                            name="heroImage"
+                            valueType="string/reference"
+                            metaType="reference"
+                            renderType="text"
+                            listOrder="{Long}9"/>
+                        <relatedContent
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Related content"
+                            name="relatedContent"
+                            valueType="string/content-fragment[]"
+                            metaType="fragment-reference"
+                            renderType="text"
+                            listOrder="{Long}10"
+                            multiple="{Boolean}true"/>
+                    </items>
+                </content>
             </cq:dialog>
         </model>
     </jcr:content>

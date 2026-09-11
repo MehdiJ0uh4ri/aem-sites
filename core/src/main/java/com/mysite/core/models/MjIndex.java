@@ -34,6 +34,14 @@ public interface MjIndex extends Component {
 
     List<MjIndexItem> getItems();
 
+    /**
+     * @return DAM path of the image held beside the list, or {@code null}. The deals
+     *         variant pins it as a full-height column while the ledger scrolls past it.
+     */
+    String getFileReference();
+
+    String getAlt();
+
     String getCtaText();
 
     /** @return resolved href for the "see all" link, or {@code null} */

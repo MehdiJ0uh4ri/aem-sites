@@ -22,6 +22,8 @@ import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.models.datalayer.ComponentData;
 import com.adobe.cq.wcm.core.components.models.datalayer.builder.DataLayerBuilder;
 import com.adobe.cq.wcm.core.components.util.AbstractComponentImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.mysite.core.models.MjMarket;
 import com.mysite.core.models.MjMetric;
 
@@ -31,6 +33,8 @@ import com.mysite.core.models.MjMetric;
        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public class MjMarketImpl extends AbstractComponentImpl implements MjMarket {
+
+    private static final Logger LOG = LoggerFactory.getLogger(MjMarketImpl.class);
 
     public static final String RESOURCE_TYPE = "mysite/components/mjmarket";
 
@@ -62,19 +66,40 @@ public class MjMarketImpl extends AbstractComponentImpl implements MjMarket {
     @PostConstruct
     private void init() {
         metrics = Collections.emptyList();
-        Resource folder = StringUtils.isBlank(parentPath) ? null : resourceResolver.getResource(parentPath);
+        if (StringUtils.isBlank(parentPath)) {
+            // Unconfigured is not an error: a freshly dropped component has no folder yet.
+            return;
+        }
+        Resource folder = resourceResolver.getResource(parentPath);
         if (folder == null) {
+            LOG.warn("Market band at {} points at {}, which does not resolve. Check the path "
+                    + "and that the fragments are readable by this session.",
+                    getResourcePath(), parentPath);
             return;
         }
         int max = Math.min(limit == null || limit <= 0 ? DEFAULT_LIMIT : limit, MAX_LIMIT);
 
         List<MjMetric> collected = new ArrayList<>();
+
+        // An author pointing at one fragment rather than the folder around it is a
+        // reasonable reading of "Metric folder", and the band renders perfectly well with
+        // a single figure. Accepting it costs three lines and removes a dead end that
+        // otherwise renders as nothing at all.
+        if (FragmentReader.isFragment(folder)) {
+            MjMetricImpl metric = new MjMetricImpl(FragmentReader.of(folder), folder);
+            if (metric.hasContent()) {
+                collected.add(metric);
+            }
+            metrics = Collections.unmodifiableList(collected);
+            return;
+        }
+
         for (Resource child : folder.getChildren()) {
-            ContentFragment fragment = child.adaptTo(ContentFragment.class);
-            if (fragment == null) {
+            if (!FragmentReader.isFragment(child)) {
+                // Folders, images, renditions and anything else that is not a fragment.
                 continue;
             }
-            MjMetricImpl metric = new MjMetricImpl(fragment);
+            MjMetricImpl metric = new MjMetricImpl(FragmentReader.of(child), child);
             if (metric.hasContent()) {
                 collected.add(metric);
             }
@@ -83,6 +108,21 @@ public class MjMarketImpl extends AbstractComponentImpl implements MjMarket {
             }
         }
         metrics = Collections.unmodifiableList(collected);
+
+        if (collected.isEmpty()) {
+            // The distinction that matters when debugging: a folder with no fragments in
+            // it, versus fragments whose fields could not be read.
+            LOG.warn("Market band at {} resolved {} but produced no metrics. Either the "
+                    + "folder holds no content fragments, or the fragments carry no 'metric' "
+                    + "and 'value' fields. Pointing this component at a single fragment "
+                    + "instead of the folder that contains it has the same effect.",
+                    getResourcePath(), parentPath);
+        }
+    }
+
+    /** @return this component's own path, for log lines that have to be actionable */
+    private String getResourcePath() {
+        return getId();
     }
 
     @Override

@@ -1,91 +1,159 @@
 //== MJ Investment Signal.
 //
-// The claim takes the left third and the ledger the right two thirds, ruled off from each
-// other. The figures are display serif at a size that competes with the statement — the
-// section is an argument, and both halves have to carry weight.
+// The figures are the image. They are set at display scale and stepped progressively to
+// the right down the column, the last one running past the section's edge — a reader takes
+// the mass before reading any single number. A tall photograph is held at the left,
+// bleeding to the viewport edge, to anchor the stagger against something solid.
 
 .cmp-mjsignal {
-    @include mj-section($mj-ivory);
+    @include mj-section($mj-ink, $mj-ink-text);
 
-    &__inner {
+    overflow: hidden;
+    padding-inline: 0;
+
+    &__body {
         @include mj-container;
 
-        display: grid;
-        gap: clamp(2.5rem, 5vw, 5rem);
-        grid-template-columns: repeat(12, 1fr);
-    }
-
-    &__claim {
-        grid-column: 1 / span 5;
+        padding-inline: $mj-gutter;
     }
 
     &__eyebrow {
-        @include mj-eyebrow($mj-bronze-deep);
+        @include mj-eyebrow($mj-bronze);
 
         margin-bottom: 1.5rem;
     }
 
     &__statement {
-        @include mj-heading(1.5rem, 2.5rem);
+        @include mj-heading(1.5rem, 2.75rem);
+
+        color: $mj-ink-text;
+        max-width: 26ch;
     }
 
     &__ledger {
-        display: grid;
-        gap: 0;
-        grid-column: 7 / -1;
-        margin: 0;
+        margin: clamp(3rem, 6vw, 5rem) 0 0;
     }
 
     &__entry {
         // The <dt> is written first for the accessibility tree; the figure is lifted above
         // it visually with order, which is the whole reason this is a flex column.
-        border-top: 1px solid $mj-rule;
+        border-top: 1px solid $mj-ink-rule;
         display: flex;
         flex-direction: column;
-        padding: clamp(1.25rem, 2vw, 1.75rem) 0;
+        padding: clamp(1rem, 1.6vw, 1.5rem) 0;
 
-        &:last-child {
-            border-bottom: 1px solid $mj-rule;
-        }
+        // The stagger. Each figure starts further right than the one above it, and the
+        // last is allowed to run out of the section — the overflow is the composition,
+        // not an accident, which is why the section clips rather than scrolls.
+        &:nth-child(2) { margin-left: 8%; }
+        &:nth-child(3) { margin-left: 16%; }
+        &:nth-child(4) { margin-left: 24%; }
+        &:nth-child(5) { margin-left: 32%; }
     }
 
     &__value {
-        @include mj-display(2rem, 3.25rem);
+        @include mj-display(2.75rem, 7rem);
 
-        color: $mj-ink;
+        color: $mj-ink-text;
         margin: 0;
         order: -1;
+        white-space: nowrap;
     }
 
     &__label {
-        @include mj-meta($mj-graphite);
+        @include mj-meta($mj-bronze);
 
-        margin-top: 0.75rem;
+        margin-top: 1rem;
     }
 
     &__note {
-        @include mj-body($mj-muted);
+        @include mj-body($mj-ink-muted);
 
         font-size: 0.875rem;
         margin: 0.35rem 0 0;
     }
 
     &__footnote {
-        @include mj-meta;
+        @include mj-meta($mj-ink-muted);
 
         font-size: 0.6875rem;
-        grid-column: 7 / -1;
-        text-transform: none;
         letter-spacing: 0.02em;
+        margin-top: 2.5rem;
+        opacity: 0.75;
+        text-transform: none;
+    }
+
+    //-- With an image column the band becomes a two-part composition.
+    &--columned {
+        display: grid;
+        gap: clamp(2rem, 5vw, 5rem);
+        grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+
+        .cmp-mjsignal__body {
+            padding-right: $mj-gutter;
+            padding-left: 0;
+        }
+    }
+
+    &__column {
+        overflow: hidden;
+        // Bleeds to the left edge of the viewport and runs the full height of the band.
+        height: 100%;
+        min-height: clamp(24rem, 46vw, 40rem);
+    }
+
+    &__img {
+        display: block;
+        height: 100%;
+        object-fit: cover;
+        width: 100%;
+        transform: scale(1.06);
+        transition: transform 1.8s $mj-ease;
+    }
+
+    &__column.is-revealed &__img {
+        transform: none;
+    }
+
+    &--open {
+        padding-inline: $mj-gutter;
+
+        .cmp-mjsignal__body {
+            padding-inline: 0;
+        }
     }
 }
 
 @media (max-width: 900px) {
     .cmp-mjsignal {
-        &__claim,
-        &__ledger,
-        &__footnote {
-            grid-column: 1 / -1;
+        &--columned {
+            grid-template-columns: 1fr;
         }
+
+        // Stacked, the column has to be given a definite height. min-height is a floor,
+        // not a ceiling, so without this the 4:5 crop dictated its own size and rendered
+        // ~940px tall on a tablet — the section grew to 1968px, taller than at desktop.
+        // A bounded height turns the tall crop into a band; the img already crops with
+        // object-fit rather than squashing.
+        &__column {
+            height: clamp(13rem, 46vw, 22rem);
+            min-height: 0;
+        }
+
+        &--columned .cmp-mjsignal__body {
+            padding-inline: $mj-gutter;
+        }
+
+        // Stacked, the stagger has no room to run: the figures return to a flush column.
+        &__entry:nth-child(n) {
+            margin-left: 0;
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cmp-mjsignal__img {
+        transform: none;
+        transition: none;
     }
 }

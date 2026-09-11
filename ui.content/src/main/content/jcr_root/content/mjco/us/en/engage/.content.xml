@@ -4,6 +4,7 @@
     <jcr:content
         cq:template="/conf/mjco/settings/wcm/templates/mjco-section"
         jcr:primaryType="cq:PageContent"
+        navTitle="Engage"
         jcr:title="Engage"
         pageTitle="Engage | MJ &amp; Company"
         jcr:description="How founders, investors and portfolio companies reach MJ &amp; Company."

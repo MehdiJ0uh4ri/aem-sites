@@ -16,5 +16,10 @@ public interface MjEngage extends Component {
 
     List<MjEngageItem> getItems();
 
+    /** @return DAM path of the full-bleed backdrop, or {@code null} */
+    String getFileReference();
+
+    String getAlt();
+
     boolean isEmpty();
 }

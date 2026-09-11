@@ -1,0 +1,29 @@
+{
+  "jcr:primaryType": "sling:Folder",
+  "orlin-bio": {
+    "jcr:primaryType": "dam:Asset",
+    "jcr:content": {
+      "jcr:primaryType": "dam:AssetContent",
+      "contentFragment": true,
+      "jcr:title": "Orlin Bio",
+      "data": {
+        "jcr:primaryType": "nt:unstructured",
+        "cq:model": "/conf/mjco/settings/dam/cfm/models/portfolio-company",
+        "master": {
+          "jcr:primaryType": "nt:unstructured",
+          "companyName": "Orlin Bio",
+          "sector": "Health",
+          "location": "San Diego, CA",
+          "investmentYear": "2024",
+          "status": "Active",
+          "description": "Protein engineering platform.",
+          "featuredImage": "/content/dam/mjco/images/co-orlin-bio.jpg"
+        }
+      }
+    }
+  },
+  "not-a-fragment.jpg": {
+    "jcr:primaryType": "dam:Asset",
+    "jcr:content": { "jcr:primaryType": "dam:AssetContent" }
+  }
+}

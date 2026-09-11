@@ -4,6 +4,7 @@
     <jcr:content
         cq:template="/conf/mjco/settings/wcm/templates/mjco-section"
         jcr:primaryType="cq:PageContent"
+        navTitle="Market Intelligence"
         jcr:title="Market Intelligence"
         pageTitle="Market Intelligence | MJ &amp; Company"
         jcr:description="Quarterly figures MJ &amp; Company tracks, each published with its source and our reading of it."

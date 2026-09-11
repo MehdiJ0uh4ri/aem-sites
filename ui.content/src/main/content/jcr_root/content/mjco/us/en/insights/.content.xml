@@ -4,6 +4,7 @@
     <jcr:content
         cq:template="/conf/mjco/settings/wcm/templates/mjco-section"
         jcr:primaryType="cq:PageContent"
+        navTitle="Insights"
         jcr:title="Insights"
         pageTitle="Insights | MJ &amp; Company"
         jcr:description="Published writing from MJ &amp; Company on markets, infrastructure, health and investment practice."

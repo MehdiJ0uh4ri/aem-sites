@@ -2,10 +2,10 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
     jcr:primaryType="cq:Template">
     <jcr:content
-        jcr:primaryType="nt:unstructured"
+        jcr:primaryType="cq:PageContent"
         jcr:title="Portfolio Company"
         jcr:description="A company the firm has backed. Reused by the portfolio index, deal records and case studies."
-        sling:resourceType="dam/cfm/models/console/components/data/entity"
+        sling:resourceType="dam/cfm/models/console/components/data/entity/default"
         status="enabled">
         <model
             jcr:primaryType="nt:unstructured"
@@ -13,111 +13,127 @@
             <cq:dialog
                 jcr:primaryType="nt:unstructured"
                 sling:resourceType="granite/ui/components/coral/foundation/container">
-                <items jcr:primaryType="nt:unstructured">
-                    <companyName
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                        fieldLabel="Company name"
-                        name="companyName"
-                        valueType="string"
-                        metaType="text-single"
-                        listOrder="{Long}1"
-                        required="{Boolean}true"/>
-                    <slug
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                        fieldLabel="Slug"
-                        name="slug"
-                        valueType="string"
-                        metaType="text-single"
-                        listOrder="{Long}2"/>
-                    <logo
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
-                        fieldLabel="Logo"
-                        name="logo"
-                        valueType="string"
-                        metaType="content-reference"
-                        listOrder="{Long}3"
-                        fieldDescription="SVG preferred."/>
-                    <description
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
-                        fieldLabel="Description"
-                        name="description"
-                        valueType="string"
-                        metaType="text-multi"
-                        listOrder="{Long}4"
-                        fieldDescription="One sentence on what the company does. Written for someone who has never heard of it."/>
-                    <sector
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                        fieldLabel="Sector"
-                        name="sector"
-                        valueType="string"
-                        metaType="text-single"
-                        listOrder="{Long}5"/>
-                    <location
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                        fieldLabel="Location"
-                        name="location"
-                        valueType="string"
-                        metaType="text-single"
-                        listOrder="{Long}6"/>
-                    <investmentYear
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                        fieldLabel="Investment year"
-                        name="investmentYear"
-                        valueType="string"
-                        metaType="text-single"
-                        listOrder="{Long}7"
-                        fieldDescription="Year only, e.g. 2021. Used for ordering."/>
-                    <website
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                        fieldLabel="Website"
-                        name="website"
-                        valueType="string"
-                        metaType="text-single"
-                        listOrder="{Long}8"/>
-                    <status
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                        fieldLabel="Status"
-                        name="status"
-                        valueType="string"
-                        metaType="text-single"
-                        listOrder="{Long}9"
-                        fieldDescription="Active, Realised, or Written off. Stated plainly - a portfolio that shows only its winners is not a portfolio."/>
-                    <featuredImage
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
-                        fieldLabel="Featured image"
-                        name="featuredImage"
-                        valueType="string"
-                        metaType="content-reference"
-                        listOrder="{Long}10"
-                        fieldDescription="Wide crop for the portfolio rail."/>
-                    <companyStory
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
-                        fieldLabel="Company story"
-                        name="companyStory"
-                        valueType="string"
-                        metaType="text-multi"
-                        listOrder="{Long}11"/>
-                    <relatedInsights
-                        jcr:primaryType="nt:unstructured"
-                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
-                        fieldLabel="Related insights"
-                        name="relatedInsights"
-                        valueType="string[]"
-                        metaType="fragment-reference"
-                        listOrder="{Long}12"
-                        multiple="{Boolean}true"/>
-                </items>
+                <content
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/container">
+                    <items jcr:primaryType="nt:unstructured">
+                        <companyName
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Company name"
+                            name="companyName"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}1"
+                            required="{Boolean}true"/>
+                        <slug
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Slug"
+                            name="slug"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}2"/>
+                        <logo
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Logo"
+                            name="logo"
+                            valueType="string/reference"
+                            metaType="reference"
+                            renderType="text"
+                            listOrder="{Long}3"
+                            fieldDescription="SVG preferred."/>
+                        <description
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Description"
+                            name="description"
+                            valueType="string/multiline"
+                            metaType="text-multi"
+                            renderType="text"
+                            listOrder="{Long}4"
+                            fieldDescription="One sentence on what the company does. Written for someone who has never heard of it."/>
+                        <sector
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Sector"
+                            name="sector"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}5"/>
+                        <location
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Location"
+                            name="location"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}6"/>
+                        <investmentYear
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Investment year"
+                            name="investmentYear"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}7"
+                            fieldDescription="Year only, e.g. 2021. Used for ordering."/>
+                        <website
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Website"
+                            name="website"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}8"/>
+                        <status
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Status"
+                            name="status"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}9"
+                            fieldDescription="Active, Realised, or Written off. Stated plainly - a portfolio that shows only its winners is not a portfolio."/>
+                        <featuredImage
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Featured image"
+                            name="featuredImage"
+                            valueType="string/reference"
+                            metaType="reference"
+                            renderType="text"
+                            listOrder="{Long}10"
+                            fieldDescription="Wide crop for the portfolio rail."/>
+                        <companyStory
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Company story"
+                            name="companyStory"
+                            valueType="string/multiline"
+                            metaType="text-multi"
+                            renderType="text"
+                            listOrder="{Long}11"/>
+                        <relatedInsights
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Related insights"
+                            name="relatedInsights"
+                            valueType="string/content-fragment[]"
+                            metaType="fragment-reference"
+                            renderType="text"
+                            listOrder="{Long}12"
+                            multiple="{Boolean}true"/>
+                    </items>
+                </content>
             </cq:dialog>
         </model>
     </jcr:content>

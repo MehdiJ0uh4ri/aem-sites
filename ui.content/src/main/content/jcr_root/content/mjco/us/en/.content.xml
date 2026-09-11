@@ -26,13 +26,14 @@
                     ctaText="Our approach"
                     ctaLink="/content/mjco/us/en/approach"
                     scrollCue="Scroll"
-                    fileReference="/content/dam/mjco/images/hero-home.jpg"/>
+                    fileReference="/content/dam/mjco/images/hero-home-full.jpg"/>
                 <signal
                     jcr:primaryType="nt:unstructured"
                     sling:resourceType="mysite/components/mjsignal"
                     eyebrow="Investment signal"
                     statement="We would rather be wrong in fewer places. A concentrated book is not a risk we tolerate — it is the whole method."
-                    footnote="Placeholder figures. Replace with verified firm data before publication.">
+                    footnote="Placeholder figures. Replace with verified firm data before publication."
+                    fileReference="/content/dam/mjco/images/signal-strip.jpg">
                     <items jcr:primaryType="nt:unstructured">
                         <item0
                             jcr:primaryType="nt:unstructured"
@@ -86,7 +87,8 @@
                     detailRoot="/content/mjco/us/en/deals"
                     limit="{Long}5"
                     ctaText="All transactions"
-                    ctaLink="/content/mjco/us/en/deals"/>
+                    ctaLink="/content/mjco/us/en/deals"
+                    fileReference="/content/dam/mjco/images/deals-column.jpg"/>
                 <market
                     jcr:primaryType="nt:unstructured"
                     sling:resourceType="mysite/components/mjmarket"
@@ -102,7 +104,8 @@
                     eyebrow="Case study"
                     fragmentPath="/content/dam/mjco/case-studies/caldera-grid"
                     ctaText="Read the case study"
-                    ctaLink="/content/mjco/us/en/case-studies/caldera-grid"/>
+                    ctaLink="/content/mjco/us/en/case-studies/caldera-grid"
+                    fileReferenceOverride="/content/dam/mjco/images/case-caldera-full.jpg"/>
                 <thesis
                     jcr:primaryType="nt:unstructured"
                     sling:resourceType="mysite/components/mjthesis"
@@ -131,7 +134,8 @@
                     jcr:primaryType="nt:unstructured"
                     sling:resourceType="mysite/components/mjengage"
                     eyebrow="Engage"
-                    statement="If you are building something durable, we would like to hear the argument.">
+                    statement="If you are building something durable, we would like to hear the argument."
+                    fileReference="/content/dam/mjco/images/engage-backdrop.jpg">
                     <items jcr:primaryType="nt:unstructured">
                         <item0
                             jcr:primaryType="nt:unstructured"

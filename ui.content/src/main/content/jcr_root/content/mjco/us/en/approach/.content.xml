@@ -4,6 +4,7 @@
     <jcr:content
         cq:template="/conf/mjco/settings/wcm/templates/mjco-section"
         jcr:primaryType="cq:PageContent"
+        navTitle="Investment Approach"
         jcr:title="Investment Approach"
         pageTitle="Investment Approach | MJ &amp; Company"
         jcr:description="How MJ &amp; Company selects, sizes and holds positions."

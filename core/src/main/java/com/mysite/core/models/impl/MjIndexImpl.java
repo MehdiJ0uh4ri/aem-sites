@@ -24,6 +24,8 @@ import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.models.datalayer.ComponentData;
 import com.adobe.cq.wcm.core.components.models.datalayer.builder.DataLayerBuilder;
 import com.adobe.cq.wcm.core.components.util.AbstractComponentImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.mysite.core.models.MjIndex;
 import com.mysite.core.models.MjIndexItem;
 
@@ -33,6 +35,8 @@ import com.mysite.core.models.MjIndexItem;
        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public class MjIndexImpl extends AbstractComponentImpl implements MjIndex {
+
+    private static final Logger LOG = LoggerFactory.getLogger(MjIndexImpl.class);
 
     public static final String RESOURCE_TYPE = "mysite/components/mjindex";
 
@@ -71,6 +75,12 @@ public class MjIndexImpl extends AbstractComponentImpl implements MjIndex {
     private String ctaText;
 
     @ValueMapValue
+    private String fileReference;
+
+    @ValueMapValue
+    private String alt;
+
+    @ValueMapValue
     private String ctaLink;
 
     @SlingObject
@@ -81,8 +91,12 @@ public class MjIndexImpl extends AbstractComponentImpl implements MjIndex {
     @PostConstruct
     private void init() {
         items = Collections.emptyList();
-        Resource folder = StringUtils.isBlank(parentPath) ? null : resourceResolver.getResource(parentPath);
+        if (StringUtils.isBlank(parentPath)) {
+            return;
+        }
+        Resource folder = resourceResolver.getResource(parentPath);
         if (folder == null) {
+            LOG.warn("Index '{}' points at {}, which does not resolve.", getId(), parentPath);
             return;
         }
         boolean dataLayerEnabled = getData() != null;
@@ -90,14 +104,24 @@ public class MjIndexImpl extends AbstractComponentImpl implements MjIndex {
         String resolvedVariant = getVariant();
 
         List<MjIndexItemImpl> collected = new ArrayList<>();
-        for (Resource child : folder.getChildren()) {
-            ContentFragment fragment = child.adaptTo(ContentFragment.class);
-            if (fragment == null) {
-                // Folders, renditions and anything else that is not a fragment.
+
+        // As with the market band: a single fragment is a legitimate, if small, index.
+        boolean single = FragmentReader.isFragment(folder);
+        if (single) {
+            MjIndexItemImpl only = new MjIndexItemImpl(folder, FragmentReader.of(folder),
+                    resolvedVariant, detailRoot, parentId, dataLayerEnabled);
+            if (only.hasContent()) {
+                collected.add(only);
+            }
+        }
+
+        for (Resource child : single ? Collections.<Resource>emptyList() : folder.getChildren()) {
+            if (!FragmentReader.isFragment(child)) {
+                // Folders, images, renditions and anything else that is not a fragment.
                 continue;
             }
-            MjIndexItemImpl item = new MjIndexItemImpl(child, fragment, resolvedVariant, detailRoot,
-                    parentId, dataLayerEnabled);
+            MjIndexItemImpl item = new MjIndexItemImpl(child, FragmentReader.of(child),
+                    resolvedVariant, detailRoot, parentId, dataLayerEnabled);
             if (item.hasContent()) {
                 collected.add(item);
             }
@@ -108,6 +132,12 @@ public class MjIndexImpl extends AbstractComponentImpl implements MjIndex {
         int max = Math.min(limit == null || limit <= 0 ? DEFAULT_LIMIT : limit, MAX_LIMIT);
         items = Collections.unmodifiableList(
                 new ArrayList<MjIndexItem>(collected.subList(0, Math.min(max, collected.size()))));
+
+        if (items.isEmpty()) {
+            LOG.warn("Index '{}' resolved {} but produced no items. Either the folder holds "
+                    + "no content fragments, or none of them carry the field this variant "
+                    + "reads as a title ({}).", getId(), parentPath, resolvedVariant);
+        }
     }
 
     @Override
@@ -138,6 +168,17 @@ public class MjIndexImpl extends AbstractComponentImpl implements MjIndex {
     @Override
     public String getCtaText() {
         return ctaText;
+    }
+
+    @Override
+    public String getFileReference() {
+        return fileReference;
+    }
+
+    @Override
+    public String getAlt() {
+        // Composition, not information: the copy beside it already says what it is.
+        return StringUtils.defaultString(alt);
     }
 
     @Override

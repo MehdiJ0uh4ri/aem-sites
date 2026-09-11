@@ -1,10 +1,16 @@
 <!--/*
     MJ Feature — one Content Fragment given the space of a magazine opener.
 
-    The whole module is a single link target only when a CTA is authored; otherwise it is
-    plain editorial matter. Nesting the heading inside one large anchor would give screen
-    readers a link whose accessible name is the entire article summary, so the link stays
-    an explicit, short call to action at the end of the copy.
+    Two variants, two compositions — not one composition recoloured.
+
+      insight    the image breaks the container and runs to the right edge of the viewport
+                 while the headline crosses onto it from the left. Asymmetric, on paper.
+      casestudy  full-bleed and immersive: the image fills the section and the story is
+                 set into its lower left as a two-beat, challenge then outcome.
+
+    Either way the module is not a single link target. Nesting the heading inside one large
+    anchor would give a screen reader a link whose accessible name is the whole article
+    summary, so the link stays an explicit, short call to action at the end of the copy.
 */-->
 <sly data-sly-use.feature="com.mysite.core.models.MjFeature"/>
 
@@ -39,13 +45,21 @@
 
             <h2 class="cmp-mjfeature__title">${feature.title}</h2>
 
-            <p class="cmp-mjfeature__standfirst" data-sly-test="${feature.standfirst}">${feature.standfirst}</p>
+            <!--/* The two beats. A case study fills both and they are set as a pair of
+                   ruled columns; an insight fills only the first and the wrapper collapses
+                   to a plain block. */-->
+            <div class="cmp-mjfeature__beats">
+                <p class="cmp-mjfeature__standfirst" data-sly-test="${feature.standfirst}">
+                    <span class="cmp-mjfeature__beat-label"
+                          data-sly-test="${feature.variant == 'casestudy'}">Challenge</span>
+                    ${feature.standfirst}
+                </p>
 
-            <!--/* Case studies close on the outcome; insights close on the standfirst. */-->
-            <p class="cmp-mjfeature__outcome" data-sly-test="${feature.outcome}">
-                <span class="cmp-mjfeature__outcome-label">Outcome</span>
-                ${feature.outcome}
-            </p>
+                <p class="cmp-mjfeature__outcome" data-sly-test="${feature.outcome}">
+                    <span class="cmp-mjfeature__beat-label">Outcome</span>
+                    ${feature.outcome}
+                </p>
+            </div>
 
             <a class="cmp-mjfeature__cta"
                data-sly-test="${feature.ctaText && feature.ctaUrl}"
