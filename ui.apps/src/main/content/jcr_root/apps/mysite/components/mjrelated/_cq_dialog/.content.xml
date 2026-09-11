@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="MJ Related Content"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/container"
+        margin="{Boolean}true">
+        <items jcr:primaryType="nt:unstructured">
+            <note
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/text"
+                text="This component does not hold links. It reads the references already authored on the source fragment — a Thesis points at sectors, companies and insights; a Sector points back at thesis points and market metrics — so the relationship is maintained once, in the content model."/>
+            <eyebrow
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                fieldLabel="Eyebrow"
+                name="./eyebrow"/>
+            <heading
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                fieldLabel="Heading"
+                name="./heading"/>
+            <fragmentPath
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                fieldDescription="The fragment whose relationships are followed. Any content fragment will do — that is the point."
+                fieldLabel="Source fragment"
+                name="./fragmentPath"
+                required="{Boolean}true"
+                rootPath="/content/dam"/>
+            <basePath
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                fieldDescription="Site section root under which detail pages are looked for, e.g. /content/mjco/us/en. A referenced item with no detail page renders as plain text rather than a dead link."
+                fieldLabel="Detail pages root"
+                name="./basePath"
+                rootPath="/content"/>
+            <limit
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                fieldDescription="Defaults to 6, capped at 24."
+                fieldLabel="Maximum items"
+                min="{Long}1"
+                name="./limit"/>
+        </items>
+    </content>
+</jcr:root>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:dam="http://www.day.com/dam/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:dc="http://purl.org/dc/elements/1.1/"
+    jcr:primaryType="dam:Asset">
+    <jcr:content
+        jcr:primaryType="dam:AssetContent"
+        contentFragment="{Boolean}true"
+        jcr:title="A thesis you cannot falsify is a preference.">
+        <data
+            jcr:primaryType="nt:unstructured"
+            cq:model="/conf/mjco/settings/dam/cfm/models/thesis">
+            <master
+                jcr:primaryType="nt:unstructured"
+                title="A thesis you cannot falsify is a preference."
+                slug="falsifiable-thesis"
+                ordinal="03"
+                statement="Every position is taken with a written statement of what would have to be true, and what would prove it wrong."
+                rationale="The second half is the part that matters. Without it a thesis cannot fail, only disappoint, and a firm learns nothing from disappointment."
+                relatedSectors="[/content/dam/mjco/sectors/materials]"
+                relatedPortfolio="[/content/dam/mjco/portfolio/stavros-metals]"
+                relatedInsights="[/content/dam/mjco/insights/the-cost-of-capital-reset]"/>
+        </data>
+        <metadata jcr:primaryType="nt:unstructured" dc:title="A thesis you cannot falsify is a preference."/>
+    </jcr:content>
+</jcr:root>

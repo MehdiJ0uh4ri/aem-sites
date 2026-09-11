@@ -17,7 +17,6 @@ import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.models.datalayer.ComponentData;
 import com.adobe.cq.wcm.core.components.models.datalayer.builder.DataLayerBuilder;
-import com.adobe.cq.wcm.core.components.util.AbstractComponentImpl;
 import com.mysite.core.models.MjFeature;
 
 @Model(adaptables = SlingHttpServletRequest.class,
@@ -25,7 +24,7 @@ import com.mysite.core.models.MjFeature;
        resourceType = MjFeatureImpl.RESOURCE_TYPE,
        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public class MjFeatureImpl extends AbstractComponentImpl implements MjFeature {
+public class MjFeatureImpl extends MjComponentImpl implements MjFeature {
 
     public static final String RESOURCE_TYPE = "mysite/components/mjfeature";
 

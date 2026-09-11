@@ -23,13 +23,19 @@ public interface MjIndex extends Component {
     /** An editorial list with a lead item — Insights. */
     String VARIANT_INSIGHTS = "insights";
 
+    /** The same rail as Portfolio, reading Sector fragments — Investment Approach. */
+    String VARIANT_SECTORS = "sectors";
+
     String getEyebrow();
 
     String getHeading();
 
     String getIntro();
 
-    /** @return one of {@link #VARIANT_PORTFOLIO}, {@link #VARIANT_DEALS}, {@link #VARIANT_INSIGHTS} */
+    /**
+     * @return one of {@link #VARIANT_PORTFOLIO}, {@link #VARIANT_DEALS},
+     *         {@link #VARIANT_INSIGHTS}, {@link #VARIANT_SECTORS}
+     */
     String getVariant();
 
     List<MjIndexItem> getItems();
@@ -46,6 +52,12 @@ public interface MjIndex extends Component {
 
     /** @return resolved href for the "see all" link, or {@code null} */
     String getCtaUrl();
+
+    /**
+     * @return the element this section's heading is written with, {@code h1}..{@code h4}.
+     *         Authorable; left on Auto the opener of the page takes the {@code h1}.
+     */
+    String getHeadingTag();
 
     boolean isEmpty();
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:dam="http://www.day.com/dam/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:dc="http://purl.org/dc/elements/1.1/"
+    jcr:primaryType="dam:Asset">
+    <jcr:content
+        jcr:primaryType="dam:AssetContent"
+        contentFragment="{Boolean}true"
+        jcr:title="Logistics">
+        <data
+            jcr:primaryType="nt:unstructured"
+            cq:model="/conf/mjco/settings/dam/cfm/models/sector">
+            <master
+                jcr:primaryType="nt:unstructured"
+                name="Logistics"
+                slug="logistics"
+                description="Contract, audit and scheduling software for mid-market shippers and carriers."
+                whyWeInvest="Margin in freight is recovered in administration long before it is recovered in rates. The software that finds it is bought by operators who can measure the result in a quarter."
+                featuredImage="/content/dam/mjco/images/co-halden-freight.jpg"
+                relatedThesis="[/content/dam/mjco/thesis/underwrite-the-operator,/content/dam/mjco/thesis/second-cheque]"
+                relatedPortfolio="[/content/dam/mjco/portfolio/halden-freight]"
+                relatedMarket="[/content/dam/mjco/market/exit-value]"/>
+        </data>
+        <metadata jcr:primaryType="nt:unstructured" dc:title="Logistics"/>
+    </jcr:content>
+</jcr:root>

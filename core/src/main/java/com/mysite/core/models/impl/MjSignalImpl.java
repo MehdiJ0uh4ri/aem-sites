@@ -19,7 +19,6 @@ import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.models.datalayer.ComponentData;
 import com.adobe.cq.wcm.core.components.models.datalayer.builder.DataLayerBuilder;
-import com.adobe.cq.wcm.core.components.util.AbstractComponentImpl;
 import com.mysite.core.models.MjSignal;
 import com.mysite.core.models.MjSignalItem;
 
@@ -28,7 +27,7 @@ import com.mysite.core.models.MjSignalItem;
        resourceType = MjSignalImpl.RESOURCE_TYPE,
        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public class MjSignalImpl extends AbstractComponentImpl implements MjSignal {
+public class MjSignalImpl extends MjComponentImpl implements MjSignal {
 
     public static final String RESOURCE_TYPE = "mysite/components/mjsignal";
 

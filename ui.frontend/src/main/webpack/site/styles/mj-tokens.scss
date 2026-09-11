@@ -1,0 +1,16 @@
+//== MJ & Company — design tokens.
+//
+// The token table lives in site/_variables.scss; this file is where it becomes CSS.
+// Emitting the values as custom properties on :root does three things the SCSS scalars
+// alone could not: the system is inspectable in devtools, a page or a section can
+// override one value without recompiling, and a future page (Investment Approach first)
+// inherits the same names instead of restating hex codes.
+//
+// Custom properties resolve at use time, so it does not matter that this file is loaded
+// after the component partials that reference them.
+
+:root {
+    @each $name, $value in $mj-token-values {
+        --mj-#{$name}: #{$value};
+    }
+}

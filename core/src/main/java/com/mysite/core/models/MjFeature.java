@@ -49,5 +49,11 @@ public interface MjFeature extends Component {
 
     String getCtaDataLayerJson();
 
+    /**
+     * @return the element this section's heading is written with, {@code h1}..{@code h4}.
+     *         Authorable; left on Auto the opener of the page takes the {@code h1}.
+     */
+    String getHeadingTag();
+
     boolean isEmpty();
 }

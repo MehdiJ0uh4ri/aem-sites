@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:dam="http://www.day.com/dam/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:dc="http://purl.org/dc/elements/1.1/"
+    jcr:primaryType="dam:Asset">
+    <jcr:content
+        jcr:primaryType="dam:AssetContent"
+        contentFragment="{Boolean}true"
+        jcr:title="Concentration is a risk we choose.">
+        <data
+            jcr:primaryType="nt:unstructured"
+            cq:model="/conf/mjco/settings/dam/cfm/models/thesis">
+            <master
+                jcr:primaryType="nt:unstructured"
+                title="Concentration is a risk we choose."
+                slug="concentration-is-chosen"
+                ordinal="02"
+                statement="A book of forty positions says the manager does not know which ones are right. We would rather be wrong in fewer places and know why."
+                rationale="Concentration forces the reserve decision to the front. Every follow-on is taken against a written thesis that can be shown to have held or broken."
+                relatedSectors="[/content/dam/mjco/sectors/energy,/content/dam/mjco/sectors/health]"
+                relatedPortfolio="[/content/dam/mjco/portfolio/caldera-grid,/content/dam/mjco/portfolio/orlin-bio]"
+                relatedInsights="[/content/dam/mjco/insights/concentration-as-a-strategy]"/>
+        </data>
+        <metadata jcr:primaryType="nt:unstructured" dc:title="Concentration is a risk we choose."/>
+    </jcr:content>
+</jcr:root>

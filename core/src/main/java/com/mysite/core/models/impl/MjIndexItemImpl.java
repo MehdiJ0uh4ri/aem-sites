@@ -50,6 +50,16 @@ class MjIndexItemImpl implements MjIndexItem {
             this.status = FragmentReader.text(fragment, resource, "investmentType");
             this.fileReference = null;
             this.sortKey = FragmentReader.text(fragment, resource, "date");
+        } else if (MjIndex.VARIANT_SECTORS.equals(variant)) {
+            this.title = FragmentReader.text(fragment, resource, "name", "title");
+            this.kicker = null;
+            this.meta = null;
+            this.summary = FragmentReader.text(fragment, resource, "description");
+            this.status = null;
+            this.fileReference = FragmentReader.text(fragment, resource, "featuredImage");
+            // Sectors have no date to order by; the rail reads in the order an editor
+            // arranged the folder, so the sort key is uniform.
+            this.sortKey = null;
         } else {
             this.title = FragmentReader.text(fragment, resource, "title");
             this.kicker = FragmentReader.text(fragment, resource, "category");

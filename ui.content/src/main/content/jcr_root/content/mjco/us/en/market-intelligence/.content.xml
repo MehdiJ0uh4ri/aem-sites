@@ -29,6 +29,14 @@
                     sling:resourceType="mysite/components/mjmarket"
                     parentPath="/content/dam/mjco/market"
                     limit="{Long}12"/>
+                <related
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/mjrelated"
+                    eyebrow="Behind the figures"
+                    heading="The sector these numbers describe."
+                    fragmentPath="/content/dam/mjco/sectors/energy"
+                    basePath="/content/mjco/us/en"
+                    limit="{Long}6"/>
             </sections>
         </root>
     </jcr:content>

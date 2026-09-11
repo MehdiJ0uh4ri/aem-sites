@@ -23,7 +23,6 @@ import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.models.datalayer.ComponentData;
 import com.adobe.cq.wcm.core.components.models.datalayer.builder.DataLayerBuilder;
-import com.adobe.cq.wcm.core.components.util.AbstractComponentImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.mysite.core.models.MjIndex;
@@ -34,14 +33,14 @@ import com.mysite.core.models.MjIndexItem;
        resourceType = MjIndexImpl.RESOURCE_TYPE,
        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public class MjIndexImpl extends AbstractComponentImpl implements MjIndex {
+public class MjIndexImpl extends MjComponentImpl implements MjIndex {
 
     private static final Logger LOG = LoggerFactory.getLogger(MjIndexImpl.class);
 
     public static final String RESOURCE_TYPE = "mysite/components/mjindex";
 
     private static final List<String> VARIANTS =
-            Arrays.asList(VARIANT_PORTFOLIO, VARIANT_DEALS, VARIANT_INSIGHTS);
+            Arrays.asList(VARIANT_PORTFOLIO, VARIANT_DEALS, VARIANT_INSIGHTS, VARIANT_SECTORS);
 
     /** Guards the homepage against an author pointing the index at a large folder. */
     private static final int DEFAULT_LIMIT = 6;
@@ -126,8 +125,15 @@ public class MjIndexImpl extends AbstractComponentImpl implements MjIndex {
                 collected.add(item);
             }
         }
-        // Newest first. Fragments with no date sort last rather than jumping to the top.
-        collected.sort(Comparator.comparing(MjIndexItemImpl::getSortKey).reversed());
+        if (VARIANT_SECTORS.equals(resolvedVariant)) {
+            // Sectors carry no date. Alphabetical is at least a reason; JCR child order is
+            // just the order somebody happened to create the fragments in.
+            collected.sort(Comparator.comparing(
+                    item -> StringUtils.defaultString(item.getTitle())));
+        } else {
+            // Newest first. Fragments with no date sort last rather than jumping to the top.
+            collected.sort(Comparator.comparing(MjIndexItemImpl::getSortKey).reversed());
+        }
 
         int max = Math.min(limit == null || limit <= 0 ? DEFAULT_LIMIT : limit, MAX_LIMIT);
         items = Collections.unmodifiableList(

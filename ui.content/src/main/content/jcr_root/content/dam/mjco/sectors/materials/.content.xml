@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:dam="http://www.day.com/dam/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:dc="http://purl.org/dc/elements/1.1/"
+    jcr:primaryType="dam:Asset">
+    <jcr:content
+        jcr:primaryType="dam:AssetContent"
+        contentFragment="{Boolean}true"
+        jcr:title="Materials">
+        <data
+            jcr:primaryType="nt:unstructured"
+            cq:model="/conf/mjco/settings/dam/cfm/models/sector">
+            <master
+                jcr:primaryType="nt:unstructured"
+                name="Materials"
+                slug="materials"
+                description="Specialty and recycled materials where the process, not the molecule, is the advantage."
+                whyWeInvest="We have been wrong here before and the portfolio says so. The sector stays because the reasoning held even where the timing did not."
+                featuredImage="/content/dam/mjco/images/co-stavros-metals.jpg"
+                relatedThesis="[/content/dam/mjco/thesis/falsifiable-thesis]"
+                relatedPortfolio="[/content/dam/mjco/portfolio/stavros-metals]"
+                relatedMarket="[/content/dam/mjco/market/us-venture-deployed]"/>
+        </data>
+        <metadata jcr:primaryType="nt:unstructured" dc:title="Materials"/>
+    </jcr:content>
+</jcr:root>

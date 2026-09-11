@@ -1,0 +1,49 @@
+<!--/*
+    MJ Related Content.
+
+    An editorial list, not a card grid: each entry is a ruled row carrying what the thing
+    is, what it is called and one line about it. The kind ("Sector", "Portfolio company")
+    comes from the referenced fragment's own model, so the list labels content types this
+    component was never told about.
+
+    Items link only where a detail page was found; the model verifies each one before
+    rendering it, which is why there is a plain-text variant beside the anchor.
+*/-->
+<sly data-sly-use.related="com.mysite.core.models.MjRelated"/>
+
+<section class="cmp-mjrelated"
+         data-sly-test.hasContent="${!related.empty}"
+         id="${related.id}"
+         data-cmp-data-layer="${related.data.json}">
+
+    <div class="cmp-mjrelated__inner">
+        <header class="cmp-mjrelated__head" data-cmp-reveal>
+            <p class="cmp-mjrelated__eyebrow" data-sly-test="${related.eyebrow}">${related.eyebrow}</p>
+            <h2 class="cmp-mjrelated__heading" data-sly-test="${related.heading}">${related.heading}</h2>
+        </header>
+
+        <ol class="cmp-mjrelated__list" data-cmp-reveal>
+            <li class="cmp-mjrelated__item"
+                data-sly-repeat.item="${related.items}"
+                id="${item.id}"
+                data-cmp-data-layer="${item.dataLayerJson}">
+
+                <p class="cmp-mjrelated__kind" data-sly-test="${item.kind}">${item.kind}</p>
+
+                <h3 class="cmp-mjrelated__title">
+                    <a class="cmp-mjrelated__link"
+                       data-sly-test="${item.url}"
+                       href="${item.url}"
+                       data-cmp-clickable>${item.title}</a>
+                    <span data-sly-test="${!item.url}">${item.title}</span>
+                </h3>
+
+                <p class="cmp-mjrelated__summary" data-sly-test="${item.summary}">${item.summary}</p>
+            </li>
+        </ol>
+    </div>
+</section>
+
+<sly data-sly-test="${!hasContent && wcmmode.edit}">
+    <div class="cq-placeholder" data-emptytext="${'MJ Related Content — pick a source fragment' @ i18n}"></div>
+</sly>

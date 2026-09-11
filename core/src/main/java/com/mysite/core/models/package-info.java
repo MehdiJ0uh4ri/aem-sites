@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-@Version("1.4")
+@Version("1.6")
 package com.mysite.core.models;
 
 import org.osgi.annotation.versioning.Version;

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:dam="http://www.day.com/dam/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:dc="http://purl.org/dc/elements/1.1/"
+    jcr:primaryType="dam:Asset">
+    <jcr:content
+        jcr:primaryType="dam:AssetContent"
+        contentFragment="{Boolean}true"
+        jcr:title="Industrial software">
+        <data
+            jcr:primaryType="nt:unstructured"
+            cq:model="/conf/mjco/settings/dam/cfm/models/sector">
+            <master
+                jcr:primaryType="nt:unstructured"
+                name="Industrial software"
+                slug="industrial-software"
+                description="Software sold to the plant floor, the depot and the yard rather than to head office."
+                whyWeInvest="The buyer is the person whose shift it changes. That shortens the sale and makes the renewal a question of whether the work got easier, not whether a budget survived."
+                featuredImage="/content/dam/mjco/images/co-northbeam-systems.jpg"
+                relatedThesis="[/content/dam/mjco/thesis/underwrite-the-operator,/content/dam/mjco/thesis/second-cheque]"
+                relatedPortfolio="[/content/dam/mjco/portfolio/northbeam-systems]"
+                relatedMarket="[/content/dam/mjco/market/median-seed-round]"/>
+        </data>
+        <metadata jcr:primaryType="nt:unstructured" dc:title="Industrial software"/>
+    </jcr:content>
+</jcr:root>

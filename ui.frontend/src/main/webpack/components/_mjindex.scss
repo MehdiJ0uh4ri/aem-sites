@@ -122,17 +122,32 @@
         display: none;
     }
 
-    //-- Portfolio: a rail of variable-scale cards.
+    //-- Portfolio and Sectors: a rail of variable-scale cards.
+    //
+    // One block for both. They read different fragment models but they are the same
+    // experience pattern — a sequence the reader travels along — and duplicating sixty
+    // lines to say so would be how the two quietly drift apart.
     //
     // Horizontal movement because a portfolio is a sequence a reader travels along. The
     // sizes are deliberately uneven — a rail of identical cards is a grid that happens to
     // scroll, and reads as one.
-    &--portfolio {
+    &--portfolio,
+    &--sectors {
         background: $mj-ivory;
 
-        // Flex, not grid-auto-flow: column. With auto column tracks the track sizes
-        // itself to the card's text, so a width set on the item is ignored and the rail
-        // comes out with six different card widths. flex-basis sizes the card itself.
+        // The rail is an explicit two-variant contract, not an accident of sizing:
+        //
+        //   :first-child   LEAD       30rem wide, portrait 4:5 crop
+        //   every other    SECONDARY  22rem wide, landscape 5:4 crop
+        //
+        // Every secondary card is the same width AND the same media height, so their
+        // titles sit on one baseline and the rail reads as a sequence. The earlier version
+        // cycled three aspect ratios across the cards and dropped every third one down the
+        // page, which produced six different card heights (738 / 423 / 494 / 582 / 399 /
+        // 494) and the whole section read as a broken grid rather than a rail.
+        //
+        // Flex, not grid-auto-flow: column. With auto column tracks the track sizes itself
+        // to the card's text, so a width set on the item is ignored.
         .cmp-mjindex__list {
             display: flex;
             align-items: flex-start;
@@ -143,7 +158,23 @@
             // the viewport, which is what makes it a rail and not a row.
             margin-inline: calc(#{$mj-gutter} * -1);
             padding: 0 $mj-gutter 1.5rem;
+
+            // Without this the snap point sits at the scrollport edge and the browser
+            // scrolls the leading gutter away, landing the lead card flush at x=0 while
+            // the heading above it starts one gutter in. The rail looked misaligned with
+            // its own section.
+            scroll-padding-inline: $mj-gutter;
+
+            // The rail continues past the viewport by design, so it has to say so. An
+            // overlay scrollbar is invisible until touched, which is why the last visible
+            // card was being read as clipped rather than as scrollable.
             scrollbar-width: thin;
+            scrollbar-color: $mj-bronze $mj-rule-soft;
+
+            &:focus-visible {
+                outline: 2px solid $mj-bronze-deep;
+                outline-offset: 4px;
+            }
         }
 
         .cmp-mjindex__item {
@@ -152,22 +183,15 @@
             scroll-snap-align: start;
         }
 
-        // The lead card is wider and takes the portrait crop.
+        .cmp-mjindex__img {
+            aspect-ratio: 5 / 4;
+        }
+
         .cmp-mjindex__item:first-child {
             flex-basis: min(30rem, 84vw);
 
+            .cmp-mjindex__img { aspect-ratio: 4 / 5; }
             .cmp-mjindex__title { @include mj-heading(1.5rem, 2rem); }
-        }
-
-        // Three crops in rotation, so no two neighbours share a silhouette.
-        .cmp-mjindex__item:nth-child(3n + 1) .cmp-mjindex__img { aspect-ratio: 4 / 5; }
-        .cmp-mjindex__item:nth-child(3n + 2) .cmp-mjindex__img { aspect-ratio: 5 / 4; }
-        .cmp-mjindex__item:nth-child(3n + 3) .cmp-mjindex__img { aspect-ratio: 1 / 1; }
-
-        // One gentle drop in the cycle. The previous version offset every even card and
-        // the rail read as a staircase falling off the page rather than as a rhythm.
-        .cmp-mjindex__item:nth-child(3n + 2) {
-            margin-top: clamp(1rem, 3vw, 3rem);
         }
 
         .cmp-mjindex__article:hover .cmp-mjindex__img,
@@ -380,10 +404,6 @@
                 grid-row: auto;
                 text-align: left;
             }
-        }
-
-        &--portfolio .cmp-mjindex__item:nth-child(n) {
-            margin-top: 0;
         }
 
         &--insights .cmp-mjindex__list {

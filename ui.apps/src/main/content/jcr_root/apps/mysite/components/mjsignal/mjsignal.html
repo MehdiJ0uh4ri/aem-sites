@@ -34,7 +34,7 @@
     <div class="cmp-mjsignal__body">
         <div class="cmp-mjsignal__claim" data-cmp-reveal>
             <p class="cmp-mjsignal__eyebrow" data-sly-test="${signal.eyebrow}">${signal.eyebrow}</p>
-            <h2 class="cmp-mjsignal__statement" data-sly-test="${signal.statement}">${signal.statement}</h2>
+            <h2 class="cmp-mjsignal__statement" data-sly-element="${signal.headingTag}" data-sly-test="${signal.statement}">${signal.statement}</h2>
         </div>
 
         <dl class="cmp-mjsignal__ledger" data-sly-test="${signal.items}">

@@ -37,11 +37,19 @@
     <div class="cmp-mjindex__main">
         <header class="cmp-mjindex__head" data-cmp-reveal>
             <p class="cmp-mjindex__eyebrow" data-sly-test="${index.eyebrow}">${index.eyebrow}</p>
-            <h2 class="cmp-mjindex__heading" data-sly-test="${index.heading}">${index.heading}</h2>
+            <h2 class="cmp-mjindex__heading" data-sly-element="${index.headingTag}" data-sly-test="${index.heading}">${index.heading}</h2>
             <p class="cmp-mjindex__intro" data-sly-test="${index.intro}">${index.intro}</p>
         </header>
 
-        <ol class="cmp-mjindex__list" data-cmp-reveal>
+        <!--/* The portfolio variant is a horizontally scrolling rail; the other two are
+               static lists. A scroll container that cannot be reached by keyboard strands
+               whatever has scrolled out of view, so the rail — and only the rail — takes
+               focus and an accessible name. HTL drops an attribute whose expression is
+               empty, which is what leaves the other variants untouched. */-->
+        <ol class="cmp-mjindex__list"
+            data-sly-attribute.tabindex="${index.variant == 'portfolio' ? '0' : ''}"
+            data-sly-attribute.aria-label="${index.variant == 'portfolio' ? index.heading : ''}"
+            data-cmp-reveal>
             <li class="cmp-mjindex__item" data-sly-repeat.item="${index.items}">
                 <article class="cmp-mjindex__article"
                          id="${item.id}"

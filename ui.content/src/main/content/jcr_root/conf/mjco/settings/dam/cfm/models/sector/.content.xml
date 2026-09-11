@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Template">
+    <jcr:content
+        jcr:primaryType="cq:PageContent"
+        jcr:title="Sector"
+        jcr:description="An area the firm invests in, and its reasoning. Referenced by portfolio companies, deals and insights, so it is structured content rather than a heading on a page."
+        sling:resourceType="dam/cfm/models/console/components/data/entity/default"
+        status="enabled">
+        <model
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="dam/cfm/models/console/components/data/entity/default">
+            <cq:dialog
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/container">
+                <content
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/container">
+                    <items jcr:primaryType="nt:unstructured">
+                        <name
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Sector name"
+                            name="name"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}1"
+                            required="{Boolean}true"/>
+                        <slug
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Slug"
+                            name="slug"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}2"/>
+                        <description
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Description"
+                            name="description"
+                            valueType="string/multiline"
+                            metaType="text-multi"
+                            renderType="text"
+                            listOrder="{Long}3"
+                            fieldDescription="What the sector covers, for someone who does not work in it."/>
+                        <whyWeInvest
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Why we invest here"
+                            name="whyWeInvest"
+                            valueType="string/multiline"
+                            metaType="text-multi"
+                            renderType="text"
+                            listOrder="{Long}4"
+                            fieldDescription="The firm's reasoning. Not a market-size paragraph."/>
+                        <featuredImage
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Featured image"
+                            name="featuredImage"
+                            valueType="string/reference"
+                            metaType="reference"
+                            renderType="text"
+                            listOrder="{Long}5"
+                            fieldDescription="Wide crop for the sector rail."/>
+                        <relatedThesis
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Related thesis"
+                            name="relatedThesis"
+                            valueType="string/content-fragment[]"
+                            metaType="fragment-reference"
+                            renderType="text"
+                            listOrder="{Long}6"
+                            multiple="{Boolean}true"/>
+                        <relatedPortfolio
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Related portfolio companies"
+                            name="relatedPortfolio"
+                            valueType="string/content-fragment[]"
+                            metaType="fragment-reference"
+                            renderType="text"
+                            listOrder="{Long}7"
+                            multiple="{Boolean}true"/>
+                        <relatedMarket
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Related market intelligence"
+                            name="relatedMarket"
+                            valueType="string/content-fragment[]"
+                            metaType="fragment-reference"
+                            renderType="text"
+                            listOrder="{Long}8"
+                            multiple="{Boolean}true"/>
+                    </items>
+                </content>
+            </cq:dialog>
+        </model>
+    </jcr:content>
+</jcr:root>

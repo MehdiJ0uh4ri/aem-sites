@@ -11,7 +11,6 @@ import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.models.datalayer.ComponentData;
 import com.adobe.cq.wcm.core.components.models.datalayer.builder.DataLayerBuilder;
-import com.adobe.cq.wcm.core.components.util.AbstractComponentImpl;
 import com.mysite.core.models.MjHero;
 
 @Model(adaptables = SlingHttpServletRequest.class,
@@ -19,7 +18,7 @@ import com.mysite.core.models.MjHero;
        resourceType = MjHeroImpl.RESOURCE_TYPE,
        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public class MjHeroImpl extends AbstractComponentImpl implements MjHero {
+public class MjHeroImpl extends MjComponentImpl implements MjHero {
 
     public static final String RESOURCE_TYPE = "mysite/components/mjhero";
 

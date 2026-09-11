@@ -42,5 +42,11 @@ public interface MjHero extends Component {
     /** @return label for the scroll cue, or {@code null} when the cue is suppressed */
     String getScrollCue();
 
+    /**
+     * @return the element this section's heading is written with, {@code h1}..{@code h4}.
+     *         Authorable; left on Auto the opener of the page takes the {@code h1}.
+     */
+    String getHeadingTag();
+
     boolean isEmpty();
 }

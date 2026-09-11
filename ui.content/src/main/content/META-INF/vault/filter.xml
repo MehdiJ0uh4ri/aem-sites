@@ -30,5 +30,13 @@
     -->
     <filter root="/conf/mjco" mode="update"/>
     <filter root="/content/dam/mjco" mode="update"/>
+    <filter root="/content/mjco/us/en/approach" mode="update"/>
+    <filter root="/content/mjco/us/en/market-intelligence" mode="update"/>
     <filter root="/content/mjco" mode="merge"/>
+    <!--
+        Pages the project delivers rather than pages an author composes. merge leaves an
+        existing node alone and does not descend into it to add children, so a section page
+        that already exists never receives a revised composition. These two are part of the
+        build and are declared update; the homepage stays merge because it is authored.
+    -->
 </workspaceFilter>

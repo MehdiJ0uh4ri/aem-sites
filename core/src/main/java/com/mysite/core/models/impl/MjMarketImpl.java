@@ -21,7 +21,6 @@ import com.adobe.cq.export.json.ComponentExporter;
 import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.models.datalayer.ComponentData;
 import com.adobe.cq.wcm.core.components.models.datalayer.builder.DataLayerBuilder;
-import com.adobe.cq.wcm.core.components.util.AbstractComponentImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.mysite.core.models.MjMarket;
@@ -32,7 +31,7 @@ import com.mysite.core.models.MjMetric;
        resourceType = MjMarketImpl.RESOURCE_TYPE,
        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
-public class MjMarketImpl extends AbstractComponentImpl implements MjMarket {
+public class MjMarketImpl extends MjComponentImpl implements MjMarket {
 
     private static final Logger LOG = LoggerFactory.getLogger(MjMarketImpl.class);
 
