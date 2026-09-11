@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Programme Teaser"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/tabs"
+        maximized="{Boolean}true">
+        <items jcr:primaryType="nt:unstructured">
+            <programme
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Programme"
+                sling:resourceType="granite/ui/components/coral/foundation/container"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <eyebrow
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldDescription="Business unit or aircraft family, for example: Commercial Aviation."
+                        fieldLabel="Eyebrow"
+                        name="./eyebrow"/>
+                    <title
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldDescription="The programme designation, for example: AV-380X."
+                        fieldLabel="Programme"
+                        name="./title"
+                        required="{Boolean}true"/>
+                    <description
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                        fieldLabel="Description"
+                        name="./description"
+                        rows="{Long}3"/>
+                    <status
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                        fieldDescription="Rendered as a badge over the image."
+                        fieldLabel="Status"
+                        name="./status">
+                        <items jcr:primaryType="nt:unstructured">
+                            <none
+                                jcr:primaryType="nt:unstructured"
+                                selected="{Boolean}true"
+                                text="No badge"
+                                value=""/>
+                            <inDevelopment
+                                jcr:primaryType="nt:unstructured"
+                                text="In development"
+                                value="in-development"/>
+                            <inTesting
+                                jcr:primaryType="nt:unstructured"
+                                text="In flight test"
+                                value="in-testing"/>
+                            <certified
+                                jcr:primaryType="nt:unstructured"
+                                text="Certified"
+                                value="certified"/>
+                            <inService
+                                jcr:primaryType="nt:unstructured"
+                                text="In service"
+                                value="in-service"/>
+                            <inProduction
+                                jcr:primaryType="nt:unstructured"
+                                text="In production"
+                                value="in-production"/>
+                            <legacy
+                                jcr:primaryType="nt:unstructured"
+                                text="Legacy support"
+                                value="legacy"/>
+                        </items>
+                    </status>
+                </items>
+            </programme>
+            <media
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Media"
+                sling:resourceType="granite/ui/components/coral/foundation/container"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <fileReference
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                        fieldDescription="Programme still from Assets. Cards in a row share a fixed aspect ratio, so the image is cropped to fit."
+                        fieldLabel="Image"
+                        name="./fileReference"
+                        rootPath="/content/dam"/>
+                    <alt
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldDescription="Leave empty when the card's headline already names what is shown."
+                        fieldLabel="Alternative text"
+                        name="./alt"/>
+                </items>
+            </media>
+            <figures
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Figures"
+                sling:resourceType="granite/ui/components/coral/foundation/container"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <specs
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                        composite="{Boolean}true"
+                        fieldDescription="Up to three figures, enough to tell one variant from another at a glance. Any beyond the third are ignored — they lay out in a single row and do not wrap. Include the unit here; unlike the specification table, these do not switch systems."
+                        fieldLabel="Headline figures">
+                        <field
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/container"
+                            name="./specs">
+                            <items jcr:primaryType="nt:unstructured">
+                                <label
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    fieldDescription="For example: Range, Seats, Thrust."
+                                    fieldLabel="Label"
+                                    name="./label"/>
+                                <value
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    fieldDescription="For example: 6,400 km."
+                                    fieldLabel="Value"
+                                    name="./value"
+                                    required="{Boolean}true"/>
+                            </items>
+                        </field>
+                    </specs>
+                </items>
+            </figures>
+            <link
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Link"
+                sling:resourceType="granite/ui/components/coral/foundation/container"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <link
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                        fieldDescription="The programme landing page. Internal paths get .html appended automatically."
+                        fieldLabel="Links to"
+                        name="./link"
+                        rootPath="/content"/>
+                    <linkText
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldDescription="Defaults to &quot;View programme&quot;. This text is decorative — the headline is the link a screen reader announces."
+                        fieldLabel="Call to action"
+                        name="./linkText"/>
+                </items>
+            </link>
+        </items>
+    </content>
+</jcr:root>

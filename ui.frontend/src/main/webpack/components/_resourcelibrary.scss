@@ -1,0 +1,295 @@
+// Resource Library.
+//
+// Gated entries use a native <details> disclosure. It gives correct keyboard behaviour,
+// correct expanded/collapsed announcement, and works before any script has run — none of
+// which a hand-built accordion gets for free.
+
+.cmp-resourcelibrary {
+    max-width: $av-max;
+    margin: 0 auto;
+    padding: clamp(2.5rem, 6vw, 4rem) $av-gutter;
+    font-family: $av-font-sans;
+    color: $av-ink;
+}
+
+.cmp-resourcelibrary__intro {
+    max-width: 62ch;
+    margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.cmp-resourcelibrary__heading {
+    margin: 0;
+    font-size: clamp(1.75rem, 3.6vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+}
+
+.cmp-resourcelibrary__desc {
+    margin: 0.85rem 0 0;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: $av-ink-muted;
+}
+
+.cmp-resourcelibrary__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.cmp-resourcelibrary__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    height: 100%;
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+    background: $av-white;
+    border: 1px solid $av-line-light;
+    border-radius: $av-radius;
+}
+
+.cmp-resourcelibrary__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 0;
+}
+
+.cmp-resourcelibrary__category,
+.cmp-resourcelibrary__gated {
+    padding: 0.22rem 0.5rem;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: $av-track;
+    text-transform: uppercase;
+}
+
+.cmp-resourcelibrary__category {
+    color: $av-navy-800;
+    background: $av-surface-light;
+    border: 1px solid $av-line-light;
+}
+
+.cmp-resourcelibrary__gated {
+    color: $av-white;
+    background: $av-navy-700;
+}
+
+.cmp-resourcelibrary__title {
+    margin: 0;
+    font-size: 1.0625rem;
+    font-weight: 650;
+    line-height: 1.35;
+}
+
+.cmp-resourcelibrary__summary {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: $av-ink-muted;
+}
+
+.cmp-resourcelibrary__classification {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+    margin: 0;
+    font-family: $av-font-mono;
+    font-size: 0.75rem;
+    color: $av-ink-muted;
+}
+
+.cmp-resourcelibrary__classification-tag {
+    padding: 0.15rem 0.4rem;
+    font-family: $av-font-sans;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: $av-track;
+    text-transform: uppercase;
+    color: $av-warn;
+    background: $av-warn-bg;
+    border: 1px solid rgba(217, 139, 10, 0.35);
+}
+
+.cmp-resourcelibrary__file {
+    display: flex;
+    gap: 0.75rem;
+    // Pushes the download control to the bottom so cards in a row align along their edge.
+    margin: auto 0 0;
+    font-family: $av-font-mono;
+    font-size: 0.75rem;
+    color: $av-steel-400;
+}
+
+// Shared by the ungated link and the gated disclosure's summary, so the two read as the
+// same control regardless of what happens when they are activated.
+.cmp-resourcelibrary__download {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    padding: 0.6rem 1.3rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: $av-white;
+    background: $av-navy-700;
+    border: 1px solid transparent;
+    border-radius: $av-radius;
+    text-decoration: none;
+    cursor: pointer;
+    list-style: none;
+    transition: background 0.2s $av-ease;
+
+    // Removes the default disclosure triangle in WebKit; the button styling is the affordance.
+    &::-webkit-details-marker {
+        display: none;
+    }
+
+    &:hover,
+    &:focus-visible {
+        background: $av-accent;
+    }
+
+    &:focus-visible {
+        outline: 2px solid $av-data;
+        outline-offset: 2px;
+    }
+}
+
+// Visually hidden, still announced: gives each identical "Download" control a distinct
+// accessible name, so a screen-reader user listing the links can tell them apart.
+.cmp-resourcelibrary__sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.cmp-resourcelibrary__gate[open] .cmp-resourcelibrary__download {
+    background: $av-accent;
+}
+
+.cmp-resourcelibrary__form {
+    display: grid;
+    gap: 0.85rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid $av-line-light;
+}
+
+.cmp-resourcelibrary__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+
+    label {
+        font-size: 0.6875rem;
+        font-weight: 600;
+        letter-spacing: $av-track;
+        text-transform: uppercase;
+        color: $av-ink-muted;
+    }
+
+    input {
+        padding: 0.6rem 0.7rem;
+        font: inherit;
+        font-size: 0.9375rem;
+        color: $av-ink;
+        background: $av-white;
+        border: 1px solid $av-steel-200;
+        border-radius: $av-radius;
+
+        &:focus-visible {
+            outline: 2px solid $av-data;
+            outline-offset: 1px;
+            border-color: transparent;
+        }
+    }
+}
+
+.cmp-resourcelibrary__consent {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.6rem;
+    align-items: start;
+
+    label {
+        font-size: 0.75rem;
+        line-height: 1.5;
+        color: $av-ink-muted;
+    }
+
+    input {
+        // Nudges the box onto the first line of the wrapped consent text.
+        margin-top: 0.15rem;
+        width: 1rem;
+        height: 1rem;
+        accent-color: $av-accent;
+    }
+}
+
+.cmp-resourcelibrary__submit {
+    justify-self: start;
+    padding: 0.7rem 1.6rem;
+    font: inherit;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: $av-white;
+    background: $av-accent;
+    border: 1px solid transparent;
+    border-radius: $av-radius;
+    cursor: pointer;
+    transition: background 0.2s $av-ease;
+
+    &:hover,
+    &:focus-visible {
+        background: $av-accent-hover;
+    }
+}
+
+//== Dark variant, applied by the Style System policy.
+.cmp-resourcelibrary--dark {
+    background: $av-navy-900;
+    color: $av-white;
+
+    .cmp-resourcelibrary__desc,
+    .cmp-resourcelibrary__summary {
+        color: $av-steel-300;
+    }
+
+    .cmp-resourcelibrary__card {
+        background: $av-navy-800;
+        border-color: $av-line-dark;
+    }
+
+    .cmp-resourcelibrary__category {
+        color: $av-steel-200;
+        background: $av-surface-dark;
+        border-color: $av-line-dark;
+    }
+
+    .cmp-resourcelibrary__form {
+        border-top-color: $av-line-dark;
+    }
+
+    .cmp-resourcelibrary__field label,
+    .cmp-resourcelibrary__consent label {
+        color: $av-steel-300;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cmp-resourcelibrary__download,
+    .cmp-resourcelibrary__submit {
+        transition: none;
+    }
+}

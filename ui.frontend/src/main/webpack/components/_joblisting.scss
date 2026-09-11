@@ -1,0 +1,272 @@
+// Job Listing Grid.
+
+.cmp-joblisting {
+    max-width: $av-max;
+    margin: 0 auto;
+    padding: clamp(2rem, 5vw, 4rem) $av-gutter;
+    font-family: $av-font-sans;
+    color: $av-ink;
+}
+
+.cmp-joblisting__heading {
+    margin: 0 0 1.75rem;
+    font-size: clamp(1.75rem, 3.6vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+}
+
+// Filters
+.cmp-joblisting__filters {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+    background: $av-surface-light;
+    border: 1px solid $av-line-light;
+    border-radius: $av-radius;
+
+    @media (min-width: 48rem) {
+        grid-template-columns: 2fr 1fr 1fr auto;
+        align-items: end;
+    }
+}
+
+.cmp-joblisting__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    min-width: 0;
+}
+
+.cmp-joblisting__label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: $av-track;
+    text-transform: uppercase;
+    color: $av-ink-muted;
+}
+
+.cmp-joblisting__input,
+.cmp-joblisting__select {
+    width: 100%;
+    padding: 0.65rem 0.75rem;
+    font: inherit;
+    font-size: 0.9375rem;
+    color: $av-ink;
+    background: $av-white;
+    border: 1px solid $av-steel-200;
+    border-radius: $av-radius;
+
+    &:focus-visible {
+        outline: 2px solid $av-data;
+        outline-offset: 1px;
+        border-color: transparent;
+    }
+}
+
+.cmp-joblisting__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1rem;
+}
+
+.cmp-joblisting__submit {
+    padding: 0.7rem 1.6rem;
+    font: inherit;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: $av-white;
+    background: $av-accent;
+    border: 1px solid transparent;
+    border-radius: $av-radius;
+    cursor: pointer;
+    transition: background 0.2s $av-ease;
+
+    &:hover,
+    &:focus-visible {
+        background: $av-accent-hover;
+    }
+}
+
+.cmp-joblisting__clear {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: $av-ink-muted;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+
+    &:hover {
+        color: $av-ink;
+    }
+}
+
+.cmp-joblisting__count {
+    margin: 1.5rem 0 1rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: $av-track;
+    text-transform: uppercase;
+    color: $av-ink-muted;
+}
+
+// Results
+.cmp-joblisting__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.cmp-joblisting__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    height: 100%;
+    padding: clamp(1.25rem, 3vw, 1.6rem);
+    background: $av-white;
+    border: 1px solid $av-line-light;
+    border-radius: $av-radius;
+    // A left rule in the accent, the same device the eyebrow uses elsewhere, so the cards
+    // read as part of the same system.
+    border-left: 3px solid $av-navy-700;
+    transition: border-left-color 0.2s $av-ease, box-shadow 0.2s $av-ease;
+
+    &:hover,
+    &:focus-within {
+        border-left-color: $av-accent;
+        box-shadow: 0 10px 26px rgba(11, 18, 32, 0.09);
+    }
+}
+
+.cmp-joblisting__title {
+    margin: 0;
+    font-size: 1.0625rem;
+    font-weight: 650;
+    line-height: 1.35;
+}
+
+.cmp-joblisting__apply {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+
+    &:focus-visible {
+        outline: 2px solid $av-data;
+        outline-offset: 3px;
+    }
+}
+
+.cmp-joblisting__meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+    gap: 0.6rem 1rem;
+    margin: 0;
+}
+
+.cmp-joblisting__meta-pair {
+    dt {
+        font-size: 0.625rem;
+        font-weight: 600;
+        letter-spacing: $av-track;
+        text-transform: uppercase;
+        color: $av-steel-400;
+    }
+
+    dd {
+        margin: 0.1rem 0 0;
+        font-size: 0.875rem;
+        color: $av-ink;
+    }
+}
+
+.cmp-joblisting__summary {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: $av-ink-muted;
+}
+
+.cmp-joblisting__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    // Pins the badges to the bottom so cards in a row align along their lower edge.
+    margin: auto 0 0;
+}
+
+.cmp-joblisting__badge {
+    padding: 0.25rem 0.55rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border-radius: $av-radius;
+}
+
+.cmp-joblisting__badge--remote {
+    color: $av-navy-800;
+    background: rgba(74, 158, 219, 0.16);
+    border: 1px solid rgba(74, 158, 219, 0.4);
+}
+
+.cmp-joblisting__badge--clearance {
+    color: #8a5700;
+    background: $av-warn-bg;
+    border: 1px solid rgba(217, 139, 10, 0.4);
+}
+
+.cmp-joblisting__unavailable {
+    margin: 1.5rem 0 0;
+    padding: 1.1rem 1.25rem;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: #8a5700;
+    background: $av-warn-bg;
+    border: 1px solid rgba(217, 139, 10, 0.4);
+    border-radius: $av-radius;
+}
+
+// Pagination
+.cmp-joblisting__pagination {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid $av-line-light;
+}
+
+.cmp-joblisting__page-link {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: $av-accent;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+}
+
+.cmp-joblisting__page-count {
+    font-family: $av-font-mono;
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    color: $av-ink-muted;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cmp-joblisting__card,
+    .cmp-joblisting__submit {
+        transition: none;
+    }
+}

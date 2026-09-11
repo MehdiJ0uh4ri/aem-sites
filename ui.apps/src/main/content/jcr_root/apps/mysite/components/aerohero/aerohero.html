@@ -1,0 +1,93 @@
+<!--/*
+    Aerospace Hero — the opening section of an AeroVance page.
+
+    Dark and light treatments come from the Style System, so the policy adds
+    cmp-aerohero--dark or cmp-aerohero--light to the decoration tag rather than
+    the component owning a variant property.
+
+    The backdrop is either a still or a muted looping video. The video element
+    always carries the still as its poster, so the section is legible before the
+    first frame decodes and stays legible if the video never plays at all.
+*/-->
+<sly data-sly-use.hero="com.mysite.core.models.AeroHero"/>
+
+<section class="cmp-aerohero"
+         data-sly-test.hasContent="${!hero.empty}"
+         id="${hero.id}"
+         data-cmp-data-layer="${hero.data.json}">
+
+    <div class="cmp-aerohero__backdrop">
+        <sly data-sly-test="${hero.video}">
+            <video class="cmp-aerohero__video"
+                   data-cmp-is="aerohero-video"
+                   src="${hero.videoReference}"
+                   poster="${hero.posterReference}"
+                   muted
+                   loop
+                   playsinline
+                   preload="none"
+                   aria-hidden="true"
+                   tabindex="-1"></video>
+        </sly>
+        <sly data-sly-test="${!hero.video && hero.fileReference}">
+            <!--/* HTL drops an attribute whose expression is empty, so a decorative
+                   alt="" has to be written as a literal on its own variant. */-->
+            <img class="cmp-aerohero__img"
+                 src="${hero.fileReference}"
+                 alt="${hero.alt}"
+                 decoding="async"
+                 data-sly-test="${hero.alt}"/>
+            <img class="cmp-aerohero__img"
+                 src="${hero.fileReference}"
+                 alt=""
+                 decoding="async"
+                 data-sly-test="${!hero.alt}"/>
+        </sly>
+    </div>
+    <div class="cmp-aerohero__veil"></div>
+    <!--/* Blueprint rule work: a decorative grid that reads as engineering drafting
+           paper. Purely presentational, hence aria-hidden. */-->
+    <div class="cmp-aerohero__grid" aria-hidden="true"></div>
+
+    <div class="cmp-aerohero__inner">
+        <div class="cmp-aerohero__copy" data-cmp-reveal>
+            <p class="cmp-aerohero__eyebrow" data-sly-test="${hero.eyebrow}">${hero.eyebrow}</p>
+            <h1 class="cmp-aerohero__title">${hero.title}</h1>
+            <p class="cmp-aerohero__desc" data-sly-test="${hero.description}">${hero.description}</p>
+
+            <div class="cmp-aerohero__actions"
+                 data-sly-test="${hero.primaryCtaText || hero.secondaryCtaText}">
+                <a class="cmp-aerohero__cta cmp-aerohero__cta--primary"
+                   data-sly-test="${hero.primaryCtaText}"
+                   href="${hero.primaryCtaUrl}">${hero.primaryCtaText}</a>
+                <a class="cmp-aerohero__cta cmp-aerohero__cta--ghost"
+                   data-sly-test="${hero.secondaryCtaText}"
+                   href="${hero.secondaryCtaUrl}">${hero.secondaryCtaText}</a>
+            </div>
+        </div>
+
+        <!--/* The overlay panel reuses the Stats Bar's data-attribute contract, so the
+               same count-up script drives both components. */-->
+        <dl class="cmp-aerohero__stats"
+            data-cmp-is="statsbar"
+            data-sly-test="${hero.stats}">
+            <div class="cmp-aerohero__stat" data-sly-repeat.stat="${hero.stats}">
+                <dt class="cmp-aerohero__stat-label">${stat.label}</dt>
+                <dd class="cmp-aerohero__stat-value"
+                    data-cmp-hook-statsbar="value"
+                    data-cmp-statsbar-number="${stat.number}"
+                    data-cmp-statsbar-prefix="${stat.prefix}"
+                    data-cmp-statsbar-suffix="${stat.suffix}">${stat.value}</dd>
+            </div>
+        </dl>
+    </div>
+
+    <p class="cmp-aerohero__compliance" data-sly-test="${hero.complianceNotice}">
+        <span class="cmp-aerohero__compliance-tag">Export control</span>
+        ${hero.complianceNotice}
+    </p>
+</section>
+
+<sly data-sly-test="${!hasContent && wcmmode.edit}">
+    <div class="cq-placeholder" data-emptytext="${'Aerospace Hero' @ i18n}"></div>
+</sly>

@@ -1,0 +1,48 @@
+<!--/*
+    Stock Ticker.
+
+    Included through Sling Dynamic Include, so the surrounding page keeps a long TTL at
+    the dispatcher while this fragment is fetched on its own short one. The component
+    still renders normally when SDI is off — on author, and in unit tests — because the
+    include is a dispatcher concern, not something the markup knows about.
+
+    The price is announced politely rather than assertively: a share price updating in
+    the header is not worth interrupting whatever a screen reader is currently reading.
+*/-->
+<sly data-sly-use.ticker="com.mysite.core.models.StockTicker"/>
+
+<!--/* The figures, shared by the linked and unlinked variants below. */-->
+<template data-sly-template.figures="${@ quote}">
+    <span class="cmp-stockticker__symbol">${quote.symbol}</span>
+    <span class="cmp-stockticker__exchange">${quote.exchange}</span>
+    <span class="cmp-stockticker__price"><span
+          class="cmp-stockticker__currency">${quote.currency}</span>${quote.price}</span>
+    <!--/* The arrow is decorative: the signed change beside it already says the direction,
+           and a screen reader reading "up arrow minus 1.20" would contradict itself. */-->
+    <span class="cmp-stockticker__change"
+          data-cmp-stockticker-direction="${quote.unchanged ? 'flat' : (quote.up ? 'up' : 'down')}">
+        <span class="cmp-stockticker__arrow" aria-hidden="true"></span>
+        ${quote.change} (${quote.changePercent}%)
+    </span>
+</template>
+
+<div class="cmp-stockticker"
+     id="${ticker.id}"
+     data-cmp-data-layer="${ticker.data.json}"
+     aria-live="polite">
+
+    <sly data-sly-test="${ticker.available}">
+        <a class="cmp-stockticker__quote"
+           data-sly-test="${ticker.linkUrl}"
+           href="${ticker.linkUrl}">
+            <sly data-sly-call="${figures @ quote=ticker.quote}"/>
+        </a>
+        <span class="cmp-stockticker__quote" data-sly-test="${!ticker.linkUrl}">
+            <sly data-sly-call="${figures @ quote=ticker.quote}"/>
+        </span>
+    </sly>
+
+    <p class="cmp-stockticker__fallback" data-sly-test="${!ticker.available}">${ticker.fallbackText}</p>
+
+    <p class="cmp-stockticker__disclaimer" data-sly-test="${ticker.disclaimer}">${ticker.disclaimer}</p>
+</div>

@@ -1,0 +1,23 @@
+{
+  "_comment": [
+    "Sling Dynamic Include for the stock ticker. Publish only: on author the component",
+    "must render inline so it is visible and editable in the page editor.",
+    "",
+    "The dispatcher receives <!--#include virtual=\"...\" --> in place of the component and",
+    "resolves it with its own cache rule, so an investor-relations page can hold a long TTL",
+    "while the price behind it expires on the vendor's delayed-quote interval. The matching",
+    "dispatcher rules live in dispatcher/src/conf.dispatcher.d/available_farms."
+  ],
+  "include-filter.config.enabled": true,
+  "include-filter.config.path": "/content/mysite",
+  "include-filter.config.resource-types": [
+    "mysite/components/stockticker"
+  ],
+  "include-filter.config.include-type": "SSI",
+  "include-filter.config.add_comment": false,
+  "include-filter.config.selector": "nocache",
+  "include-filter.config.ttl": 300,
+  "include-filter.config.required_header": "Server-Agent=Communique-Dispatcher",
+  "include-filter.config.ignoreUrlParams": [],
+  "include-filter.config.rewrite": true
+}

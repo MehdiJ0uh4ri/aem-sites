@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Technical Specification Table"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/tabs"
+        maximized="{Boolean}true">
+        <items jcr:primaryType="nt:unstructured">
+            <table
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Table"
+                sling:resourceType="granite/ui/components/coral/foundation/container"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <caption
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldDescription="Names the table for screen readers and prints above it. For example: A-380X technical specification, baseline variant."
+                        fieldLabel="Caption"
+                        name="./caption"
+                        required="{Boolean}true"/>
+                    <description
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                        fieldDescription="Optional lead-in, for example the reference conditions the figures were measured under."
+                        fieldLabel="Description"
+                        name="./description"
+                        rows="{Long}2"/>
+                    <defaultUnits
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                        fieldDescription="Which column a visitor sees first. Regional live copies normally override this."
+                        fieldLabel="Default unit system"
+                        name="./defaultUnits">
+                        <items jcr:primaryType="nt:unstructured">
+                            <metric
+                                jcr:primaryType="nt:unstructured"
+                                selected="{Boolean}true"
+                                text="Metric"
+                                value="metric"/>
+                            <imperial
+                                jcr:primaryType="nt:unstructured"
+                                text="Imperial"
+                                value="imperial"/>
+                        </items>
+                    </defaultUnits>
+                    <sortable
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                        fieldDescription="Lets visitors reorder the table by clicking a column header. Leave this off when the authored order is meaningful, for example when rows follow a nose-to-tail sequence."
+                        name="./sortable"
+                        text="Allow visitors to sort the table"
+                        uncheckedValue="false"
+                        value="{Boolean}true"/>
+                </items>
+            </table>
+            <rows
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Rows"
+                sling:resourceType="granite/ui/components/coral/foundation/container"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <rows
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                        composite="{Boolean}true"
+                        fieldDescription="One row per characteristic. Rows without a name or a metric value are not rendered."
+                        fieldLabel="Specifications">
+                        <field
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/container"
+                            name="./rows">
+                            <items jcr:primaryType="nt:unstructured">
+                                <label
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    fieldDescription="The characteristic being stated, for example: Maximum take-off weight."
+                                    fieldLabel="Specification"
+                                    name="./label"
+                                    required="{Boolean}true"/>
+                                <category
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    fieldDescription="Optional grouping shown under the name, for example: Dimensions, Powerplant, Performance."
+                                    fieldLabel="Group"
+                                    name="./category"/>
+                                <metricValue
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    fieldDescription="The figure only, without the unit. Thousands separators are fine — sorting reads the number underneath."
+                                    fieldLabel="Metric value"
+                                    name="./metricValue"
+                                    required="{Boolean}true"/>
+                                <metricUnit
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    fieldDescription="Unit symbol, for example kg, m, km/h, kN."
+                                    fieldLabel="Metric unit"
+                                    name="./metricUnit"/>
+                                <imperialValue
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    fieldDescription="Leave empty for figures that carry no unit, such as a seat or engine count. Those are stated once and do not switch."
+                                    fieldLabel="Imperial value"
+                                    name="./imperialValue"/>
+                                <imperialUnit
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    fieldDescription="Unit symbol, for example lb, ft, kt, lbf."
+                                    fieldLabel="Imperial unit"
+                                    name="./imperialUnit"/>
+                                <note
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    fieldDescription="Qualifier shown beneath the figure, for example: at ISA +15 °C, sea level."
+                                    fieldLabel="Note"
+                                    name="./note"/>
+                            </items>
+                        </field>
+                    </rows>
+                </items>
+            </rows>
+            <compliance
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Compliance"
+                sling:resourceType="granite/ui/components/coral/foundation/container"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <classification
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldDescription="Export-control classification of these figures, for example EAR99 or ITAR — USML Category VIII. Displayed above the table. The publish workflow enforces the review separately; filling this in does not substitute for it."
+                        fieldLabel="Classification"
+                        name="./classification"/>
+                </items>
+            </compliance>
+        </items>
+    </content>
+</jcr:root>

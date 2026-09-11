@@ -1,0 +1,142 @@
+// Timeline.
+//
+// The spine and the markers are drawn from the list itself — a border on the <li> and a
+// pseudo-element for the node — so the markup carries no presentational elements.
+
+.cmp-timeline {
+    max-width: $av-max;
+    margin: 0 auto;
+    padding: clamp(3rem, 7vw, 5rem) $av-gutter;
+    font-family: $av-font-sans;
+    color: $av-ink;
+}
+
+.cmp-timeline__heading {
+    margin: 0 0 clamp(2rem, 5vw, 3.5rem);
+    font-size: clamp(1.75rem, 3.6vw, 2.75rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+}
+
+.cmp-timeline__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: milestone;
+}
+
+.cmp-timeline__entry {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.5rem 2.5rem;
+    // The left border is the spine. It lives on the entry rather than a wrapper so it
+    // stops exactly where the last milestone does.
+    padding: 0 0 clamp(2rem, 4vw, 3rem) clamp(1.75rem, 4vw, 2.5rem);
+    border-left: 1px solid $av-line-light;
+
+    &:last-child {
+        padding-bottom: 0;
+        // The spine should not overrun the final marker.
+        border-left-color: transparent;
+        background: linear-gradient(to bottom, $av-line-light 0 1.05rem, transparent 1.05rem) left / 1px 100% no-repeat;
+    }
+
+    // The node on the spine.
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0.55rem;
+        left: 0;
+        width: 9px;
+        height: 9px;
+        transform: translateX(-5px);
+        background: $av-steel-400;
+        border: 2px solid $av-white;
+        border-radius: 50%;
+    }
+
+    &[data-cmp-timeline-highlighted="true"]::before {
+        width: 13px;
+        height: 13px;
+        transform: translateX(-7px);
+        background: $av-accent;
+        box-shadow: 0 0 0 4px rgba(255, 106, 19, 0.16);
+    }
+
+    @media (min-width: 48rem) {
+        // Period in its own column so the dates align down the page and read as a scale.
+        grid-template-columns: 8rem minmax(0, 1fr);
+        align-items: start;
+    }
+}
+
+.cmp-timeline__period {
+    margin: 0;
+    font-family: $av-font-mono;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    color: $av-steel-400;
+
+    .cmp-timeline__entry[data-cmp-timeline-highlighted="true"] & {
+        color: $av-accent;
+    }
+}
+
+.cmp-timeline__body {
+    max-width: 62ch;
+}
+
+.cmp-timeline__title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 650;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+}
+
+.cmp-timeline__desc {
+    margin: 0.5rem 0 0;
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: $av-ink-muted;
+}
+
+.cmp-timeline__img {
+    display: block;
+    width: 100%;
+    max-width: 32rem;
+    margin-top: 1.25rem;
+    border-radius: $av-radius;
+    // A flat grey mount so archival photographs of varying age sit together evenly.
+    background: $av-surface-light;
+}
+
+//== Dark variant, applied by the Style System policy.
+.cmp-timeline--dark {
+    background: $av-navy-900;
+    color: $av-white;
+
+    .cmp-timeline__entry {
+        border-left-color: $av-line-dark;
+
+        &:last-child {
+            background: linear-gradient(to bottom, $av-line-dark 0 1.05rem, transparent 1.05rem) left / 1px 100% no-repeat;
+        }
+
+        &::before {
+            border-color: $av-navy-900;
+        }
+    }
+
+    .cmp-timeline__desc {
+        color: $av-steel-300;
+    }
+
+    .cmp-timeline__img {
+        background: $av-surface-dark;
+    }
+}

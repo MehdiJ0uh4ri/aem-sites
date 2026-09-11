@@ -206,6 +206,24 @@
                 </policy_footer>
             </experiencefragment>
             <container jcr:primaryType="nt:unstructured">
+                <policy_aerovance_body
+                    jcr:description="Body container for AeroVance content pages. The allowed list is deliberately narrow: the AeroVance components plus the text primitives, so a programme page cannot accumulate the generic marketing sections that belong to the older design system."
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="AeroVance Page Body"
+                    sling:resourceType="wcm/core/components/policy/policy"
+                    components="[group:AeroVance - Content,group:AeroVance - Programme,group:AeroVance - Careers,group:AeroVance - Investor Relations,mysite/components/text,mysite/components/title,mysite/components/image,mysite/components/separator,mysite/components/contentfragment,mysite/components/experiencefragment,mysite/components/container,mysite/components/carousel,mysite/components/tabs,mysite/components/accordion,mysite/components/embed]"
+                    layout="responsiveGrid">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                </policy_aerovance_body>
+                <policy_aerovance_band
+                    jcr:description="A full-bleed band for a single AeroVance section. Restricting it to one component per band is what keeps the horizontal rules between sections meaningful."
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="AeroVance Section Band"
+                    sling:resourceType="wcm/core/components/policy/policy"
+                    components="[group:AeroVance - Content,group:AeroVance - Programme,group:AeroVance - Careers,group:AeroVance - Investor Relations]"
+                    layout="responsiveGrid">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                </policy_aerovance_band>
                 <policy_1574694950110
                     jcr:description="Allows the template components and defines the component mapping (this configures what components should be automatically created when authors drop assets from the content finder to the page editor)."
                     jcr:primaryType="nt:unstructured"
@@ -340,6 +358,219 @@
                     <jcr:content jcr:primaryType="nt:unstructured"/>
                 </policy>
             </page>
+            <!--
+             | AeroVance component policies.
+             |
+             | Every visual variant below is a Style System entry rather than a dialog field.
+             | That is deliberate: a variant chosen in a dialog is a content decision an author
+             | has to re-make on every instance, while a style is a design decision the policy
+             | makes once per template. It also means retiring a variant is one policy edit
+             | rather than a content migration.
+             |
+             | cq:styleIds are stable identifiers, so a style label can be reworded without
+             | changing which class lands on existing content.
+            -->
+            <contentfragment jcr:primaryType="nt:unstructured">
+                <policy_pressrelease
+                    jcr:description="Renders a Press Release fragment on the newsroom template. The model is pinned so an author cannot place an unrelated fragment type where the page expects a release, which would leave the page with no headline and no dateline."
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Press Release Fragment"
+                    sling:resourceType="wcm/core/components/policy/policy"
+                    cfModels="[/conf/mysite/settings/dam/cfm/models/press-release]"
+                    elementNames="[headline,subheadline,datelineCity,issuedOn,summary,body,quotes,mediaContact,boilerplate,forwardLookingStatement]">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                </policy_pressrelease>
+                <policy_programfragment
+                    jcr:description="Renders an Aircraft / Programme Specification fragment. Used where a programme summary is reused outside its own landing page."
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Programme Specification Fragment"
+                    sling:resourceType="wcm/core/components/policy/policy"
+                    cfModels="[/conf/mysite/settings/dam/cfm/models/aircraft-program]">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                </policy_programfragment>
+            </contentfragment>
+            <aerohero jcr:primaryType="nt:unstructured">
+                <policy_aerohero_page
+                    jcr:description="Opening section for a top-level page. Dark by default, with a light variant for sections that follow a dark band and would otherwise run together."
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Aerospace Hero - Page Opening"
+                    sling:resourceType="wcm/core/components/policy/policy">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                    <cq:styleGroups jcr:primaryType="nt:unstructured">
+                        <item0 jcr:primaryType="nt:unstructured" cq:styleGroupLabel="Treatment">
+                            <cq:styles jcr:primaryType="nt:unstructured">
+                                <item0
+                                    jcr:primaryType="nt:unstructured"
+                                    cq:styleId="av-hero-dark"
+                                    cq:styleLabel="Dark (default)"
+                                    cq:styleClasses=""/>
+                                <item1
+                                    jcr:primaryType="nt:unstructured"
+                                    cq:styleId="av-hero-light"
+                                    cq:styleLabel="Light"
+                                    cq:styleClasses="cmp-aerohero--light"/>
+                            </cq:styles>
+                        </item0>
+                        <item1 jcr:primaryType="nt:unstructured" cq:styleGroupLabel="Height">
+                            <cq:styles jcr:primaryType="nt:unstructured">
+                                <item0
+                                    jcr:primaryType="nt:unstructured"
+                                    cq:styleId="av-hero-full"
+                                    cq:styleLabel="Full height (default)"
+                                    cq:styleClasses=""/>
+                                <item1
+                                    jcr:primaryType="nt:unstructured"
+                                    cq:styleId="av-hero-compact"
+                                    cq:styleLabel="Compact"
+                                    cq:styleClasses="cmp-aerohero--compact"/>
+                            </cq:styles>
+                        </item1>
+                    </cq:styleGroups>
+                </policy_aerohero_page>
+            </aerohero>
+            <spectable jcr:primaryType="nt:unstructured">
+                <policy_spectable_programme
+                    jcr:description="Specification table for a programme page."
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Technical Specification Table - Programme"
+                    sling:resourceType="wcm/core/components/policy/policy">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                    <cq:styleGroups jcr:primaryType="nt:unstructured">
+                        <item0 jcr:primaryType="nt:unstructured" cq:styleGroupLabel="Treatment">
+                            <cq:styles jcr:primaryType="nt:unstructured">
+                                <item0
+                                    jcr:primaryType="nt:unstructured"
+                                    cq:styleId="av-spectable-light"
+                                    cq:styleLabel="Light (default)"
+                                    cq:styleClasses=""/>
+                                <item1
+                                    jcr:primaryType="nt:unstructured"
+                                    cq:styleId="av-spectable-dark"
+                                    cq:styleLabel="Dark"
+                                    cq:styleClasses="cmp-spectable--dark"/>
+                            </cq:styles>
+                        </item0>
+                    </cq:styleGroups>
+                </policy_spectable_programme>
+            </spectable>
+            <programteaser jcr:primaryType="nt:unstructured">
+                <policy_programteaser_grid
+                    jcr:description="Programme card, sized to sit several-across in a responsive grid."
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Programme Teaser - Grid Card"
+                    sling:resourceType="wcm/core/components/policy/policy">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                    <cq:styleGroups jcr:primaryType="nt:unstructured">
+                        <item0 jcr:primaryType="nt:unstructured" cq:styleGroupLabel="Treatment">
+                            <cq:styles jcr:primaryType="nt:unstructured">
+                                <item0
+                                    jcr:primaryType="nt:unstructured"
+                                    cq:styleId="av-teaser-light"
+                                    cq:styleLabel="Light (default)"
+                                    cq:styleClasses=""/>
+                                <item1
+                                    jcr:primaryType="nt:unstructured"
+                                    cq:styleId="av-teaser-dark"
+                                    cq:styleLabel="Dark"
+                                    cq:styleClasses="cmp-programteaser--dark"/>
+                            </cq:styles>
+                        </item0>
+                    </cq:styleGroups>
+                </policy_programteaser_grid>
+            </programteaser>
+            <timeline jcr:primaryType="nt:unstructured">
+                <policy_timeline_history
+                    jcr:description="Milestone sequence for company history or programme development."
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Timeline - History"
+                    sling:resourceType="wcm/core/components/policy/policy">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                    <cq:styleGroups jcr:primaryType="nt:unstructured">
+                        <item0 jcr:primaryType="nt:unstructured" cq:styleGroupLabel="Treatment">
+                            <cq:styles jcr:primaryType="nt:unstructured">
+                                <item0
+                                    jcr:primaryType="nt:unstructured"
+                                    cq:styleId="av-timeline-light"
+                                    cq:styleLabel="Light (default)"
+                                    cq:styleClasses=""/>
+                                <item1
+                                    jcr:primaryType="nt:unstructured"
+                                    cq:styleId="av-timeline-dark"
+                                    cq:styleLabel="Dark"
+                                    cq:styleClasses="cmp-timeline--dark"/>
+                            </cq:styles>
+                        </item0>
+                    </cq:styleGroups>
+                </policy_timeline_history>
+            </timeline>
+            <resourcelibrary jcr:primaryType="nt:unstructured">
+                <policy_resourcelibrary_downloads
+                    jcr:description="Whitepapers and data sheets, with lead capture on gated documents."
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Resource Library - Downloads"
+                    sling:resourceType="wcm/core/components/policy/policy">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                    <cq:styleGroups jcr:primaryType="nt:unstructured">
+                        <item0 jcr:primaryType="nt:unstructured" cq:styleGroupLabel="Treatment">
+                            <cq:styles jcr:primaryType="nt:unstructured">
+                                <item0
+                                    jcr:primaryType="nt:unstructured"
+                                    cq:styleId="av-library-light"
+                                    cq:styleLabel="Light (default)"
+                                    cq:styleClasses=""/>
+                                <item1
+                                    jcr:primaryType="nt:unstructured"
+                                    cq:styleId="av-library-dark"
+                                    cq:styleLabel="Dark"
+                                    cq:styleClasses="cmp-resourcelibrary--dark"/>
+                            </cq:styles>
+                        </item0>
+                    </cq:styleGroups>
+                </policy_resourcelibrary_downloads>
+            </resourcelibrary>
+            <stockticker jcr:primaryType="nt:unstructured">
+                <policy_stockticker_header
+                    jcr:description="Share price for the investor-relations header band. Included dynamically, so the surrounding page keeps its long cache lifetime."
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Stock Ticker - IR Header"
+                    sling:resourceType="wcm/core/components/policy/policy">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                    <cq:styleGroups jcr:primaryType="nt:unstructured">
+                        <item0 jcr:primaryType="nt:unstructured" cq:styleGroupLabel="Treatment">
+                            <cq:styles jcr:primaryType="nt:unstructured">
+                                <item0
+                                    jcr:primaryType="nt:unstructured"
+                                    cq:styleId="av-ticker-dark"
+                                    cq:styleLabel="On dark (default)"
+                                    cq:styleClasses=""/>
+                                <item1
+                                    jcr:primaryType="nt:unstructured"
+                                    cq:styleId="av-ticker-light"
+                                    cq:styleLabel="On light"
+                                    cq:styleClasses="cmp-stockticker--light"/>
+                            </cq:styles>
+                        </item0>
+                    </cq:styleGroups>
+                </policy_stockticker_header>
+            </stockticker>
+            <joblisting jcr:primaryType="nt:unstructured">
+                <policy_joblisting_careers
+                    jcr:description="Open roles read live from the applicant tracking system. Excluded from the dispatcher cache - see the careers rules in the dispatcher farm."
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Job Listing Grid - Careers"
+                    sling:resourceType="wcm/core/components/policy/policy">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                </policy_joblisting_careers>
+            </joblisting>
+            <locationsmap jcr:primaryType="nt:unstructured">
+                <policy_locationsmap_global
+                    jcr:description="Facilities plotted on a world map and listed with addresses, filterable by business unit."
+                    jcr:primaryType="nt:unstructured"
+                    jcr:title="Global Locations Map"
+                    sling:resourceType="wcm/core/components/policy/policy">
+                    <jcr:content jcr:primaryType="nt:unstructured"/>
+                </policy_locationsmap_global>
+            </locationsmap>
         </components>
     </mysite>
     <wcm jcr:primaryType="nt:unstructured">

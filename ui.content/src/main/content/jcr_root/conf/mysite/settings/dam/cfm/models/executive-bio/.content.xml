@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ | Content Fragment Model: Executive Biography.
+ |
+ | The same bio appears on the leadership page, beside quotes in press releases, on event
+ | pages and in the investor deck. Holding it once means an appointment or a title change is
+ | one edit, not a search for every page that mentioned the person — which is how a former
+ | executive stays listed as current for months.
+-->
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Template">
+    <jcr:content
+        jcr:primaryType="cq:PageContent"
+        jcr:description="A member of the leadership team, reused wherever they are named."
+        jcr:title="Executive Biography"
+        sling:resourceType="dam/cfm/models/console/components/data/entity/default"
+        status="enabled">
+        <model
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="wcm/scaffolding/components/scaffolding"
+            maxGraphQLPageSize="{Long}50">
+            <cq:dialog
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="cq/gui/components/authoring/dialog">
+                <content
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/container">
+                    <items jcr:primaryType="nt:unstructured">
+                        <fullName
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                            fieldDescription="As the person themselves writes it."
+                            fieldLabel="Full name"
+                            listOrder="1"
+                            name="fullName"
+                            required="{Boolean}true"
+                            valueType="string"/>
+                        <role
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                            fieldDescription="Current title, for example Chief Technology Officer."
+                            fieldLabel="Role"
+                            listOrder="2"
+                            name="role"
+                            required="{Boolean}true"
+                            valueType="string"/>
+                        <pronouns
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                            fieldDescription="As the person has stated them. Left empty unless they have told us; never inferred."
+                            fieldLabel="Pronouns"
+                            listOrder="3"
+                            name="pronouns"
+                            valueType="string"/>
+                        <businessUnit
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                            fieldLabel="Business unit"
+                            listOrder="4"
+                            name="businessUnit"
+                            valueType="string">
+                            <items jcr:primaryType="nt:unstructured">
+                                <corporate
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Corporate"
+                                    value="corporate"/>
+                                <commercial
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Commercial Aviation"
+                                    value="commercial-aviation"/>
+                                <defence
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Defence &amp; Space"
+                                    value="defence-space"/>
+                                <mro
+                                    jcr:primaryType="nt:unstructured"
+                                    text="MRO &amp; Services"
+                                    value="mro-services"/>
+                                <digital
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Digital &amp; Autonomous Systems"
+                                    value="digital-autonomous"/>
+                            </items>
+                        </businessUnit>
+                        <appointedOn
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/datepicker"
+                            fieldDescription="Date they took the current role."
+                            fieldLabel="Appointed"
+                            listOrder="5"
+                            name="appointedOn"
+                            type="date"
+                            valueType="date"/>
+                        <shortBio
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                            fieldDescription="Two sentences, used beside quotes in press releases."
+                            fieldLabel="Short biography"
+                            listOrder="6"
+                            name="shortBio"
+                            required="{Boolean}true"
+                            valueType="string"/>
+                        <fullBio
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                            fieldDescription="Full biography for the leadership page."
+                            fieldLabel="Full biography"
+                            listOrder="7"
+                            name="fullBio"
+                            valueType="string"/>
+                        <portrait
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                            fieldLabel="Portrait"
+                            listOrder="8"
+                            name="portrait"
+                            rootPath="/content/dam"
+                            valueType="string"/>
+                        <boardMember
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                            fieldDescription="Board membership has disclosure consequences in investor-relations content, so it is a field rather than something inferred from the title."
+                            listOrder="9"
+                            name="boardMember"
+                            text="Member of the Board"
+                            value="{Boolean}true"
+                            valueType="boolean"/>
+                    </items>
+                </content>
+            </cq:dialog>
+        </model>
+    </jcr:content>
+</jcr:root>

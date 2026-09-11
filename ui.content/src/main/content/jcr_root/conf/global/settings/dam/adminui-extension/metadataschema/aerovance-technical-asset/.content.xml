@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ | Metadata schema for AeroVance technical assets.
+ |
+ | The export-control fields exist because in this sector an image is regulated content, not
+ | just a file: a photograph of a defence programme's sensor aperture can be controlled
+ | technical data even though the page it sits on is public. Recording the classification on
+ | the asset, rather than on the page that happens to use it first, is what makes that
+ | survive reuse — the second and third pages to place the asset inherit the determination
+ | instead of each re-deciding it.
+ |
+ | Apply this schema to /content/dam/mysite via the folder's metadata schema property.
+-->
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="sling:Folder"
+    jcr:title="AeroVance Technical Asset"
+    sling:resourceType="dam/gui/coral/components/admin/schemaforms/formbuilder/schemaeditor/items/tabs">
+    <items jcr:primaryType="nt:unstructured">
+        <basic
+            jcr:primaryType="nt:unstructured"
+            jcr:title="Basic"
+            sling:resourceType="granite/ui/components/coral/foundation/container">
+            <items jcr:primaryType="nt:unstructured">
+                <col
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/container">
+                    <items jcr:primaryType="nt:unstructured">
+                        <title
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/gui/coral/components/admin/schemafields/formbuilder/textfield"
+                            fieldLabel="Title"
+                            name="./jcr:content/metadata/dc:title"
+                            renderReadOnly="{Boolean}false"/>
+                        <description
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/gui/coral/components/admin/schemafields/formbuilder/textarea"
+                            fieldLabel="Description"
+                            name="./jcr:content/metadata/dc:description"/>
+                        <businessUnit
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/gui/coral/components/admin/schemafields/formbuilder/dropdown"
+                            fieldDescription="Which business unit owns this asset. Drives folder governance and the reviewer the export-control workflow routes to."
+                            fieldLabel="Business unit"
+                            name="./jcr:content/metadata/aerovance:businessUnit">
+                            <items jcr:primaryType="nt:unstructured">
+                                <commercial
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Commercial Aviation"
+                                    value="commercial-aviation"/>
+                                <defence
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Defence &amp; Space"
+                                    value="defence-space"/>
+                                <mro
+                                    jcr:primaryType="nt:unstructured"
+                                    text="MRO &amp; Services"
+                                    value="mro-services"/>
+                                <digital
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Digital &amp; Autonomous Systems"
+                                    value="digital-autonomous"/>
+                                <corporate
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Corporate"
+                                    value="corporate"/>
+                            </items>
+                        </businessUnit>
+                        <programme
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/gui/coral/components/admin/schemafields/formbuilder/textfield"
+                            fieldDescription="Programme designation, for example AV-380X. Leave empty for corporate imagery."
+                            fieldLabel="Programme"
+                            name="./jcr:content/metadata/aerovance:programme"/>
+                    </items>
+                </col>
+            </items>
+        </basic>
+        <exportcontrol
+            jcr:primaryType="nt:unstructured"
+            jcr:title="Export Control"
+            sling:resourceType="granite/ui/components/coral/foundation/container">
+            <items jcr:primaryType="nt:unstructured">
+                <col
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/container">
+                    <items jcr:primaryType="nt:unstructured">
+                        <sensitivity
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/gui/coral/components/admin/schemafields/formbuilder/dropdown"
+                            fieldDescription="Set this before the asset leaves the ingestion folder. Anything other than 'Not assessed' means a determination has been made and recorded below."
+                            fieldLabel="Export-control sensitivity"
+                            name="./jcr:content/metadata/aerovance:exportSensitivity">
+                            <items jcr:primaryType="nt:unstructured">
+                                <unassessed
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Not assessed — do not publish"
+                                    value="unassessed"/>
+                                <none
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Not controlled — publishable"
+                                    value="none"/>
+                                <ear
+                                    jcr:primaryType="nt:unstructured"
+                                    text="EAR controlled"
+                                    value="ear"/>
+                                <itar
+                                    jcr:primaryType="nt:unstructured"
+                                    text="ITAR controlled — internal use only"
+                                    value="itar"/>
+                            </items>
+                        </sensitivity>
+                        <classification
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/gui/coral/components/admin/schemafields/formbuilder/textfield"
+                            fieldDescription="The specific classification, for example EAR99, ECCN 9E991, or the USML category. Required whenever the sensitivity is anything other than 'Not assessed'."
+                            fieldLabel="Classification"
+                            name="./jcr:content/metadata/aerovance:exportClassification"/>
+                        <reviewer
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/gui/coral/components/admin/schemafields/formbuilder/textfield"
+                            fieldDescription="Who made the determination. A determination with no name against it cannot be relied on later."
+                            fieldLabel="Determined by"
+                            name="./jcr:content/metadata/aerovance:exportReviewer"/>
+                        <reviewDate
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/gui/coral/components/admin/schemafields/formbuilder/date"
+                            displayedFormat="YYYY-MM-DD"
+                            fieldDescription="Determinations are re-checked when a programme's status changes, so the date matters as much as the result."
+                            fieldLabel="Determined on"
+                            name="./jcr:content/metadata/aerovance:exportReviewDate"
+                            type="date"/>
+                        <residency
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/gui/coral/components/admin/schemafields/formbuilder/multivalue"
+                            fieldDescription="Regions this asset may be served from. Leave empty for unrestricted. Some controlled content cannot lawfully be hosted outside its country of origin, which is a data-residency constraint on the CDN, not only an editorial one."
+                            fieldLabel="Permitted regions"
+                            name="./jcr:content/metadata/aerovance:permittedRegions"/>
+                    </items>
+                </col>
+            </items>
+        </exportcontrol>
+    </items>
+</jcr:root>

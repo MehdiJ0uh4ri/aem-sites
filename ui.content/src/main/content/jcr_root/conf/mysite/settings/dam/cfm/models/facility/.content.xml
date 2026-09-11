@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ | Content Fragment Model: Facility.
+ |
+ | One record per site, feeding the locations map, the facility pages, the contact page and
+ | the careers pages' location filter. Coordinates are stored here rather than typed into
+ | each component that plots them, so a site only ever has one position.
+-->
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Template">
+    <jcr:content
+        jcr:primaryType="cq:PageContent"
+        jcr:description="An AeroVance site: what it does, where it is, and who to contact."
+        jcr:title="Facility"
+        sling:resourceType="dam/cfm/models/console/components/data/entity/default"
+        status="enabled">
+        <model
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="wcm/scaffolding/components/scaffolding"
+            maxGraphQLPageSize="{Long}100">
+            <cq:dialog
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="cq/gui/components/authoring/dialog">
+                <content
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/container">
+                    <items jcr:primaryType="nt:unstructured">
+                        <name
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                            fieldDescription="For example: Toulouse Final Assembly Line."
+                            fieldLabel="Facility name"
+                            listOrder="1"
+                            name="name"
+                            required="{Boolean}true"
+                            valueType="string"/>
+                        <facilityType
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                            fieldDescription="What the site does, for example: Final assembly, Wind tunnel, MRO centre."
+                            fieldLabel="Facility type"
+                            listOrder="2"
+                            name="facilityType"
+                            valueType="string"/>
+                        <businessUnit
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                            fieldLabel="Business unit"
+                            listOrder="3"
+                            name="businessUnit"
+                            valueType="string">
+                            <items jcr:primaryType="nt:unstructured">
+                                <commercial
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Commercial Aviation"
+                                    value="commercial-aviation"/>
+                                <defence
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Defence &amp; Space"
+                                    value="defence-space"/>
+                                <mro
+                                    jcr:primaryType="nt:unstructured"
+                                    text="MRO &amp; Services"
+                                    value="mro-services"/>
+                                <digital
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Digital &amp; Autonomous Systems"
+                                    value="digital-autonomous"/>
+                                <corporate
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Corporate"
+                                    value="corporate"/>
+                            </items>
+                        </businessUnit>
+                        <city
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                            fieldLabel="City"
+                            listOrder="4"
+                            name="city"
+                            valueType="string"/>
+                        <country
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                            fieldLabel="Country"
+                            listOrder="5"
+                            name="country"
+                            valueType="string"/>
+                        <address
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                            fieldDescription="Postal address, one element per line."
+                            fieldLabel="Address"
+                            listOrder="6"
+                            name="address"
+                            valueType="string"/>
+                        <latitude
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                            fieldDescription="Decimal degrees, north positive, between -90 and 90."
+                            fieldLabel="Latitude"
+                            listOrder="7"
+                            name="latitude"
+                            valueType="number"/>
+                        <longitude
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                            fieldDescription="Decimal degrees, east positive, between -180 and 180."
+                            fieldLabel="Longitude"
+                            listOrder="8"
+                            name="longitude"
+                            valueType="number"/>
+                        <headcount
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                            fieldDescription="Approximate. Reviewed annually rather than kept live — a precise figure here goes wrong faster than an approximate one."
+                            fieldLabel="Approximate headcount"
+                            listOrder="9"
+                            name="headcount"
+                            valueType="number"/>
+                        <accessRestricted
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                            fieldDescription="Marks a site whose address and access details must not be published — cleared defence facilities, for example. Components filter these out of public listings."
+                            listOrder="10"
+                            name="accessRestricted"
+                            text="Restricted site — do not publish address"
+                            value="{Boolean}true"
+                            valueType="boolean"/>
+                    </items>
+                </content>
+            </cq:dialog>
+        </model>
+    </jcr:content>
+</jcr:root>

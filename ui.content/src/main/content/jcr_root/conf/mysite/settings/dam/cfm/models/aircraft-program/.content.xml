@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ | Content Fragment Model: Aircraft / Programme Specification.
+ |
+ | A programme's figures are quoted on its own landing page, on the business-unit overview,
+ | in press releases, in the partner portal and in the sales app. Holding them once as a
+ | fragment and referencing them everywhere is what stops the range figure on the homepage
+ | disagreeing with the one on the spec sheet — which, for published aircraft performance
+ | data, is a compliance problem and not only an editorial embarrassment.
+ |
+ | Exposed over GraphQL for the app and partner-portal consumers.
+-->
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Template">
+    <jcr:content
+        jcr:primaryType="cq:PageContent"
+        jcr:description="Performance and dimensional figures for one aircraft or system programme."
+        jcr:title="Aircraft / Programme Specification"
+        sling:resourceType="dam/cfm/models/console/components/data/entity/default"
+        status="enabled">
+        <model
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="wcm/scaffolding/components/scaffolding"
+            maxGraphQLPageSize="{Long}50">
+            <cq:dialog
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="cq/gui/components/authoring/dialog">
+                <content
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/container">
+                    <items jcr:primaryType="nt:unstructured">
+                        <designation
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                            fieldDescription="The programme designation, for example AV-380X."
+                            fieldLabel="Designation"
+                            listOrder="1"
+                            name="designation"
+                            renderReadOnly="{Boolean}false"
+                            required="{Boolean}true"
+                            valueType="string"/>
+                        <family
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                            fieldDescription="Aircraft family this variant belongs to."
+                            fieldLabel="Family"
+                            listOrder="2"
+                            name="family"
+                            valueType="string"/>
+                        <businessUnit
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                            fieldLabel="Business unit"
+                            listOrder="3"
+                            name="businessUnit"
+                            valueType="string">
+                            <items jcr:primaryType="nt:unstructured">
+                                <commercial
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Commercial Aviation"
+                                    value="commercial-aviation"/>
+                                <defence
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Defence &amp; Space"
+                                    value="defence-space"/>
+                                <mro
+                                    jcr:primaryType="nt:unstructured"
+                                    text="MRO &amp; Services"
+                                    value="mro-services"/>
+                                <digital
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Digital &amp; Autonomous Systems"
+                                    value="digital-autonomous"/>
+                            </items>
+                        </businessUnit>
+                        <status
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                            fieldLabel="Programme status"
+                            listOrder="4"
+                            name="status"
+                            valueType="string">
+                            <items jcr:primaryType="nt:unstructured">
+                                <development
+                                    jcr:primaryType="nt:unstructured"
+                                    text="In development"
+                                    value="in-development"/>
+                                <testing
+                                    jcr:primaryType="nt:unstructured"
+                                    text="In flight test"
+                                    value="in-testing"/>
+                                <certified
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Certified"
+                                    value="certified"/>
+                                <service
+                                    jcr:primaryType="nt:unstructured"
+                                    text="In service"
+                                    value="in-service"/>
+                                <production
+                                    jcr:primaryType="nt:unstructured"
+                                    text="In production"
+                                    value="in-production"/>
+                                <legacy
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Legacy support"
+                                    value="legacy"/>
+                            </items>
+                        </status>
+                        <overview
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                            fieldDescription="Two or three sentences. Reused as the teaser description wherever this programme is referenced."
+                            fieldLabel="Overview"
+                            listOrder="5"
+                            name="overview"
+                            valueType="string"/>
+                        <!--
+                         | Figures are held in metric only and converted for display. Storing
+                         | both systems invites them to disagree after an edit, and a
+                         | contradiction between two published performance figures is exactly
+                         | what the export-control review exists to catch.
+                        -->
+                        <lengthM
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                            fieldDescription="Metres."
+                            fieldLabel="Overall length (m)"
+                            listOrder="6"
+                            name="lengthM"
+                            valueType="number"/>
+                        <wingspanM
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                            fieldDescription="Metres."
+                            fieldLabel="Wingspan (m)"
+                            listOrder="7"
+                            name="wingspanM"
+                            valueType="number"/>
+                        <mtowKg
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                            fieldDescription="Kilograms."
+                            fieldLabel="Maximum take-off weight (kg)"
+                            listOrder="8"
+                            name="mtowKg"
+                            valueType="number"/>
+                        <rangeKm
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                            fieldDescription="Kilometres, at maximum payload."
+                            fieldLabel="Range (km)"
+                            listOrder="9"
+                            name="rangeKm"
+                            valueType="number"/>
+                        <cruiseMach
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                            fieldDescription="Mach number at typical cruise altitude."
+                            fieldLabel="Cruise speed (Mach)"
+                            listOrder="10"
+                            name="cruiseMach"
+                            valueType="number"/>
+                        <seats
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/numberfield"
+                            fieldDescription="Typical two-class configuration. Leave empty for freighters and non-passenger systems."
+                            fieldLabel="Seats"
+                            listOrder="11"
+                            name="seats"
+                            valueType="number"/>
+                        <engines
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                            fieldDescription="Count and type, for example: 2 x AeroVance AV-8000."
+                            fieldLabel="Powerplant"
+                            listOrder="12"
+                            name="engines"
+                            valueType="string"/>
+                        <firstFlight
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/datepicker"
+                            fieldLabel="First flight"
+                            listOrder="13"
+                            name="firstFlight"
+                            type="date"
+                            valueType="date"/>
+                        <heroImage
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                            fieldDescription="Primary programme still. Must carry an export-control determination in its asset metadata."
+                            fieldLabel="Hero image"
+                            listOrder="14"
+                            name="heroImage"
+                            rootPath="/content/dam"
+                            valueType="string"/>
+                        <exportClassification
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                            fieldDescription="Classification covering the figures above, for example EAR99. Every page that renders this fragment inherits the determination rather than making its own."
+                            fieldLabel="Export-control classification"
+                            listOrder="15"
+                            name="exportClassification"
+                            required="{Boolean}true"
+                            valueType="string"/>
+                    </items>
+                </content>
+            </cq:dialog>
+        </model>
+    </jcr:content>
+</jcr:root>

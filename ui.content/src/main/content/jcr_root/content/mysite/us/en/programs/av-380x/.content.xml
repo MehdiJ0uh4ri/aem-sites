@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ | Sample programme page, for design QA of the AeroVance components.
+ |
+ | Every figure here is invented: AV-380X is not a real aircraft and the numbers are internally
+ | consistent rather than accurate. That is deliberate for a demo package — plausible-looking
+ | but fictional performance data cannot be mistaken for a real specification, and cannot be
+ | export-controlled.
+ |
+ | The export-control properties are set as a reviewer would have set them, so the publication
+ | workflow can be exercised end to end against this page.
+-->
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:template="/conf/mysite/settings/wcm/templates/aerovance-program"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="AV-380X"
+        jcr:description="Twin-aisle, 320 seats, 6,400 km. The AV-380X family in service across 64 countries."
+        sling:resourceType="mysite/components/page"
+        exportControlCleared="{Boolean}true"
+        exportControlClassification="EAR99"
+        exportControlNotes="Performance figures published here are derived from the certified flight manual summary and contain no controlled technology. Reviewed against the current EAR classification for commercial transport aircraft.">
+        <root
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="mysite/components/container"
+            layout="responsiveGrid">
+            <hero
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/aerohero"
+                eyebrow="Commercial Aviation"
+                title="Engineered for the next 100,000 hours"
+                description="The AV-380X family carries more passengers further, on less fuel per seat, than any twin-aisle we have built."
+                fileReference="/content/dam/mysite/asset.jpg"
+                primaryCtaText="Technical specification"
+                primaryCtaLink="#specifications"
+                secondaryCtaText="Talk to the programme team"
+                secondaryCtaLink="/content/mysite/us/en/contact"
+                complianceNotice="Technical data on this page is classified EAR99 and is not subject to ITAR.">
+                <stats jcr:primaryType="nt:unstructured">
+                    <item0
+                        jcr:primaryType="nt:unstructured"
+                        value="12,400+"
+                        label="Aircraft delivered"/>
+                    <item1
+                        jcr:primaryType="nt:unstructured"
+                        value="99.2%"
+                        label="Dispatch reliability"/>
+                    <item2
+                        jcr:primaryType="nt:unstructured"
+                        value="64"
+                        label="Countries served"/>
+                </stats>
+            </hero>
+            <overview
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/container"
+                layout="responsiveGrid">
+                <title
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/title"
+                    jcr:title="A clean-sheet wing, a proven fuselage"
+                    type="h2"/>
+                <text
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/text"
+                    text="&lt;p&gt;The AV-380X pairs a new high-aspect-ratio composite wing with the AV-300 fuselage cross-section, which has accumulated more than forty million flight hours in service. The result is a twin-aisle that burns 18% less fuel per seat than the aircraft it replaces without asking operators to retrain crews or rebuild their maintenance programmes.&lt;/p&gt;"
+                    textIsRich="{Boolean}true"/>
+            </overview>
+            <specifications
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/spectable"
+                caption="AV-380X technical specification, baseline variant"
+                description="Figures quoted at ISA, sea level, maximum payload unless otherwise noted."
+                defaultUnits="metric"
+                sortable="{Boolean}true"
+                classification="EAR99">
+                <rows jcr:primaryType="nt:unstructured">
+                    <row0
+                        jcr:primaryType="nt:unstructured"
+                        label="Overall length"
+                        category="Dimensions"
+                        metricValue="63.7"
+                        metricUnit="m"
+                        imperialValue="209"
+                        imperialUnit="ft"/>
+                    <row1
+                        jcr:primaryType="nt:unstructured"
+                        label="Wingspan"
+                        category="Dimensions"
+                        metricValue="64.8"
+                        metricUnit="m"
+                        imperialValue="212.6"
+                        imperialUnit="ft"/>
+                    <row2
+                        jcr:primaryType="nt:unstructured"
+                        label="Maximum take-off weight"
+                        category="Performance"
+                        metricValue="254,000"
+                        metricUnit="kg"
+                        imperialValue="559,970"
+                        imperialUnit="lb"
+                        note="at ISA +15 °C"/>
+                    <row3
+                        jcr:primaryType="nt:unstructured"
+                        label="Range"
+                        category="Performance"
+                        metricValue="6,400"
+                        metricUnit="km"
+                        imperialValue="3,456"
+                        imperialUnit="nmi"
+                        note="at maximum payload"/>
+                    <row4
+                        jcr:primaryType="nt:unstructured"
+                        label="Cruise speed"
+                        category="Performance"
+                        metricValue="0.85"
+                        metricUnit="Mach"/>
+                    <row5
+                        jcr:primaryType="nt:unstructured"
+                        label="Seats"
+                        category="Cabin"
+                        metricValue="320"
+                        note="typical two-class configuration"/>
+                    <row6
+                        jcr:primaryType="nt:unstructured"
+                        label="Engines"
+                        category="Powerplant"
+                        metricValue="2"
+                        note="AeroVance AV-8000 or equivalent"/>
+                    <row7
+                        jcr:primaryType="nt:unstructured"
+                        label="Thrust per engine"
+                        category="Powerplant"
+                        metricValue="310"
+                        metricUnit="kN"
+                        imperialValue="69,690"
+                        imperialUnit="lbf"/>
+                </rows>
+            </specifications>
+            <detail
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/container"
+                layout="responsiveGrid">
+                <timeline
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/timeline"
+                    heading="Programme milestones"
+                    headingElement="h2">
+                    <entries jcr:primaryType="nt:unstructured">
+                        <entry0
+                            jcr:primaryType="nt:unstructured"
+                            period="2016"
+                            title="Programme launch"
+                            description="Board approval and first orders from three launch customers."/>
+                        <entry1
+                            jcr:primaryType="nt:unstructured"
+                            period="2018-20"
+                            title="Wing development"
+                            description="Static and fatigue testing of the composite wing box at the Bristol structures facility."/>
+                        <entry2
+                            jcr:primaryType="nt:unstructured"
+                            period="Q3 2021"
+                            title="First flight"
+                            description="Four hours and twelve minutes from Toulouse-Blagnac, all objectives met."
+                            highlighted="{Boolean}true"/>
+                        <entry3
+                            jcr:primaryType="nt:unstructured"
+                            period="2023"
+                            title="Type certification"
+                            description="EASA and FAA type certificates awarded within six weeks of each other."
+                            highlighted="{Boolean}true"/>
+                        <entry4
+                            jcr:primaryType="nt:unstructured"
+                            period="2024"
+                            title="Entry into service"
+                            description="First revenue flight, Toulouse to Singapore."/>
+                    </entries>
+                </timeline>
+            </detail>
+            <downloads
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/resourcelibrary"
+                heading="Documentation"
+                headingElement="h2"
+                description="Published specifications and airport planning data. The detailed performance manual requires registration.">
+                <entries jcr:primaryType="nt:unstructured">
+                    <entry0
+                        jcr:primaryType="nt:unstructured"
+                        title="AV-380X data sheet"
+                        description="Two-page summary of dimensions, performance and cabin configurations."
+                        category="Data sheet"
+                        assetPath="/content/dam/mysite/programs/av-380x/av-380x-datasheet.pdf"
+                        gated="false"
+                        classification="EAR99"/>
+                    <entry1
+                        jcr:primaryType="nt:unstructured"
+                        title="Airport planning document"
+                        description="Ground manoeuvring, servicing arrangements and pavement loading for airport operators."
+                        category="Report"
+                        assetPath="/content/dam/mysite/programs/av-380x/av-380x-airport-planning.pdf"
+                        gated="false"
+                        classification="EAR99"/>
+                    <entry2
+                        jcr:primaryType="nt:unstructured"
+                        title="Detailed performance manual"
+                        description="Full payload-range envelopes, takeoff and landing field length charts, and en-route performance across the certified temperature range."
+                        category="Whitepaper"
+                        assetPath="/content/dam/mysite/gated/av-380x-performance-manual.pdf"
+                        gated="{Boolean}true"
+                        classification="EAR99"/>
+                </entries>
+            </downloads>
+            <related
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/container"
+                layout="responsiveGrid">
+                <teaser0
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/programteaser"
+                    eyebrow="Commercial Aviation"
+                    title="AV-380X-900"
+                    description="Stretched variant, 28 additional seats on the same wing."
+                    status="in-testing"
+                    fileReference="/content/dam/mysite/asset.jpg"
+                    link="/content/mysite/us/en/programs/av-380x-900">
+                    <specs jcr:primaryType="nt:unstructured">
+                        <spec0
+                            jcr:primaryType="nt:unstructured"
+                            label="Range"
+                            value="6,100 km"/>
+                        <spec1
+                            jcr:primaryType="nt:unstructured"
+                            label="Seats"
+                            value="348"/>
+                        <spec2
+                            jcr:primaryType="nt:unstructured"
+                            label="MTOW"
+                            value="261,000 kg"/>
+                    </specs>
+                </teaser0>
+                <teaser1
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/programteaser"
+                    eyebrow="Commercial Aviation"
+                    title="AV-300"
+                    description="The preceding twin-aisle, still in production for freight operators."
+                    status="in-production"
+                    fileReference="/content/dam/mysite/asset.jpg"
+                    link="/content/mysite/us/en/programs/av-300">
+                    <specs jcr:primaryType="nt:unstructured">
+                        <spec0
+                            jcr:primaryType="nt:unstructured"
+                            label="Range"
+                            value="5,200 km"/>
+                        <spec1
+                            jcr:primaryType="nt:unstructured"
+                            label="Payload"
+                            value="61,000 kg"/>
+                    </specs>
+                </teaser1>
+            </related>
+        </root>
+    </jcr:content>
+</jcr:root>

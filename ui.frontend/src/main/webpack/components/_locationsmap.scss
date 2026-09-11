@@ -1,0 +1,178 @@
+// Global Locations Map.
+
+.cmp-locationsmap {
+    max-width: $av-max;
+    margin: 0 auto;
+    padding: clamp(2.5rem, 6vw, 4rem) $av-gutter;
+    font-family: $av-font-sans;
+    color: $av-white;
+    background: $av-navy-900;
+}
+
+.cmp-locationsmap__heading {
+    margin: 0 0 1.5rem;
+    font-size: clamp(1.75rem, 3.6vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+}
+
+.cmp-locationsmap__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.75rem;
+}
+
+.cmp-locationsmap__filter {
+    padding: 0.5rem 1rem;
+    font: inherit;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: $av-steel-300;
+    background: transparent;
+    border: 1px solid $av-line-dark;
+    border-radius: $av-radius;
+    cursor: pointer;
+    transition: background 0.15s $av-ease, color 0.15s $av-ease, border-color 0.15s $av-ease;
+
+    &:hover {
+        color: $av-white;
+        background: $av-surface-dark;
+    }
+
+    &[aria-pressed="true"] {
+        color: $av-navy-900;
+        background: $av-steel-200;
+        border-color: transparent;
+    }
+
+    &:focus-visible {
+        outline: 2px solid $av-data;
+        outline-offset: 2px;
+    }
+}
+
+// The plot. The base map must be an equirectangular projection: pin positions are computed
+// as a linear mapping of latitude and longitude, which is only correct for that projection.
+.cmp-locationsmap__plot {
+    position: relative;
+    max-width: 100%;
+    margin-bottom: 2rem;
+    border: 1px solid $av-line-dark;
+    background: $av-navy-800;
+}
+
+.cmp-locationsmap__basemap {
+    display: block;
+    width: 100%;
+    height: auto;
+    // Flattens a photographic or coloured base map into the site's palette so the pins,
+    // which are the only thing that matters here, stay the brightest thing on it.
+    filter: grayscale(1) brightness(0.55) contrast(1.15);
+}
+
+.cmp-locationsmap__pin {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    // The inline left/top place the pin's top-left corner; this centres it on the coordinate.
+    transform: translate(-50%, -50%);
+    background: $av-accent;
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px rgba(255, 106, 19, 0.25);
+
+    &[hidden] {
+        // The attribute alone would work, but the pin is absolutely positioned and some
+        // engines still reserve its box.
+        display: none;
+    }
+}
+
+.cmp-locationsmap__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 1px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    // A 1px gap over a hairline ground draws the rules between cells, so no cell needs its
+    // own border to reason about.
+    background: $av-line-dark;
+    border: 1px solid $av-line-dark;
+}
+
+.cmp-locationsmap__facility {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    height: 100%;
+    padding: 1.25rem;
+    background: $av-navy-900;
+}
+
+.cmp-locationsmap__unit {
+    margin: 0 0 0.2rem;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: $av-track;
+    text-transform: uppercase;
+    color: $av-accent;
+}
+
+.cmp-locationsmap__name {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 650;
+    line-height: 1.3;
+
+    a {
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        &:focus-visible {
+            outline: 2px solid $av-data;
+            outline-offset: 3px;
+        }
+    }
+}
+
+.cmp-locationsmap__place {
+    margin: 0;
+    font-size: 0.875rem;
+    color: $av-steel-300;
+}
+
+.cmp-locationsmap__type {
+    margin: 0;
+    font-family: $av-font-mono;
+    font-size: 0.75rem;
+    color: $av-data;
+}
+
+.cmp-locationsmap__address {
+    margin: 0.4rem 0 0;
+    font-size: 0.8125rem;
+    font-style: normal;
+    line-height: 1.55;
+    color: $av-steel-400;
+    // Preserves the line breaks the author typed, so an address does not need <br> tags.
+    white-space: pre-line;
+}
+
+.cmp-locationsmap__empty {
+    margin: 1.5rem 0 0;
+    font-size: 0.9375rem;
+    color: $av-steel-400;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cmp-locationsmap__filter {
+        transition: none;
+    }
+}

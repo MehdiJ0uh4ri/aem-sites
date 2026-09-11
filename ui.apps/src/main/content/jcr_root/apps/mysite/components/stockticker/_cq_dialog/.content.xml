@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Stock Ticker"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+        <items jcr:primaryType="nt:unstructured">
+            <column
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/container">
+                <items jcr:primaryType="nt:unstructured">
+                    <note
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/text"
+                        text="The symbol, exchange and price come from the market-data feed configured in OSGi, not from this dialog. Only the surrounding text is authored here."/>
+                    <link
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                        fieldDescription="Where the ticker links to, normally the investor-relations landing page. Internal paths get .html appended automatically."
+                        fieldLabel="Links to"
+                        name="./link"
+                        rootPath="/content"/>
+                    <fallbackText
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldDescription="Shown in place of the price when the feed cannot be reached. Defaults to: Share price temporarily unavailable."
+                        fieldLabel="Fallback text"
+                        name="./fallbackText"/>
+                    <disclaimer
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                        fieldDescription="The delayed-quote wording the market-data licence requires, for example: Quotes delayed at least 15 minutes. Check the current agreement before changing this."
+                        fieldLabel="Disclaimer"
+                        name="./disclaimer"
+                        rows="{Long}2"/>
+                </items>
+            </column>
+        </items>
+    </content>
+</jcr:root>

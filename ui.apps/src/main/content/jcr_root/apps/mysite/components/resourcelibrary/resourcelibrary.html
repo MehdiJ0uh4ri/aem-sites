@@ -1,0 +1,127 @@
+<!--/*
+    Downloads / Resource Library.
+
+    Ungated documents are plain links. Gated ones are a <details> disclosure holding the
+    lead form: no dialog, no focus trap, no JavaScript — the browser already knows how to
+    open and close a disclosure and how to keep the keyboard in the right place.
+
+    The form posts to this component's own .download selector. Nothing in the markup
+    carries the gated asset's URL except a hidden field the servlet re-checks against the
+    authored entries, so knowing the path does not get you the file.
+*/-->
+<sly data-sly-use.library="com.mysite.core.models.ResourceLibrary"/>
+
+<section class="cmp-resourcelibrary"
+         data-sly-test.hasContent="${!library.empty}"
+         id="${library.id}"
+         data-cmp-data-layer="${library.data.json}">
+
+    <div class="cmp-resourcelibrary__intro">
+        <h2 class="cmp-resourcelibrary__heading"
+            data-sly-element="${library.headingElement}"
+            data-sly-test="${library.heading}">${library.heading}</h2>
+        <p class="cmp-resourcelibrary__desc" data-sly-test="${library.description}">${library.description}</p>
+    </div>
+
+    <ul class="cmp-resourcelibrary__list">
+        <li class="cmp-resourcelibrary__item" data-sly-repeat.entry="${library.entries}">
+            <article class="cmp-resourcelibrary__card">
+
+                <p class="cmp-resourcelibrary__tags">
+                    <span class="cmp-resourcelibrary__category"
+                          data-sly-test="${entry.category}">${entry.category}</span>
+                    <span class="cmp-resourcelibrary__gated"
+                          data-sly-test="${entry.gated}">${'Registration required' @ i18n}</span>
+                </p>
+
+                <h3 class="cmp-resourcelibrary__title">${entry.title}</h3>
+                <p class="cmp-resourcelibrary__summary"
+                   data-sly-test="${entry.description}">${entry.description}</p>
+
+                <p class="cmp-resourcelibrary__classification" data-sly-test="${entry.classification}">
+                    <span class="cmp-resourcelibrary__classification-tag">${'Export control' @ i18n}</span>
+                    ${entry.classification}
+                </p>
+
+                <p class="cmp-resourcelibrary__file">
+                    <span data-sly-test="${entry.format}">${entry.format}</span>
+                    <span data-sly-test="${entry.size}">${entry.size}</span>
+                </p>
+
+                <!--/* Ungated: a direct link, with the format and size in the accessible name
+                       so a screen-reader user knows what they are about to open. */-->
+                <a class="cmp-resourcelibrary__download"
+                   data-sly-test="${!entry.gated}"
+                   href="${entry.downloadUrl}"
+                   download>${'Download' @ i18n}<span class="cmp-resourcelibrary__sr">
+                    ${entry.title} ${entry.format} ${entry.size}</span></a>
+
+                <details class="cmp-resourcelibrary__gate" data-sly-test="${entry.gated}">
+                    <summary class="cmp-resourcelibrary__download">${'Request this document' @ i18n}<span
+                             class="cmp-resourcelibrary__sr"> ${entry.title}</span></summary>
+
+                    <form class="cmp-resourcelibrary__form"
+                          method="post"
+                          action="${library.formAction @ context='uri'}">
+                        <!--/* Re-checked server-side against the authored entries; a changed
+                               value is refused rather than trusted. */-->
+                        <input type="hidden" name="asset" value="${entry.assetPath}"/>
+
+                        <div class="cmp-resourcelibrary__field">
+                            <label for="${library.id}-${entryList.index}-email">${'Work email' @ i18n}</label>
+                            <input id="${library.id}-${entryList.index}-email"
+                                   type="email"
+                                   name="email"
+                                   autocomplete="email"
+                                   required/>
+                        </div>
+                        <div class="cmp-resourcelibrary__field">
+                            <label for="${library.id}-${entryList.index}-firstName">${'First name' @ i18n}</label>
+                            <input id="${library.id}-${entryList.index}-firstName"
+                                   type="text"
+                                   name="firstName"
+                                   autocomplete="given-name"/>
+                        </div>
+                        <div class="cmp-resourcelibrary__field">
+                            <label for="${library.id}-${entryList.index}-lastName">${'Last name' @ i18n}</label>
+                            <input id="${library.id}-${entryList.index}-lastName"
+                                   type="text"
+                                   name="lastName"
+                                   autocomplete="family-name"/>
+                        </div>
+                        <div class="cmp-resourcelibrary__field">
+                            <label for="${library.id}-${entryList.index}-company">${'Organisation' @ i18n}</label>
+                            <input id="${library.id}-${entryList.index}-company"
+                                   type="text"
+                                   name="company"
+                                   autocomplete="organization"/>
+                        </div>
+                        <div class="cmp-resourcelibrary__field">
+                            <label for="${library.id}-${entryList.index}-country">${'Country' @ i18n}</label>
+                            <input id="${library.id}-${entryList.index}-country"
+                                   type="text"
+                                   name="country"
+                                   autocomplete="country-name"/>
+                        </div>
+
+                        <!--/* Unticked by default and never required to submit: the download is
+                               not conditional on agreeing to be marketed to. */-->
+                        <div class="cmp-resourcelibrary__consent">
+                            <input id="${library.id}-${entryList.index}-consent"
+                                   type="checkbox"
+                                   name="marketingConsent"
+                                   value="yes"/>
+                            <label for="${library.id}-${entryList.index}-consent">${library.consentText}</label>
+                        </div>
+
+                        <button class="cmp-resourcelibrary__submit" type="submit">${'Download' @ i18n}</button>
+                    </form>
+                </details>
+            </article>
+        </li>
+    </ul>
+</section>
+
+<sly data-sly-test="${!hasContent && wcmmode.edit}">
+    <div class="cq-placeholder" data-emptytext="${'Resource Library' @ i18n}"></div>
+</sly>

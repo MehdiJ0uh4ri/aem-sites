@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ | Content Fragment Model: Press Release.
+ |
+ | Press releases are a record, not a page. They are syndicated to wire services, cited by
+ | investors, and must be reproducible years later exactly as issued — which is why the
+ | dateline and boilerplate are structured fields rather than rich text an editor can
+ | quietly reshape.
+-->
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Template">
+    <jcr:content
+        jcr:primaryType="cq:PageContent"
+        jcr:description="A press release as issued, with the structured metadata the newsroom template and schema.org NewsArticle require."
+        jcr:title="Press Release"
+        sling:resourceType="dam/cfm/models/console/components/data/entity/default"
+        status="enabled">
+        <model
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="wcm/scaffolding/components/scaffolding"
+            maxGraphQLPageSize="{Long}50">
+            <cq:dialog
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="cq/gui/components/authoring/dialog">
+                <content
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/container">
+                    <items jcr:primaryType="nt:unstructured">
+                        <headline
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                            fieldLabel="Headline"
+                            listOrder="1"
+                            name="headline"
+                            required="{Boolean}true"
+                            valueType="string"/>
+                        <subheadline
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                            fieldLabel="Sub-headline"
+                            listOrder="2"
+                            name="subheadline"
+                            valueType="string"/>
+                        <datelineCity
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                            fieldDescription="City the release is issued from, for example TOULOUSE, France."
+                            fieldLabel="Dateline"
+                            listOrder="3"
+                            name="datelineCity"
+                            required="{Boolean}true"
+                            valueType="string"/>
+                        <issuedOn
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/datepicker"
+                            fieldDescription="Date of issue. Feeds schema.org datePublished and the newsroom ordering, so it is the issue date rather than the date the page was authored."
+                            fieldLabel="Issued on"
+                            listOrder="4"
+                            name="issuedOn"
+                            required="{Boolean}true"
+                            type="datetime"
+                            valueType="date"/>
+                        <category
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                            fieldLabel="Category"
+                            listOrder="5"
+                            name="category"
+                            valueType="string">
+                            <items jcr:primaryType="nt:unstructured">
+                                <programme
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Programme news"
+                                    value="programme"/>
+                                <financial
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Financial"
+                                    value="financial"/>
+                                <contract
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Orders &amp; contracts"
+                                    value="contract"/>
+                                <corporate
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Corporate"
+                                    value="corporate"/>
+                                <sustainability
+                                    jcr:primaryType="nt:unstructured"
+                                    text="Sustainability"
+                                    value="sustainability"/>
+                            </items>
+                        </category>
+                        <summary
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                            fieldDescription="One paragraph. Used as the meta description and the newsroom teaser, so it must stand alone."
+                            fieldLabel="Summary"
+                            listOrder="6"
+                            name="summary"
+                            required="{Boolean}true"
+                            valueType="string"/>
+                        <body
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                            fieldLabel="Body"
+                            listOrder="7"
+                            name="body"
+                            required="{Boolean}true"
+                            valueType="string"/>
+                        <quotes
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                            fieldDescription="Attributed quotes, one per line as: Name, Title — quote text."
+                            fieldLabel="Quotes"
+                            listOrder="8"
+                            name="quotes"
+                            valueType="string"/>
+                        <relatedPrograms
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                            fieldDescription="Programme fragments this release concerns. Drives the related-content rail without anyone maintaining it by hand."
+                            fieldLabel="Related programmes"
+                            listOrder="9"
+                            name="relatedPrograms"
+                            rootPath="/content/dam/mysite/fragments/programs"
+                            valueType="string"/>
+                        <mediaContact
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                            fieldDescription="Name, telephone and email of the press contact for this release."
+                            fieldLabel="Media contact"
+                            listOrder="10"
+                            name="mediaContact"
+                            valueType="string"/>
+                        <boilerplate
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                            fieldDescription="The 'About AeroVance Systems' paragraph. Reviewed annually by Legal — do not edit per release."
+                            fieldLabel="Boilerplate"
+                            listOrder="11"
+                            name="boilerplate"
+                            valueType="string"/>
+                        <forwardLookingStatement
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                            fieldDescription="Required on any release containing projections, delivery forecasts or order-book expectations. Legal will not clear such a release without it."
+                            fieldLabel="Forward-looking statement"
+                            listOrder="12"
+                            name="forwardLookingStatement"
+                            valueType="string"/>
+                    </items>
+                </content>
+            </cq:dialog>
+        </model>
+    </jcr:content>
+</jcr:root>

@@ -1,11 +1,7 @@
 package com.mysite.core.models.impl;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import javax.annotation.PostConstruct;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
@@ -18,14 +14,6 @@ import com.mysite.core.models.StatsItem;
        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public class StatsItemImpl implements StatsItem {
 
-    /**
-     * Splits an authored value into an optional prefix, a number and an optional suffix.
-     * The number may use {@code ,} as a thousands separator and {@code .} as the decimal mark.
-     * Values without any digit (for example {@code N/A}) simply do not match.
-     */
-    private static final Pattern VALUE_PATTERN =
-            Pattern.compile("^([^0-9]*)([0-9][0-9,]*(?:\\.[0-9]+)?)(.*)$", Pattern.DOTALL);
-
     @ValueMapValue
     private String value;
 
@@ -35,27 +23,11 @@ public class StatsItemImpl implements StatsItem {
     @ValueMapValue
     private String description;
 
-    private Double number;
-    private String prefix = StringUtils.EMPTY;
-    private String suffix = StringUtils.EMPTY;
+    private ValueParts parts;
 
     @PostConstruct
     private void init() {
-        if (StringUtils.isBlank(value)) {
-            return;
-        }
-        Matcher matcher = VALUE_PATTERN.matcher(value.trim());
-        if (!matcher.matches()) {
-            return;
-        }
-        prefix = matcher.group(1);
-        suffix = matcher.group(3);
-        try {
-            number = Double.valueOf(matcher.group(2).replace(",", StringUtils.EMPTY));
-        } catch (NumberFormatException e) {
-            // A value too large for a double is still rendered, just never animated.
-            number = null;
-        }
+        parts = ValueParts.of(value);
     }
 
     @Override
@@ -65,17 +37,17 @@ public class StatsItemImpl implements StatsItem {
 
     @Override
     public Double getNumber() {
-        return number;
+        return parts.getNumber();
     }
 
     @Override
     public String getPrefix() {
-        return prefix;
+        return parts.getPrefix();
     }
 
     @Override
     public String getSuffix() {
-        return suffix;
+        return parts.getSuffix();
     }
 
     @Override

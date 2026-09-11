@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Aerospace Hero"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/tabs"
+        maximized="{Boolean}true">
+        <items jcr:primaryType="nt:unstructured">
+            <text
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Text"
+                sling:resourceType="granite/ui/components/coral/foundation/container"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <eyebrow
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldDescription="Small label above the headline, typically the business unit or programme."
+                        fieldLabel="Eyebrow"
+                        name="./eyebrow"/>
+                    <title
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldLabel="Headline"
+                        name="./title"
+                        required="{Boolean}true"/>
+                    <description
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                        fieldLabel="Description"
+                        name="./description"
+                        rows="{Long}3"/>
+                </items>
+            </text>
+            <backdrop
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Backdrop"
+                sling:resourceType="granite/ui/components/coral/foundation/container"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <fileReference
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                        fieldDescription="Background still from Assets. Also used as the poster frame when a video is set."
+                        fieldLabel="Image"
+                        name="./fileReference"
+                        rootPath="/content/dam"/>
+                    <alt
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldDescription="Leave empty when the backdrop is purely decorative, which is usually the case."
+                        fieldLabel="Alternative text"
+                        name="./alt"/>
+                    <videoReference
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                        fieldDescription="Optional muted loop. It plays only while the section is in view, and is skipped entirely for visitors who asked for reduced motion. Keep it under 10 seconds and 4 MB."
+                        fieldLabel="Video"
+                        name="./videoReference"
+                        rootPath="/content/dam"/>
+                </items>
+            </backdrop>
+            <actions
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Actions"
+                sling:resourceType="granite/ui/components/coral/foundation/container"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <primaryCtaText
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldLabel="Primary button label"
+                        name="./primaryCtaText"/>
+                    <primaryCtaLink
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                        fieldDescription="Internal page paths get .html appended automatically. External URLs are used as-is."
+                        fieldLabel="Primary button link"
+                        name="./primaryCtaLink"
+                        rootPath="/content"/>
+                    <secondaryCtaText
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldLabel="Secondary button label"
+                        name="./secondaryCtaText"/>
+                    <secondaryCtaLink
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                        fieldLabel="Secondary button link"
+                        name="./secondaryCtaLink"
+                        rootPath="/content"/>
+                </items>
+            </actions>
+            <figures
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Figures"
+                sling:resourceType="granite/ui/components/coral/foundation/container"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <stats
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                        composite="{Boolean}true"
+                        fieldDescription="Up to three figures shown in a panel over the backdrop. Any beyond the third are ignored — the panel is a three-up grid and does not wrap."
+                        fieldLabel="Overlay figures">
+                        <field
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/container"
+                            name="./stats">
+                            <items jcr:primaryType="nt:unstructured">
+                                <value
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    fieldDescription="For example 12,400+, 99.2% or $4.8B. The number counts up on scroll; any surrounding characters are kept as they are."
+                                    fieldLabel="Value"
+                                    name="./value"
+                                    required="{Boolean}true"/>
+                                <label
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    fieldDescription="Short caption, for example: Aircraft delivered."
+                                    fieldLabel="Label"
+                                    name="./label"/>
+                            </items>
+                        </field>
+                    </stats>
+                </items>
+            </figures>
+            <compliance
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Compliance"
+                sling:resourceType="granite/ui/components/coral/foundation/container"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <complianceNotice
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                        fieldDescription="Advisory shown under the hero, for example an ITAR or EAR notice on a defence programme. This is a display notice only — it does not replace the export-control review step the publish workflow enforces."
+                        fieldLabel="Export-control notice"
+                        name="./complianceNotice"
+                        rows="{Long}2"/>
+                </items>
+            </compliance>
+        </items>
+    </content>
+</jcr:root>

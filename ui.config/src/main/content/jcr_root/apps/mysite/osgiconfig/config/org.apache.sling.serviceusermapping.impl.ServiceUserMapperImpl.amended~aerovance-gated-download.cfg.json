@@ -1,0 +1,12 @@
+{
+  "_comment": [
+    "Binds the gated-download subservice name used by GatedDownloadServlet to the service",
+    "user created in repoinit. Without this mapping the servlet's getServiceResourceResolver",
+    "throws LoginException and every gated download returns a 500 — which is the correct",
+    "failure direction: no mapping means no file is served, rather than the gate silently",
+    "falling open."
+  ],
+  "user.mapping": [
+    "com.mysite.core:aerovance-gated-download=[aerovance-gated-download]"
+  ]
+}

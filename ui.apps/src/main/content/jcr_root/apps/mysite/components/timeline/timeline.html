@@ -1,0 +1,52 @@
+<!--/*
+    Timeline — company history or programme milestones.
+
+    An ordered list, because the sequence is the content: read without styling, or by a
+    screen reader, the milestones still arrive in order and numbered. The connecting
+    spine and the markers are drawn in CSS from the list itself, so there are no empty
+    presentational elements in the markup.
+*/-->
+<sly data-sly-use.timeline="com.mysite.core.models.Timeline"/>
+
+<section class="cmp-timeline"
+         data-sly-test.hasContent="${!timeline.empty}"
+         id="${timeline.id}"
+         data-cmp-data-layer="${timeline.data.json}">
+
+    <h2 class="cmp-timeline__heading"
+        data-sly-element="${timeline.headingElement}"
+        data-sly-test="${timeline.heading}">${timeline.heading}</h2>
+
+    <ol class="cmp-timeline__list">
+        <li class="cmp-timeline__entry"
+            data-sly-repeat.entry="${timeline.entries}"
+            data-cmp-timeline-highlighted="${entry.highlighted}"
+            data-cmp-reveal>
+            <p class="cmp-timeline__period">${entry.period}</p>
+            <div class="cmp-timeline__body">
+                <h3 class="cmp-timeline__title" data-sly-test="${entry.title}">${entry.title}</h3>
+                <p class="cmp-timeline__desc" data-sly-test="${entry.description}">${entry.description}</p>
+                <sly data-sly-test="${entry.fileReference}">
+                    <!--/* HTL drops an attribute whose expression is empty, so a decorative
+                           alt="" has to be written as a literal on its own variant. */-->
+                    <img class="cmp-timeline__img"
+                         src="${entry.fileReference}"
+                         alt="${entry.alt}"
+                         loading="lazy"
+                         decoding="async"
+                         data-sly-test="${entry.alt}"/>
+                    <img class="cmp-timeline__img"
+                         src="${entry.fileReference}"
+                         alt=""
+                         loading="lazy"
+                         decoding="async"
+                         data-sly-test="${!entry.alt}"/>
+                </sly>
+            </div>
+        </li>
+    </ol>
+</section>
+
+<sly data-sly-test="${!hasContent && wcmmode.edit}">
+    <div class="cq-placeholder" data-emptytext="${'Timeline' @ i18n}"></div>
+</sly>

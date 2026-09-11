@@ -1,0 +1,117 @@
+<!--/*
+    Technical Specification Table.
+
+    Both unit systems are always in the markup. The switch flips which cell is hidden,
+    so the page is complete without JavaScript, prints in full, and a search engine
+    indexes every figure. The non-default column carries the `hidden` attribute rather
+    than a class, so it is out of the accessibility tree too, not merely invisible.
+
+    Sorting is opt-in per component. When it is off the headers stay plain <th> cells
+    with no button, so nothing suggests an interaction that is not there.
+*/-->
+<sly data-sly-use.spec="com.mysite.core.models.SpecTable"/>
+<sly data-sly-test.imperialFirst="${spec.defaultUnits == 'imperial'}"/>
+
+<div class="cmp-spectable"
+     data-sly-test.hasContent="${!spec.empty}"
+     data-cmp-is="spectable"
+     data-cmp-spectable-units="${spec.defaultUnits}"
+     id="${spec.id}"
+     data-cmp-data-layer="${spec.data.json}">
+
+    <div class="cmp-spectable__head">
+        <div class="cmp-spectable__intro">
+            <p class="cmp-spectable__desc" data-sly-test="${spec.description}">${spec.description}</p>
+            <p class="cmp-spectable__classification" data-sly-test="${spec.classification}">
+                <span class="cmp-spectable__classification-tag">Export control</span>
+                ${spec.classification}
+            </p>
+        </div>
+
+        <!--/* Rendered by the server but only made useful by the script; hidden until
+               the script removes the attribute, so it never sits there inert. */-->
+        <div class="cmp-spectable__units"
+             data-sly-test="${spec.unitToggle}"
+             data-cmp-hook-spectable="units"
+             role="group"
+             aria-label="${'Unit system' @ i18n}"
+             hidden>
+            <button class="cmp-spectable__unit"
+                    type="button"
+                    data-cmp-spectable-units="metric"
+                    aria-pressed="${imperialFirst ? 'false' : 'true'}">${'Metric' @ i18n}</button>
+            <button class="cmp-spectable__unit"
+                    type="button"
+                    data-cmp-spectable-units="imperial"
+                    aria-pressed="${imperialFirst ? 'true' : 'false'}">${'Imperial' @ i18n}</button>
+        </div>
+    </div>
+
+    <div class="cmp-spectable__scroll">
+        <table class="cmp-spectable__table">
+            <caption class="cmp-spectable__caption" data-sly-test="${spec.caption}">${spec.caption}</caption>
+            <thead>
+                <tr>
+                    <th class="cmp-spectable__th"
+                        scope="col"
+                        data-cmp-spectable-sort="label"
+                        aria-sort="${spec.sortable ? 'none' : ''}">
+                        <sly data-sly-test="${!spec.sortable}">${'Specification' @ i18n}</sly>
+                        <button class="cmp-spectable__sort"
+                                data-sly-test="${spec.sortable}"
+                                type="button">${'Specification' @ i18n}<span class="cmp-spectable__sort-icon" aria-hidden="true"></span></button>
+                    </th>
+                    <th class="cmp-spectable__th cmp-spectable__th--value"
+                        scope="col"
+                        data-cmp-spectable-sort="value"
+                        aria-sort="${spec.sortable ? 'none' : ''}">
+                        <sly data-sly-test="${!spec.sortable}">${'Value' @ i18n}</sly>
+                        <button class="cmp-spectable__sort"
+                                data-sly-test="${spec.sortable}"
+                                type="button">${'Value' @ i18n}<span class="cmp-spectable__sort-icon" aria-hidden="true"></span></button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody data-cmp-hook-spectable="body">
+                <tr class="cmp-spectable__row"
+                    data-sly-repeat.row="${spec.rows}"
+                    data-cmp-spectable-key="${row.sortKey}">
+                    <th class="cmp-spectable__cell cmp-spectable__cell--label" scope="row">
+                        <span class="cmp-spectable__label">${row.label}</span>
+                        <span class="cmp-spectable__category" data-sly-test="${row.category}">${row.category}</span>
+                    </th>
+                    <td class="cmp-spectable__cell cmp-spectable__cell--value">
+                        <sly data-sly-test="${row.dualUnit}">
+                            <span class="cmp-spectable__figure"
+                                  data-cmp-spectable-unit="metric"
+                                  hidden="${imperialFirst}">
+                                <span class="cmp-spectable__number">${row.metricValue}</span><span
+                                      class="cmp-spectable__unit-symbol"
+                                      data-sly-test="${row.metricUnit}"> ${row.metricUnit}</span>
+                            </span>
+                            <span class="cmp-spectable__figure"
+                                  data-cmp-spectable-unit="imperial"
+                                  hidden="${!imperialFirst}">
+                                <span class="cmp-spectable__number">${row.imperialValue}</span><span
+                                      class="cmp-spectable__unit-symbol"
+                                      data-sly-test="${row.imperialUnit}"> ${row.imperialUnit}</span>
+                            </span>
+                        </sly>
+                        <!--/* Unitless figures — seat count, engine count — read the same in
+                               both systems, so they are stated once and never switch. */-->
+                        <span class="cmp-spectable__figure" data-sly-test="${!row.dualUnit}">
+                            <span class="cmp-spectable__number">${row.metricValue}</span><span
+                                  class="cmp-spectable__unit-symbol"
+                                  data-sly-test="${row.metricUnit}"> ${row.metricUnit}</span>
+                        </span>
+                        <span class="cmp-spectable__note" data-sly-test="${row.note}">${row.note}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<sly data-sly-test="${!hasContent && wcmmode.edit}">
+    <div class="cq-placeholder" data-emptytext="${'Technical Specification Table' @ i18n}"></div>
+</sly>

@@ -11,3 +11,41 @@ $include "./default_filters.any"
 
 # Allow manifest.webmanifest files located in the content
 /0102 { /type "allow" /extension "webmanifest" /path "/content/*/manifest" }
+
+#
+# AeroVance.
+#
+
+# The gated download handler. POST only and scoped to the resource library resource type's
+# own selector, so this opens one endpoint rather than a general POST channel into /content.
+# The servlet re-checks that the requested asset is one the component actually offers, so
+# reaching this filter is necessary but not sufficient to obtain a file.
+/0110 {
+  /type "allow"
+  /method "POST"
+  /extension "html"
+  /selectors "download"
+  /path "/content/mysite/*"
+}
+
+# Careers filtering. The job listing filters through query parameters rather than a fetch,
+# which means the parameters have to survive the filter to reach the publisher at all.
+# Named explicitly rather than allowing all query strings on /content.
+/0111 {
+  /type "allow"
+  /method "GET"
+  /extension "html"
+  /path "/content/mysite/*"
+  /query "q=*&location=*&function=*&page=*"
+}
+
+# Sling Dynamic Include fetches the stock ticker fragment with the nocache selector. Only
+# the dispatcher itself issues these — the SDI configuration requires the
+# Server-Agent: Communique-Dispatcher header — but the path must still be reachable.
+/0112 {
+  /type "allow"
+  /method "GET"
+  /extension "html"
+  /selectors "nocache"
+  /path "/content/mysite/*"
+}

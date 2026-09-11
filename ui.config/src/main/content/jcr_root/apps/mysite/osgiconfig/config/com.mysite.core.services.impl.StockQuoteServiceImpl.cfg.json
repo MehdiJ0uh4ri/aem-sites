@@ -1,0 +1,19 @@
+{
+  "_comment": [
+    "Market-data feed for the investor-relations ticker.",
+    "",
+    "apiToken is intentionally a Cloud Manager secret reference, not a literal. Committing a",
+    "market-data token would put a licensed, billable credential in Git history. Set the",
+    "secret in Cloud Manager under the name AEROVANCE_STOCK_API_TOKEN, per environment.",
+    "",
+    "cacheSeconds must stay at or above whatever the market-data agreement requires for",
+    "delayed quotes — 900s is the usual 15 minutes. Lowering it is a licensing decision,",
+    "not a performance one."
+  ],
+  "endpoint": "https://cloud.iexapis.com/stable/stock/{symbol}/quote",
+  "symbol": "AVS",
+  "exchange": "NYSE",
+  "currency": "USD",
+  "apiToken": "$[secret:AEROVANCE_STOCK_API_TOKEN]",
+  "cacheSeconds": 900
+}

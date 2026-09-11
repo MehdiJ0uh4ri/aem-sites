@@ -1,0 +1,297 @@
+// Technical Specification Table.
+//
+// Figures are set in the monospace face and right-aligned so digits line up down the
+// column — the whole point of a spec sheet is comparing magnitudes at a glance.
+
+.cmp-spectable {
+    max-width: $av-max;
+    margin: 0 auto;
+    padding: clamp(2rem, 5vw, 3.5rem) $av-gutter;
+    font-family: $av-font-sans;
+    color: $av-ink;
+}
+
+.cmp-spectable__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.cmp-spectable__intro {
+    flex: 1 1 24rem;
+}
+
+.cmp-spectable__desc {
+    margin: 0;
+    max-width: 62ch;
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: $av-ink-muted;
+}
+
+.cmp-spectable__classification {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.55rem;
+    margin: 1rem 0 0;
+    font-family: $av-font-mono;
+    font-size: 0.8125rem;
+    color: $av-ink-muted;
+}
+
+.cmp-spectable__classification-tag {
+    padding: 0.2rem 0.5rem;
+    font-family: $av-font-sans;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: $av-track;
+    text-transform: uppercase;
+    color: $av-warn;
+    background: $av-warn-bg;
+    border: 1px solid rgba(217, 139, 10, 0.35);
+}
+
+// Unit switch
+.cmp-spectable__units {
+    display: inline-flex;
+    border: 1px solid $av-line-light;
+    border-radius: $av-radius;
+    overflow: hidden;
+}
+
+.cmp-spectable__unit {
+    padding: 0.55rem 1.1rem;
+    font: inherit;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: $av-ink-muted;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    transition: background 0.15s $av-ease, color 0.15s $av-ease;
+
+    & + & {
+        border-left: 1px solid $av-line-light;
+    }
+
+    &:hover {
+        background: $av-surface-light;
+    }
+
+    &[aria-pressed="true"] {
+        color: $av-white;
+        background: $av-navy-700;
+    }
+}
+
+// Narrow screens scroll the table rather than crushing the label column.
+.cmp-spectable__scroll {
+    overflow-x: auto;
+    // Keyboard users can reach a scroll container only if it is focusable.
+    &:focus-visible {
+        outline: 2px solid $av-data;
+        outline-offset: 2px;
+    }
+}
+
+.cmp-spectable__table {
+    width: 100%;
+    min-width: 32rem;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.cmp-spectable__caption {
+    padding-bottom: 0.85rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: $av-track;
+    text-transform: uppercase;
+    text-align: left;
+    color: $av-ink-muted;
+}
+
+.cmp-spectable__th {
+    padding: 0.75rem 1rem;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: $av-track;
+    text-transform: uppercase;
+    color: $av-white;
+    background: $av-navy-700;
+    white-space: nowrap;
+}
+
+.cmp-spectable__th--value {
+    text-align: right;
+}
+
+.cmp-spectable__sort {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0;
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    cursor: pointer;
+
+    &:hover .cmp-spectable__sort-icon {
+        opacity: 1;
+    }
+}
+
+// A single glyph rotated per state, so there is one shape to reason about.
+.cmp-spectable__sort-icon {
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 5px solid currentColor;
+    opacity: 0.4;
+    transition: transform 0.15s $av-ease, opacity 0.15s $av-ease;
+}
+
+[aria-sort="ascending"] .cmp-spectable__sort-icon {
+    opacity: 1;
+}
+
+[aria-sort="descending"] .cmp-spectable__sort-icon {
+    opacity: 1;
+    transform: rotate(180deg);
+}
+
+.cmp-spectable__row {
+    border-bottom: 1px solid $av-line-light;
+
+    &:nth-child(even) {
+        background: $av-surface-light;
+    }
+}
+
+.cmp-spectable__cell {
+    padding: 0.85rem 1rem;
+    vertical-align: baseline;
+}
+
+.cmp-spectable__cell--label {
+    font-weight: 500;
+    text-align: left;
+}
+
+.cmp-spectable__category {
+    display: block;
+    margin-top: 0.15rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: $av-track;
+    text-transform: uppercase;
+    color: $av-steel-400;
+}
+
+.cmp-spectable__cell--value {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.cmp-spectable__figure {
+    font-family: $av-font-mono;
+    font-size: 1rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.cmp-spectable__number {
+    font-weight: 600;
+    color: $av-navy-800;
+}
+
+.cmp-spectable__unit-symbol {
+    color: $av-ink-muted;
+}
+
+.cmp-spectable__note {
+    display: block;
+    margin-top: 0.2rem;
+    font-size: 0.75rem;
+    font-style: italic;
+    white-space: normal;
+    color: $av-steel-400;
+}
+
+//== Dark variant, applied by the Style System policy.
+.cmp-spectable--dark {
+    background: $av-navy-900;
+    color: $av-white;
+
+    .cmp-spectable__desc,
+    .cmp-spectable__caption,
+    .cmp-spectable__classification,
+    .cmp-spectable__unit-symbol {
+        color: $av-steel-400;
+    }
+
+    .cmp-spectable__units,
+    .cmp-spectable__unit + .cmp-spectable__unit {
+        border-color: $av-line-dark;
+    }
+
+    .cmp-spectable__unit {
+        color: $av-steel-300;
+
+        &:hover {
+            background: $av-surface-dark;
+        }
+
+        &[aria-pressed="true"] {
+            color: $av-navy-900;
+            background: $av-steel-200;
+        }
+    }
+
+    .cmp-spectable__th {
+        background: $av-navy-600;
+    }
+
+    .cmp-spectable__row {
+        border-bottom-color: $av-line-dark;
+
+        &:nth-child(even) {
+            background: $av-surface-dark;
+        }
+    }
+
+    .cmp-spectable__number {
+        color: $av-data;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cmp-spectable__unit,
+    .cmp-spectable__sort-icon {
+        transition: none;
+    }
+}
+
+@media print {
+    // Print carries no switch, so both systems are shown side by side.
+    .cmp-spectable__units {
+        display: none;
+    }
+
+    .cmp-spectable__figure[hidden] {
+        display: inline !important;
+
+        &::before {
+            content: " / ";
+            color: $av-steel-400;
+        }
+    }
+}

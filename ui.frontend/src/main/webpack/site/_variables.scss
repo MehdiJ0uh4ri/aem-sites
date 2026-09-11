@@ -40,6 +40,7 @@ $ds-max:           1180px;
 $ds-ease:          cubic-bezier(0.22, 1, 0.36, 1);
 
 
+<<<<<<< HEAD
 //== MJ & Company
 //
 // The MJ site is a second brand inside the same code base: its tokens live here so the
@@ -122,3 +123,58 @@ $mj-section:     var(--mj-section);
 $mj-ease:        var(--mj-ease);
 
 $mj-sections: ".cmp-mjhero, .cmp-mjsignal, .cmp-mjfeature, .cmp-mjindex, .cmp-mjmarket, .cmp-mjthesis, .cmp-mjengage";
+=======
+//== AeroVance Systems — aerospace design tokens
+//
+//   The marketing sections above ship a generic dark treatment. The AeroVance
+//   corporate site layers its own scale on top: deep navy grounds, steel greys,
+//   and a single signal accent reserved for calls to action and data highlights.
+//   Prefixed `av-` so both systems can live in the same stylesheet while the
+//   site is migrated section by section.
+
+// Grounds — darkest to lightest
+$av-navy-900:      #0b1220;  // page ground for full-bleed sections
+$av-navy-800:      #101a2b;
+$av-navy-700:      #16233a;
+$av-navy-600:      #1c2b3a;  // raised surfaces, table headers
+
+// Steel greys
+$av-steel-400:     #8b96a3;  // secondary text on dark
+$av-steel-300:     #aab3bd;
+$av-steel-200:     #d3d8de;  // hairlines on light
+$av-paper:         #f4f6f8;  // light-variant ground
+$av-white:         #ffffff;
+
+// Ink on light grounds
+$av-ink:           #0b1220;
+$av-ink-muted:     #4a5665;
+
+// Single accent, used sparingly. Signal orange is the primary; titanium blue
+// carries data highlights so a spec figure never competes with a CTA.
+$av-accent:        #ff6a13;
+$av-accent-hover:  #ff8438;
+$av-data:          #4a9edb;
+
+// Semantic hairlines
+$av-line-dark:     rgba(255, 255, 255, 0.12);
+$av-line-light:    rgba(11, 18, 32, 0.12);
+$av-surface-dark:  rgba(255, 255, 255, 0.04);
+$av-surface-light: rgba(11, 18, 32, 0.03);
+
+// Export-control / compliance signalling
+$av-warn:          #d98b0a;
+$av-warn-bg:       rgba(217, 139, 10, 0.12);
+
+//== Typography
+//   Geometric technical sans for headings and body; monospace for every
+//   figure that represents a measurement (thrust, payload, range).
+$av-font-sans: "Inter", "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+$av-font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+//== Grid & rhythm
+$av-max:           1280px;      // 12-column content maximum
+$av-gutter:        clamp(1.25rem, 4vw, 3rem);
+$av-radius:        2px;         // near-square: engineering precision, not softness
+$av-ease:          cubic-bezier(0.22, 1, 0.36, 1);
+$av-track:         0.14em;      // letter-spacing for eyebrows and labels
+>>>>>>> fd71946 (aerospace website)

@@ -1,7 +1,40 @@
 #
-# This file contains the cache rules, and can be customized.
+# Cache rules.
 #
-# By default, it includes the default rules.
+# Rule numbering follows the dispatcher convention: later rules win, so the defaults come
+# first and each AeroVance exception below narrows them.
 #
 
 $include "./default_rules.any"
+
+#
+# AeroVance cache exceptions.
+#
+# Everything here is a decision about what is safe to hand to a second visitor. The default
+# is to cache, and each rule below names something whose response belongs to one person, or
+# changes faster than a page invalidation would notice.
+#
+
+# The stock ticker fragment, fetched by the dispatcher through Sling Dynamic Include.
+# Excluded from the page cache because it carries its own short TTL: a share price and a
+# page about company history have nothing in common in how often they change, and caching
+# them together would force the whole investor-relations section to expire every fifteen
+# minutes. The matching SDI configuration lives in ui.config.
+/0100 { /type "deny" /glob "/content/mysite/*.nocache.html*" }
+
+# Careers results. The page renders whatever the applicant tracking system says right now,
+# and a requisition that closes must stop being advertised within minutes rather than at the
+# next content activation — which for a careers page may be weeks away. Caching is left to
+# the service's own short-lived in-memory cache, which at least bounds the call volume.
+/0101 { /type "deny" /glob "/content/mysite/*/careers*" }
+
+# Gated downloads. The response is one visitor's document, served after their lead form was
+# accepted; the servlet also sends Cache-Control: private, no-store. Both belt and braces are
+# deliberate — a gated whitepaper served from cache to the next visitor defeats the entire
+# gate, and silently.
+/0102 { /type "deny" /glob "*.download.html*" }
+
+# The gated asset tree itself is denied to everyone on publish (see the repoinit script in
+# ui.config), so a direct request 404s. This rule means the dispatcher does not cache that
+# 404 either, which would otherwise persist after an ACL correction.
+/0103 { /type "deny" /glob "/content/dam/mysite/gated/*" }

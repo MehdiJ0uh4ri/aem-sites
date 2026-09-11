@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ | Adds an Export Control tab to page properties.
+ |
+ | sling:orderBefore is deliberately absent: the tab is appended after the inherited Core
+ | Components tabs rather than competing with Basic and Advanced for the author's attention.
+ | The fields here are what ExportControlGateProcess reads; the two audit fields are written
+ | by that step and are shown read-only, because a record of an approval that the approver
+ | can edit afterwards is not a record.
+-->
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content jcr:primaryType="nt:unstructured">
+        <items jcr:primaryType="nt:unstructured">
+            <tabs jcr:primaryType="nt:unstructured">
+                <items jcr:primaryType="nt:unstructured">
+                    <exportcontrol
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Export Control"
+                        sling:resourceType="granite/ui/components/coral/foundation/container"
+                        margin="{Boolean}true">
+                        <items jcr:primaryType="nt:unstructured">
+                            <columns
+                                jcr:primaryType="nt:unstructured"
+                                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
+                                margin="{Boolean}true">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <column
+                                        jcr:primaryType="nt:unstructured"
+                                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                                        <items jcr:primaryType="nt:unstructured">
+                                            <guidance
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/text"
+                                                text="Complete this tab before requesting publication of any page carrying technical specifications, performance figures or programme imagery. The publication workflow verifies these fields and will fail without them. If you are not the designated export-control reviewer, do not complete this tab."/>
+                                            <classificationHeading
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/heading"
+                                                level="{Long}3"
+                                                text="Classification"/>
+                                            <exportControlClassification
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                fieldDescription="The classification assigned to the technical content on this page, for example EAR99, ECCN 9E991, or ITAR - USML Category VIII. Required: a clearance with no classification is a ticked box, not a reviewed decision."
+                                                fieldLabel="Export-control classification"
+                                                name="./exportControlClassification"/>
+                                            <exportControlNotes
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                                                fieldDescription="Basis for the determination, and anything a later reviewer would need in order to reach the same conclusion."
+                                                fieldLabel="Determination notes"
+                                                name="./exportControlNotes"
+                                                rows="{Long}4"/>
+                                            <clearanceHeading
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/heading"
+                                                level="{Long}3"
+                                                text="Clearance"/>
+                                            <exportControlCleared
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                                                fieldDescription="Records that you have reviewed the technical content on this page and cleared it for publication in the regions this site serves."
+                                                name="./exportControlCleared"
+                                                text="I have reviewed this page and cleared it for publication"
+                                                uncheckedValue="false"
+                                                value="{Boolean}true"/>
+                                            <auditHeading
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/heading"
+                                                level="{Long}3"
+                                                text="Audit record"/>
+                                            <auditNote
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/text"
+                                                text="Written by the publication workflow when the gate passes. Read-only: a record of an approval that the approver can edit afterwards is not a record."/>
+                                            <exportControlGatePassedBy
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                disabled="{Boolean}true"
+                                                fieldLabel="Cleared by"
+                                                name="./exportControlGatePassedBy"
+                                                renderReadOnly="{Boolean}true"/>
+                                            <exportControlGatePassedAt
+                                                jcr:primaryType="nt:unstructured"
+                                                sling:resourceType="granite/ui/components/coral/foundation/form/datepicker"
+                                                disabled="{Boolean}true"
+                                                displayedFormat="YYYY-MM-DD HH:mm"
+                                                fieldLabel="Cleared on"
+                                                name="./exportControlGatePassedAt"
+                                                renderReadOnly="{Boolean}true"
+                                                type="datetime"/>
+                                        </items>
+                                    </column>
+                                </items>
+                            </columns>
+                        </items>
+                    </exportcontrol>
+                </items>
+            </tabs>
+        </items>
+    </content>
+</jcr:root>

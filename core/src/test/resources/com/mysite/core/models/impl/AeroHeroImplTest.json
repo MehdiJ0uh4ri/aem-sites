@@ -1,0 +1,60 @@
+{
+  "jcr:primaryType": "cq:PageContent",
+  "sling:resourceType": "mysite/components/page",
+  "root": {
+    "jcr:primaryType": "nt:unstructured",
+    "sling:resourceType": "mysite/components/container",
+    "aerohero-video": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/aerohero",
+      "eyebrow": "Commercial Aviation",
+      "title": "Engineered for the next 100,000 hours",
+      "description": "The AV-380X family in service across 64 countries.",
+      "fileReference": "/content/dam/mysite/programs/av-380x/hero.jpg",
+      "alt": "AV-380X on final approach",
+      "videoReference": "/content/dam/mysite/programs/av-380x/hero.mp4",
+      "primaryCtaText": "Explore the programme",
+      "primaryCtaLink": "/content/mysite/us/en/programs/av-380x",
+      "secondaryCtaText": "Download the data sheet",
+      "secondaryCtaLink": "/content/dam/mysite/programs/av-380x/datasheet.pdf",
+      "complianceNotice": "Technical data on this page is classified EAR99 and is not subject to ITAR.",
+      "stats": {
+        "jcr:primaryType": "nt:unstructured",
+        "item0": {
+          "jcr:primaryType": "nt:unstructured",
+          "value": "12,400+",
+          "label": "Aircraft delivered"
+        },
+        "item1": {
+          "jcr:primaryType": "nt:unstructured",
+          "value": "99.2%",
+          "label": "Dispatch reliability"
+        },
+        "item2": {
+          "jcr:primaryType": "nt:unstructured",
+          "value": "64",
+          "label": "Countries served"
+        },
+        "item3": {
+          "jcr:primaryType": "nt:unstructured",
+          "value": "48M",
+          "label": "Fourth figure exceeds the panel"
+        },
+        "item4": {
+          "jcr:primaryType": "nt:unstructured",
+          "label": "Blank value is dropped"
+        }
+      }
+    },
+    "aerohero-image": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/aerohero",
+      "title": "Defence & Space",
+      "fileReference": "/content/dam/mysite/units/defence/hero.jpg"
+    },
+    "aerohero-empty": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/aerohero"
+    }
+  }
+}

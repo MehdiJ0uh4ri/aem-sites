@@ -1,0 +1,22 @@
+{
+  "_comment": [
+    "Makes the gated-download gate real rather than cosmetic.",
+    "",
+    "/content/dam/mysite/gated is denied to everyone, so a visitor who guesses or is sent a",
+    "gated asset's URL gets a 404 instead of the file. The only route to it is",
+    "GatedDownloadServlet, which reads it through the aerovance-gated-download service user.",
+    "",
+    "That service user is granted jcr:read on the gated folder and nothing else. If the",
+    "servlet is ever tricked into taking an arbitrary path, the worst it can reach is a",
+    "folder whose entire contents it was already allowed to serve.",
+    "",
+    "The deny must come after the allow: repoinit applies these in order, and a deny for",
+    "everyone that precedes the service-user grant would be re-broadened by it."
+  ],
+  "scripts": [
+    "create service user aerovance-gated-download with path system/mysite",
+    "create path (sling:OrderedFolder) /content/dam/mysite/gated",
+    "set ACL for aerovance-gated-download\n  allow jcr:read on /content/dam/mysite/gated\nend",
+    "set ACL for everyone\n  deny jcr:read on /content/dam/mysite/gated\nend"
+  ]
+}

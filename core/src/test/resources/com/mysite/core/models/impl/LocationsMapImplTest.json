@@ -1,0 +1,87 @@
+{
+  "jcr:primaryType": "cq:PageContent",
+  "sling:resourceType": "mysite/components/page",
+  "root": {
+    "jcr:primaryType": "nt:unstructured",
+    "sling:resourceType": "mysite/components/container",
+    "map-full": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/locationsmap",
+      "heading": "Where we build",
+      "baseMap": "/content/dam/mysite/maps/world-equirectangular.png",
+      "locations": {
+        "jcr:primaryType": "nt:unstructured",
+        "loc0": {
+          "jcr:primaryType": "nt:unstructured",
+          "name": "Toulouse Final Assembly Line",
+          "city": "Toulouse",
+          "country": "France",
+          "address": "1 Rond-Point Maurice Bellonte\n31700 Blagnac",
+          "businessUnit": "commercial-aviation",
+          "facilityType": "Final assembly",
+          "latitude": 43.6293,
+          "longitude": 1.3638,
+          "link": "/content/mysite/us/en/locations/toulouse"
+        },
+        "loc1": {
+          "jcr:primaryType": "nt:unstructured",
+          "name": "Palmdale Advanced Programmes",
+          "city": "Palmdale",
+          "country": "United States",
+          "businessUnit": "defence-space",
+          "latitude": 34.6293,
+          "longitude": -118.0847
+        },
+        "loc2": {
+          "jcr:primaryType": "nt:unstructured",
+          "name": "Singapore MRO Centre",
+          "city": "Singapore",
+          "country": "Singapore",
+          "businessUnit": "mro-services",
+          "latitude": 1.3644,
+          "longitude": 103.9915
+        },
+        "loc3": {
+          "jcr:primaryType": "nt:unstructured",
+          "name": "Registered office",
+          "city": "Amsterdam",
+          "country": "Netherlands",
+          "businessUnit": "corporate"
+        },
+        "loc4": {
+          "jcr:primaryType": "nt:unstructured",
+          "name": "Site with impossible coordinates",
+          "businessUnit": "commercial-aviation",
+          "latitude": 191.0,
+          "longitude": 400.0
+        },
+        "loc5": {
+          "jcr:primaryType": "nt:unstructured",
+          "name": "Site in an unknown unit",
+          "businessUnit": "skunkworks"
+        },
+        "loc6": {
+          "jcr:primaryType": "nt:unstructured",
+          "city": "Entry with no name is dropped"
+        }
+      }
+    },
+    "map-listonly": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/locationsmap",
+      "locations": {
+        "jcr:primaryType": "nt:unstructured",
+        "loc0": {
+          "jcr:primaryType": "nt:unstructured",
+          "name": "Registered office",
+          "latitude": 52.3676,
+          "longitude": 4.9041
+        }
+      }
+    },
+    "map-empty": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/locationsmap"
+    }
+  }
+}

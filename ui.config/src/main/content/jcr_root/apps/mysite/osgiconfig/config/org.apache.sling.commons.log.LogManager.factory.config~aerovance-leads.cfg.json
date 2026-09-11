@@ -1,0 +1,16 @@
+{
+  "_comment": [
+    "A dedicated appender for leads the CRM refused. Keeping them out of error.log means an",
+    "outage produces one replayable file instead of scattering captured email addresses",
+    "through the general log, where retention and access are governed by different rules.",
+    "",
+    "This file holds personal data. It is in scope for the retention schedule and for any",
+    "erasure request, and must not be shipped to a general-purpose log aggregator."
+  ],
+  "org.apache.sling.commons.log.names": [
+    "com.mysite.leads.replay"
+  ],
+  "org.apache.sling.commons.log.level": "ERROR",
+  "org.apache.sling.commons.log.file": "logs/aerovance-leads-replay.log",
+  "org.apache.sling.commons.log.additiv": "false"
+}

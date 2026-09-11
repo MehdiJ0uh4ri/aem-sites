@@ -1,0 +1,91 @@
+<!--/*
+    Global Locations Map.
+
+    The list is the component; the map is an index into it. Every pin's information is
+    also in the list below, so the map is aria-hidden — a screen-reader user loses
+    nothing by skipping it, and gains not having to hear forty coordinates.
+
+    Filtering is client-side here, unlike the job listing: the entire dataset is already
+    in the page, so filtering is a matter of hiding rows rather than fetching anything.
+    Without JavaScript the filter buttons are hidden and every facility is listed, which
+    is the correct fallback for a page whose job is to give people addresses.
+*/-->
+<sly data-sly-use.map="com.mysite.core.models.LocationsMap"/>
+
+<section class="cmp-locationsmap"
+         data-sly-test.hasContent="${!map.empty}"
+         data-cmp-is="locationsmap"
+         id="${map.id}"
+         data-cmp-data-layer="${map.data.json}">
+
+    <h2 class="cmp-locationsmap__heading"
+        data-sly-element="${map.headingElement}"
+        data-sly-test="${map.heading}">${map.heading}</h2>
+
+    <div class="cmp-locationsmap__filters"
+         data-sly-test="${map.businessUnits}"
+         data-cmp-hook-locationsmap="filters"
+         role="group"
+         aria-label="${'Filter facilities by business unit' @ i18n}"
+         hidden>
+        <button class="cmp-locationsmap__filter"
+                type="button"
+                data-cmp-locationsmap-filter="all"
+                aria-pressed="true">${'All units' @ i18n}</button>
+        <button class="cmp-locationsmap__filter"
+                type="button"
+                data-sly-repeat.unit="${map.businessUnits}"
+                data-cmp-locationsmap-filter="${unit.key}"
+                aria-pressed="false">${unit.value @ i18n}</button>
+    </div>
+
+    <div class="cmp-locationsmap__plot" data-sly-test="${map.mapped}" aria-hidden="true">
+        <img class="cmp-locationsmap__basemap" src="${map.baseMap}" alt="" loading="lazy" decoding="async"/>
+        <sly data-sly-repeat.location="${map.locations}">
+            <span class="cmp-locationsmap__pin"
+                  data-sly-test="${location.mappable}"
+                  data-cmp-locationsmap-unit="${location.businessUnit}"
+                  style="${location.pinStyle @ context='styleString'}"
+                  title="${location.name}"></span>
+        </sly>
+    </div>
+
+    <ul class="cmp-locationsmap__list" data-cmp-hook-locationsmap="list">
+        <li class="cmp-locationsmap__item"
+            data-sly-repeat.location="${map.locations}"
+            data-cmp-locationsmap-unit="${location.businessUnit}">
+            <article class="cmp-locationsmap__facility">
+                <p class="cmp-locationsmap__unit"
+                   data-sly-test="${location.businessUnitLabel}">${location.businessUnitLabel @ i18n}</p>
+
+                <h3 class="cmp-locationsmap__name">
+                    <a data-sly-test="${location.linkUrl}" href="${location.linkUrl}">${location.name}</a>
+                    <sly data-sly-test="${!location.linkUrl}">${location.name}</sly>
+                </h3>
+
+                <p class="cmp-locationsmap__place">
+                    <span data-sly-test="${location.city}">${location.city}</span><span
+                          data-sly-test="${location.city && location.country}">, </span><span
+                          data-sly-test="${location.country}">${location.country}</span>
+                </p>
+
+                <p class="cmp-locationsmap__type"
+                   data-sly-test="${location.facilityType}">${location.facilityType}</p>
+
+                <!--/* An address is a block of lines, not a paragraph; <address> is what
+                       carries that meaning, and the white-space rule preserves the breaks
+                       the author typed rather than making them use <br>. */-->
+                <address class="cmp-locationsmap__address"
+                         data-sly-test="${location.address}">${location.address}</address>
+            </article>
+        </li>
+    </ul>
+
+    <p class="cmp-locationsmap__empty" data-cmp-hook-locationsmap="empty" hidden>
+        ${'No facilities in this business unit.' @ i18n}
+    </p>
+</section>
+
+<sly data-sly-test="${!hasContent && wcmmode.edit}">
+    <div class="cq-placeholder" data-emptytext="${'Global Locations Map' @ i18n}"></div>
+</sly>

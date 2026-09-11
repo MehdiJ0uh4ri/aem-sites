@@ -1,0 +1,60 @@
+{
+  "jcr:primaryType": "cq:PageContent",
+  "sling:resourceType": "mysite/components/page",
+  "root": {
+    "jcr:primaryType": "nt:unstructured",
+    "sling:resourceType": "mysite/components/container",
+    "library-full": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/resourcelibrary",
+      "heading": "Documentation",
+      "headingElement": "h3",
+      "description": "Published specifications and airport planning data.",
+      "entries": {
+        "jcr:primaryType": "nt:unstructured",
+        "entry0": {
+          "jcr:primaryType": "nt:unstructured",
+          "title": "AV-380X data sheet",
+          "description": "Two-page summary.",
+          "category": "Data sheet",
+          "assetPath": "/content/dam/mysite/programs/av-380x/av-380x-datasheet.pdf",
+          "gated": false,
+          "classification": "EAR99"
+        },
+        "entry1": {
+          "jcr:primaryType": "nt:unstructured",
+          "title": "Detailed performance manual",
+          "category": "Whitepaper",
+          "assetPath": "/content/dam/mysite/gated/av-380x-performance-manual.pdf",
+          "gated": true,
+          "classification": "EAR99"
+        },
+        "entry2": {
+          "jcr:primaryType": "nt:unstructured",
+          "title": "Entry with no asset is dropped"
+        },
+        "entry3": {
+          "jcr:primaryType": "nt:unstructured",
+          "assetPath": "/content/dam/mysite/orphan.pdf"
+        }
+      }
+    },
+    "library-ungated": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/resourcelibrary",
+      "consentText": "Tell me about AeroVance events.",
+      "entries": {
+        "jcr:primaryType": "nt:unstructured",
+        "entry0": {
+          "jcr:primaryType": "nt:unstructured",
+          "title": "Sustainability report",
+          "assetPath": "/content/dam/mysite/reports/sustainability.PDF"
+        }
+      }
+    },
+    "library-empty": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/resourcelibrary"
+    }
+  }
+}

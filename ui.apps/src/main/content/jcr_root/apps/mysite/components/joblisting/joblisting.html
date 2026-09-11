@@ -1,0 +1,139 @@
+<!--/*
+    Job Listing Grid.
+
+    A plain GET form. No fetch, no repaint: filtering works without JavaScript, every
+    filtered view has a URL a candidate can send to a colleague, and the results are
+    crawlable. The trade-off is a page load per filter change, which on a page a visitor
+    filters two or three times is the right side of the bargain.
+
+    Each posting is also emitted as schema.org JobPosting so the roles are eligible for
+    Google Jobs — the single largest referrer to a corporate careers page.
+*/-->
+<sly data-sly-use.jobs="com.mysite.core.models.JobListing"/>
+
+<section class="cmp-joblisting"
+         id="${jobs.id}"
+         data-cmp-data-layer="${jobs.data.json}">
+
+    <h2 class="cmp-joblisting__heading"
+        data-sly-element="${jobs.headingElement}"
+        data-sly-test="${jobs.heading}">${jobs.heading}</h2>
+
+    <form class="cmp-joblisting__filters" method="get" role="search">
+        <div class="cmp-joblisting__field">
+            <label class="cmp-joblisting__label" for="${jobs.id}-q">${'Keyword' @ i18n}</label>
+            <input class="cmp-joblisting__input"
+                   id="${jobs.id}-q"
+                   type="search"
+                   name="q"
+                   value="${jobs.keyword}"
+                   placeholder="${'Role, skill or requisition ID' @ i18n}"/>
+        </div>
+
+        <div class="cmp-joblisting__field" data-sly-test="${jobs.locations}">
+            <label class="cmp-joblisting__label" for="${jobs.id}-location">${'Location' @ i18n}</label>
+            <select class="cmp-joblisting__select" id="${jobs.id}-location" name="location">
+                <option value="">${'All locations' @ i18n}</option>
+                <option data-sly-repeat.location="${jobs.locations}"
+                        value="${location}"
+                        selected="${location == jobs.selectedLocation}">${location}</option>
+            </select>
+        </div>
+
+        <div class="cmp-joblisting__field" data-sly-test="${jobs.functions}">
+            <label class="cmp-joblisting__label" for="${jobs.id}-function">${'Job family' @ i18n}</label>
+            <select class="cmp-joblisting__select" id="${jobs.id}-function" name="function">
+                <option value="">${'All job families' @ i18n}</option>
+                <option data-sly-repeat.function="${jobs.functions}"
+                        value="${function}"
+                        selected="${function == jobs.selectedFunction}">${function}</option>
+            </select>
+        </div>
+
+        <div class="cmp-joblisting__actions">
+            <button class="cmp-joblisting__submit" type="submit">${'Search' @ i18n}</button>
+            <!--/* A link, not a reset button: reset would restore the values the page loaded
+                   with, which after a filtered load are the filters themselves. */-->
+            <a class="cmp-joblisting__clear"
+               data-sly-test="${jobs.filtered}"
+               href="${request.requestURI @ context='uri'}">${'Clear filters' @ i18n}</a>
+        </div>
+    </form>
+
+    <!--/* Announced politely so a filter change is read out after the results land, without
+           interrupting whatever the visitor is currently on. */-->
+    <p class="cmp-joblisting__count" aria-live="polite" data-sly-test="${!jobs.unavailable}">
+        <sly data-sly-test="${jobs.total > 0}">${'{0} open roles' @ i18n, format=[jobs.total]}</sly>
+        <sly data-sly-test="${jobs.total < 1}">${'No open roles match these filters.' @ i18n}</sly>
+    </p>
+
+    <ul class="cmp-joblisting__list" data-sly-test="${jobs.postings}">
+        <li class="cmp-joblisting__item" data-sly-repeat.job="${jobs.postings}">
+            <article class="cmp-joblisting__card">
+                <h3 class="cmp-joblisting__title">
+                    <!--/* The ATS is a different origin, so noopener is required; the tab it
+                           opens must not get a handle back on this window. */-->
+                    <a class="cmp-joblisting__apply"
+                       href="${job.applyUrl}"
+                       target="_blank"
+                       rel="noopener noreferrer">${job.title}</a>
+                </h3>
+
+                <dl class="cmp-joblisting__meta">
+                    <div class="cmp-joblisting__meta-pair" data-sly-test="${job.location}">
+                        <dt>${'Location' @ i18n}</dt>
+                        <dd>${job.location}</dd>
+                    </div>
+                    <div class="cmp-joblisting__meta-pair" data-sly-test="${job.function}">
+                        <dt>${'Job family' @ i18n}</dt>
+                        <dd>${job.function}</dd>
+                    </div>
+                    <div class="cmp-joblisting__meta-pair" data-sly-test="${job.employmentType}">
+                        <dt>${'Type' @ i18n}</dt>
+                        <dd>${job.employmentType}</dd>
+                    </div>
+                    <div class="cmp-joblisting__meta-pair" data-sly-test="${job.id}">
+                        <dt>${'Requisition' @ i18n}</dt>
+                        <dd>${job.id}</dd>
+                    </div>
+                </dl>
+
+                <p class="cmp-joblisting__summary" data-sly-test="${job.summary}">${job.summary}</p>
+
+                <p class="cmp-joblisting__badges">
+                    <span class="cmp-joblisting__badge cmp-joblisting__badge--remote"
+                          data-sly-test="${job.remote}">${'Remote eligible' @ i18n}</span>
+                    <!--/* Clearance is the first thing a defence-programme candidate needs to
+                           know: without it, reading the rest of the posting is wasted effort. */-->
+                    <span class="cmp-joblisting__badge cmp-joblisting__badge--clearance"
+                          data-sly-test="${job.clearance}">${'Clearance required: {0}' @ i18n, format=[job.clearance]}</span>
+                </p>
+            </article>
+        </li>
+    </ul>
+
+    <p class="cmp-joblisting__unavailable" data-sly-test="${jobs.unavailable}">
+        ${'Our careers system is temporarily unreachable. Please try again shortly — no applications in progress are affected.' @ i18n}
+    </p>
+
+    <nav class="cmp-joblisting__pagination"
+         data-sly-test="${jobs.totalPages > 1}"
+         aria-label="${'Job results pages' @ i18n}">
+        <a class="cmp-joblisting__page-link"
+           data-sly-test="${jobs.previousPageQuery}"
+           rel="prev"
+           href="${jobs.previousPageQuery @ context='uri'}">${'Previous' @ i18n}</a>
+        <span class="cmp-joblisting__page-count">${'Page {0} of {1}' @ i18n, format=[jobs.page, jobs.totalPages]}</span>
+        <a class="cmp-joblisting__page-link"
+           data-sly-test="${jobs.nextPageQuery}"
+           rel="next"
+           href="${jobs.nextPageQuery @ context='uri'}">${'Next' @ i18n}</a>
+    </nav>
+</section>
+
+<!--/* JSON-LD for Google Jobs. The `unsafe` context is required because any escaping context
+       would corrupt the JSON — the safety comes from the Java side instead: JobPostingSchema
+       serializes with Gson's default HTML escaping, so a requisition title containing
+       "</script>" is emitted as unicode escapes and cannot break out of this element. */-->
+<script type="application/ld+json"
+        data-sly-test="${jobs.structuredData}">${jobs.structuredData @ context='unsafe'}</script>

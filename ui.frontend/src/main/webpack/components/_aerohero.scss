@@ -1,0 +1,285 @@
+// Aerospace Hero.
+//
+// Dark is the default treatment; the light variant is applied by the Style System
+// through the policy, which puts cmp-aerohero--light on the decoration tag.
+
+.cmp-aerohero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: clamp(560px, 82vh, 900px);
+    padding: clamp(3rem, 8vw, 6rem) $av-gutter clamp(2rem, 4vw, 3rem);
+    border-radius: $av-radius;
+    background: $av-navy-900;
+    color: $av-white;
+    font-family: $av-font-sans;
+}
+
+.cmp-aerohero__backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: -3;
+}
+
+.cmp-aerohero__img,
+.cmp-aerohero__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.cmp-aerohero__veil {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    // Weighted to the bottom-left, where the headline sits, so the upper right of the
+    // photograph — usually the airframe — stays readable.
+    background:
+        linear-gradient(to top, rgba(11, 18, 32, 0.94) 0%, rgba(11, 18, 32, 0.62) 45%, rgba(11, 18, 32, 0.25) 100%),
+        linear-gradient(to right, rgba(11, 18, 32, 0.70) 0%, rgba(11, 18, 32, 0) 60%);
+}
+
+// Drafting-paper rule work. Fades out below so it never crosses the copy.
+.cmp-aerohero__grid {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+        linear-gradient(to right, $av-line-dark 1px, transparent 1px),
+        linear-gradient(to bottom, $av-line-dark 1px, transparent 1px);
+    background-size: 96px 96px;
+    opacity: 0.5;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, transparent 62%);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, transparent 62%);
+}
+
+.cmp-aerohero__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 3.5rem);
+    width: 100%;
+    max-width: $av-max;
+    margin: 0 auto;
+
+    @media (min-width: 62rem) {
+        // Copy takes seven of twelve columns; the figures panel takes four, with one
+        // column of air between them.
+        grid-template-columns: 7fr 4fr;
+        align-items: end;
+        gap: clamp(2rem, 4vw, 4rem);
+    }
+}
+
+.cmp-aerohero__copy {
+    max-width: 46ch;
+}
+
+.cmp-aerohero__eyebrow {
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: $av-track;
+    text-transform: uppercase;
+    color: $av-accent;
+    border-bottom: 1px solid $av-line-dark;
+}
+
+.cmp-aerohero__title {
+    margin: 0;
+    font-size: clamp(2.4rem, 6vw, 4.5rem);
+    line-height: 1.03;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    text-wrap: balance;
+}
+
+.cmp-aerohero__desc {
+    margin: 1.5rem 0 0;
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+    line-height: 1.65;
+    color: $av-steel-300;
+}
+
+.cmp-aerohero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2.25rem;
+}
+
+.cmp-aerohero__cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.9rem 1.85rem;
+    border-radius: $av-radius;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: background 0.2s $av-ease, border-color 0.2s $av-ease, color 0.2s $av-ease;
+}
+
+.cmp-aerohero__cta--primary {
+    color: $av-white;
+    background: $av-accent;
+
+    &:hover,
+    &:focus-visible {
+        background: $av-accent-hover;
+    }
+}
+
+.cmp-aerohero__cta--ghost {
+    color: $av-white;
+    border-color: rgba(255, 255, 255, 0.32);
+    background: $av-surface-dark;
+
+    &:hover,
+    &:focus-visible {
+        border-color: $av-white;
+        background: rgba(255, 255, 255, 0.10);
+    }
+}
+
+// Figures panel
+.cmp-aerohero__stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+    gap: 1px;
+    margin: 0;
+    // The 1px gap over a hairline ground draws the dividing rules between cells,
+    // so no cell needs its own border to reason about.
+    background: $av-line-dark;
+    border: 1px solid $av-line-dark;
+    backdrop-filter: blur(6px);
+
+    @media (min-width: 62rem) {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+.cmp-aerohero__stat {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.35rem;
+    padding: 1.25rem 1.35rem;
+    background: rgba(11, 18, 32, 0.62);
+}
+
+.cmp-aerohero__stat-label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: $av-track;
+    text-transform: uppercase;
+    color: $av-steel-400;
+}
+
+.cmp-aerohero__stat-value {
+    margin: 0;
+    font-family: $av-font-mono;
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: $av-data;
+    // Keeps the count-up from shifting the panel as digit widths change.
+    font-variant-numeric: tabular-nums;
+}
+
+.cmp-aerohero__compliance {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    max-width: $av-max;
+    margin: clamp(2rem, 4vw, 3rem) auto 0;
+    padding-top: 1rem;
+    border-top: 1px solid $av-line-dark;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: $av-steel-400;
+}
+
+.cmp-aerohero__compliance-tag {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: $av-track;
+    text-transform: uppercase;
+    color: $av-warn;
+    background: $av-warn-bg;
+    border: 1px solid rgba(217, 139, 10, 0.35);
+}
+
+//== Light variant, applied by the Style System policy.
+.cmp-aerohero--light {
+    background: $av-paper;
+    color: $av-ink;
+
+    .cmp-aerohero__veil {
+        background:
+            linear-gradient(to top, rgba(244, 246, 248, 0.96) 0%, rgba(244, 246, 248, 0.70) 45%, rgba(244, 246, 248, 0.30) 100%);
+    }
+
+    .cmp-aerohero__grid {
+        background-image:
+            linear-gradient(to right, $av-line-light 1px, transparent 1px),
+            linear-gradient(to bottom, $av-line-light 1px, transparent 1px);
+    }
+
+    .cmp-aerohero__eyebrow {
+        border-bottom-color: $av-line-light;
+    }
+
+    .cmp-aerohero__desc {
+        color: $av-ink-muted;
+    }
+
+    .cmp-aerohero__cta--ghost {
+        color: $av-ink;
+        border-color: rgba(11, 18, 32, 0.28);
+        background: transparent;
+
+        &:hover,
+        &:focus-visible {
+            border-color: $av-ink;
+            background: $av-surface-light;
+        }
+    }
+
+    .cmp-aerohero__stats {
+        background: $av-line-light;
+        border-color: $av-line-light;
+    }
+
+    .cmp-aerohero__stat {
+        background: rgba(255, 255, 255, 0.88);
+    }
+
+    .cmp-aerohero__stat-label {
+        color: $av-ink-muted;
+    }
+
+    .cmp-aerohero__compliance {
+        border-top-color: $av-line-light;
+        color: $av-ink-muted;
+    }
+}
+
+//== Short variant, for section pages that are not the site entry point.
+.cmp-aerohero--compact {
+    min-height: clamp(340px, 48vh, 520px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cmp-aerohero__cta {
+        transition: none;
+    }
+}

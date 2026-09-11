@@ -86,6 +86,20 @@ Import-Package: javax.annotation;version=0.0.0,*
             <artifactId>slf4j-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!--
+         | Gson is provided at runtime by AEM's own bundle, but it is declared here — and
+         | deliberately BEFORE aem-sdk-api — because the uber jar carries its own partial,
+         | older copy of the same classes. Maven builds the test classpath in declaration
+         | order, so listing it second lets the uber jar's copy win and mixing the two
+         | versions fails at run time with NoSuchMethodError inside Gson's own internals,
+         | while the deployed bundle works correctly. Pinned to the version AEM ships.
+        -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>com.adobe.aem</groupId>
             <artifactId>aem-sdk-api</artifactId>

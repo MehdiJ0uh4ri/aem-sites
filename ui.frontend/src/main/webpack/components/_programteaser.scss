@@ -1,0 +1,209 @@
+// Programme Teaser.
+//
+// Cards are designed to sit several-across in a responsive grid container, so the
+// component owns no outer width — it fills whatever column it is placed in.
+
+.cmp-programteaser {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    font-family: $av-font-sans;
+    color: $av-ink;
+    background: $av-white;
+    border: 1px solid $av-line-light;
+    border-radius: $av-radius;
+    transition: border-color 0.2s $av-ease, box-shadow 0.2s $av-ease, transform 0.2s $av-ease;
+
+    &:hover,
+    &:focus-within {
+        border-color: $av-steel-400;
+        box-shadow: 0 12px 32px rgba(11, 18, 32, 0.10);
+        transform: translateY(-2px);
+    }
+}
+
+.cmp-programteaser__media {
+    position: relative;
+    // A fixed ratio so a row of cards lines up regardless of the source crops.
+    aspect-ratio: 16 / 10;
+    max-width: 100%;
+    background: $av-navy-800;
+}
+
+.cmp-programteaser__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.cmp-programteaser__status {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    margin: 0;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: $av-track;
+    text-transform: uppercase;
+    color: $av-white;
+    background: rgba(11, 18, 32, 0.82);
+    border: 1px solid $av-line-dark;
+    backdrop-filter: blur(6px);
+
+    // Only the states a reader acts on differently get their own colour; the rest stay
+    // neutral so the accent keeps its meaning.
+    &[data-cmp-programteaser-status="in-service"],
+    &[data-cmp-programteaser-status="in-production"] {
+        color: $av-navy-900;
+        background: $av-steel-200;
+        border-color: transparent;
+    }
+
+    &[data-cmp-programteaser-status="in-development"],
+    &[data-cmp-programteaser-status="in-testing"] {
+        color: $av-white;
+        background: rgba(255, 106, 19, 0.92);
+        border-color: transparent;
+    }
+}
+
+.cmp-programteaser__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 0.6rem;
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+}
+
+.cmp-programteaser__eyebrow {
+    margin: 0;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: $av-track;
+    text-transform: uppercase;
+    color: $av-steel-400;
+}
+
+.cmp-programteaser__title {
+    margin: 0;
+    font-size: 1.375rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+// Stretched link: one named link in the accessibility tree, a whole clickable card.
+.cmp-programteaser__link {
+    color: inherit;
+    text-decoration: none;
+
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+    }
+
+    &:focus-visible {
+        outline: 2px solid $av-data;
+        outline-offset: 3px;
+    }
+}
+
+.cmp-programteaser__desc {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: $av-ink-muted;
+}
+
+.cmp-programteaser__specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1.5rem;
+    // Pushes the figures and the call to action to the bottom, so cards of differing
+    // description lengths still align along their lower edge.
+    margin: auto 0 0;
+    padding-top: 1.1rem;
+    border-top: 1px solid $av-line-light;
+}
+
+.cmp-programteaser__spec {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.15rem;
+}
+
+.cmp-programteaser__spec-label {
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: $av-track;
+    text-transform: uppercase;
+    color: $av-steel-400;
+}
+
+.cmp-programteaser__spec-value {
+    margin: 0;
+    font-family: $av-font-mono;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: $av-navy-800;
+}
+
+.cmp-programteaser__cta {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: $av-accent;
+}
+
+.cmp-programteaser__cta-text::after {
+    content: " \2192";
+    display: inline-block;
+    transition: transform 0.2s $av-ease;
+}
+
+.cmp-programteaser:hover .cmp-programteaser__cta-text::after {
+    transform: translateX(3px);
+}
+
+//== Dark variant, applied by the Style System policy.
+.cmp-programteaser--dark {
+    color: $av-white;
+    background: $av-navy-800;
+    border-color: $av-line-dark;
+
+    &:hover,
+    &:focus-within {
+        border-color: $av-steel-400;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+    }
+
+    .cmp-programteaser__desc {
+        color: $av-steel-300;
+    }
+
+    .cmp-programteaser__specs {
+        border-top-color: $av-line-dark;
+    }
+
+    .cmp-programteaser__spec-value {
+        color: $av-data;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cmp-programteaser,
+    .cmp-programteaser__cta-text::after {
+        transition: none;
+    }
+
+    .cmp-programteaser:hover {
+        transform: none;
+    }
+}

@@ -1,0 +1,67 @@
+<!--/*
+    Programme Teaser.
+
+    The whole card is clickable, but the link itself wraps only the headline: the
+    stretched-link technique (a pseudo-element covering the card) keeps a single,
+    meaningfully-named link in the accessibility tree instead of three that all say
+    the same thing, and leaves the card's text selectable.
+*/-->
+<sly data-sly-use.teaser="com.mysite.core.models.ProgramTeaser"/>
+
+<article class="cmp-programteaser"
+         data-sly-test.hasContent="${!teaser.empty}"
+         id="${teaser.id}"
+         data-cmp-data-layer="${teaser.data.json}"
+         data-cmp-reveal>
+
+    <div class="cmp-programteaser__media" data-sly-test="${teaser.fileReference}">
+        <!--/* HTL drops an attribute whose expression is empty, so a decorative
+               alt="" has to be written as a literal on its own variant. */-->
+        <img class="cmp-programteaser__img"
+             src="${teaser.fileReference}"
+             alt="${teaser.alt}"
+             loading="lazy"
+             decoding="async"
+             data-sly-test="${teaser.alt}"/>
+        <img class="cmp-programteaser__img"
+             src="${teaser.fileReference}"
+             alt=""
+             loading="lazy"
+             decoding="async"
+             data-sly-test="${!teaser.alt}"/>
+        <p class="cmp-programteaser__status"
+           data-cmp-programteaser-status="${teaser.status}"
+           data-sly-test="${teaser.status}">${teaser.statusLabel @ i18n}</p>
+    </div>
+
+    <div class="cmp-programteaser__body">
+        <p class="cmp-programteaser__eyebrow" data-sly-test="${teaser.eyebrow}">${teaser.eyebrow}</p>
+
+        <h3 class="cmp-programteaser__title">
+            <a class="cmp-programteaser__link"
+               data-sly-test="${teaser.linkUrl}"
+               href="${teaser.linkUrl}">${teaser.title}</a>
+            <sly data-sly-test="${!teaser.linkUrl}">${teaser.title}</sly>
+        </h3>
+
+        <p class="cmp-programteaser__desc" data-sly-test="${teaser.description}">${teaser.description}</p>
+
+        <dl class="cmp-programteaser__specs" data-sly-test="${teaser.specs}">
+            <div class="cmp-programteaser__spec" data-sly-repeat.spec="${teaser.specs}">
+                <dt class="cmp-programteaser__spec-label">${spec.label}</dt>
+                <dd class="cmp-programteaser__spec-value">${spec.value}</dd>
+            </div>
+        </dl>
+
+        <!--/* Duplicates the headline link visually. aria-hidden and tabindex="-1" keep it
+               out of the tab order and off the screen reader, since the headline link
+               already goes to the same place with a better name. */-->
+        <p class="cmp-programteaser__cta" data-sly-test="${teaser.linkUrl}" aria-hidden="true">
+            <span class="cmp-programteaser__cta-text">${teaser.linkText @ i18n}</span>
+        </p>
+    </div>
+</article>
+
+<sly data-sly-test="${!hasContent && wcmmode.edit}">
+    <div class="cq-placeholder" data-emptytext="${'Programme Teaser' @ i18n}"></div>
+</sly>

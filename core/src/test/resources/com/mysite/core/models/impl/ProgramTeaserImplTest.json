@@ -1,0 +1,63 @@
+{
+  "jcr:primaryType": "cq:PageContent",
+  "sling:resourceType": "mysite/components/page",
+  "root": {
+    "jcr:primaryType": "nt:unstructured",
+    "sling:resourceType": "mysite/components/container",
+    "teaser-full": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/programteaser",
+      "eyebrow": "Commercial Aviation",
+      "title": "AV-380X",
+      "description": "Twin-aisle, 320 seats, 6,400 km.",
+      "status": "in-service",
+      "fileReference": "/content/dam/mysite/programs/av-380x/card.jpg",
+      "alt": "AV-380X in AeroVance livery",
+      "link": "/content/mysite/us/en/programs/av-380x",
+      "linkText": "Programme detail",
+      "specs": {
+        "jcr:primaryType": "nt:unstructured",
+        "spec0": {
+          "jcr:primaryType": "nt:unstructured",
+          "label": "Range",
+          "value": "6,400 km"
+        },
+        "spec1": {
+          "jcr:primaryType": "nt:unstructured",
+          "label": "Seats",
+          "value": "320"
+        },
+        "spec2": {
+          "jcr:primaryType": "nt:unstructured",
+          "label": "Thrust",
+          "value": "2 x 310 kN"
+        },
+        "spec3": {
+          "jcr:primaryType": "nt:unstructured",
+          "label": "Fourth spec does not fit the row",
+          "value": "999"
+        },
+        "spec4": {
+          "jcr:primaryType": "nt:unstructured",
+          "label": "Blank value is dropped"
+        }
+      }
+    },
+    "teaser-minimal": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/programteaser",
+      "title": "AV-120",
+      "link": "https://partners.example.com/av-120"
+    },
+    "teaser-bad-status": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/programteaser",
+      "title": "AV-90",
+      "status": "retired-2019"
+    },
+    "teaser-empty": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/programteaser"
+    }
+  }
+}

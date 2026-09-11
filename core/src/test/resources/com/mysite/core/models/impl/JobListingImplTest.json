@@ -1,0 +1,21 @@
+{
+  "jcr:primaryType": "cq:PageContent",
+  "sling:resourceType": "mysite/components/page",
+  "root": {
+    "jcr:primaryType": "nt:unstructured",
+    "sling:resourceType": "mysite/components/container",
+    "joblisting-open": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/joblisting",
+      "heading": "Open roles",
+      "headingElement": "h3",
+      "pageSize": 2
+    },
+    "joblisting-pinned": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/joblisting",
+      "fixedFunction": "Structures Engineering",
+      "pageSize": 2
+    }
+  }
+}

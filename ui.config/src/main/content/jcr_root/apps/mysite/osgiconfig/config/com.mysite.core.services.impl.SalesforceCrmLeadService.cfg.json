@@ -1,0 +1,12 @@
+{
+  "_comment": [
+    "CRM destination for gated-download leads.",
+    "",
+    "accessToken is a Cloud Manager secret reference, not a literal. Set the secret named",
+    "AEROVANCE_CRM_ACCESS_TOKEN per environment; a Salesforce token in Git history is a",
+    "credential leak that also exposes every lead already captured."
+  ],
+  "endpoint": "https://aerovance.my.salesforce.com/services/data/v59.0/sobjects/Lead",
+  "accessToken": "$[secret:AEROVANCE_CRM_ACCESS_TOKEN]",
+  "leadSource": "Website — Gated Download"
+}

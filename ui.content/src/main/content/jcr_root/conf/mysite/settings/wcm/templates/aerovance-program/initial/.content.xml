@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ | Initial content of a new programme page.
+ |
+ | exportControlCleared is deliberately absent rather than set to false. A new page starts
+ | with no determination recorded at all, which is what the publication workflow blocks on —
+ | seeding the property would leave a page that looks reviewed and rejected rather than one
+ | that has never been looked at.
+-->
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:template="/conf/mysite/settings/wcm/templates/aerovance-program"
+        jcr:primaryType="cq:PageContent"
+        sling:resourceType="mysite/components/page">
+        <root
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="mysite/components/container"
+            layout="responsiveGrid"/>
+    </jcr:content>
+</jcr:root>

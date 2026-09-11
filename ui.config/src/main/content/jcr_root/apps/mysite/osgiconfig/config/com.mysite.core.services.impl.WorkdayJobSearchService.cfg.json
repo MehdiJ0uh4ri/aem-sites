@@ -1,0 +1,16 @@
+{
+  "_comment": [
+    "Applicant tracking system for the careers pages.",
+    "",
+    "apiToken is a Cloud Manager secret reference, not a literal. Set the secret named",
+    "AEROVANCE_ATS_API_TOKEN per environment.",
+    "",
+    "cacheSeconds is deliberately short: a requisition that closes must stop being advertised",
+    "within minutes. cacheSize bounds the map because its keys come from visitor-supplied",
+    "filter values."
+  ],
+  "endpoint": "https://aerovance.wd3.myworkdayjobs.com/wday/cxs/aerovance/careers/jobs",
+  "apiToken": "$[secret:AEROVANCE_ATS_API_TOKEN]",
+  "cacheSeconds": 300,
+  "cacheSize": 200
+}

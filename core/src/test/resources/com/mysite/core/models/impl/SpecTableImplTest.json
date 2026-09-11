@@ -1,0 +1,74 @@
+{
+  "jcr:primaryType": "cq:PageContent",
+  "sling:resourceType": "mysite/components/page",
+  "root": {
+    "jcr:primaryType": "nt:unstructured",
+    "sling:resourceType": "mysite/components/container",
+    "spectable-full": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/spectable",
+      "caption": "AV-380X technical specification",
+      "description": "Figures quoted at ISA, sea level, baseline variant.",
+      "defaultUnits": "imperial",
+      "sortable": true,
+      "classification": "EAR99",
+      "rows": {
+        "jcr:primaryType": "nt:unstructured",
+        "row0": {
+          "jcr:primaryType": "nt:unstructured",
+          "label": "Maximum take-off weight",
+          "category": "Performance",
+          "metricValue": "12,400",
+          "metricUnit": "kg",
+          "imperialValue": "27,337",
+          "imperialUnit": "lb",
+          "note": "at ISA +15 °C"
+        },
+        "row1": {
+          "jcr:primaryType": "nt:unstructured",
+          "label": "Wingspan",
+          "category": "Dimensions",
+          "metricValue": "980",
+          "metricUnit": "cm",
+          "imperialValue": "32.2",
+          "imperialUnit": "ft"
+        },
+        "row2": {
+          "jcr:primaryType": "nt:unstructured",
+          "label": "Engines",
+          "metricValue": "2"
+        },
+        "row3": {
+          "jcr:primaryType": "nt:unstructured",
+          "label": "Radar cross-section",
+          "metricValue": "Classified"
+        },
+        "row4": {
+          "jcr:primaryType": "nt:unstructured",
+          "label": "Row with no figure is dropped"
+        },
+        "row5": {
+          "jcr:primaryType": "nt:unstructured",
+          "metricValue": "Row with no label is dropped"
+        }
+      }
+    },
+    "spectable-defaults": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/spectable",
+      "caption": "Minimal table",
+      "rows": {
+        "jcr:primaryType": "nt:unstructured",
+        "row0": {
+          "jcr:primaryType": "nt:unstructured",
+          "label": "Crew",
+          "metricValue": "2"
+        }
+      }
+    },
+    "spectable-empty": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/spectable"
+    }
+  }
+}

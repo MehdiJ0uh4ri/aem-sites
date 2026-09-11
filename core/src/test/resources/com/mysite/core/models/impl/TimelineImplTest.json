@@ -1,0 +1,56 @@
+{
+  "jcr:primaryType": "cq:PageContent",
+  "sling:resourceType": "mysite/components/page",
+  "root": {
+    "jcr:primaryType": "nt:unstructured",
+    "sling:resourceType": "mysite/components/container",
+    "timeline-full": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/timeline",
+      "heading": "Seventy years of flight",
+      "headingElement": "h3",
+      "entries": {
+        "jcr:primaryType": "nt:unstructured",
+        "entry0": {
+          "jcr:primaryType": "nt:unstructured",
+          "period": "1956",
+          "title": "Founded in Toulouse",
+          "description": "Four engineers and a leased hangar.",
+          "fileReference": "/content/dam/mysite/history/1956.jpg",
+          "alt": "The original Toulouse hangar"
+        },
+        "entry1": {
+          "jcr:primaryType": "nt:unstructured",
+          "period": "1994-97",
+          "title": "AV-200 development",
+          "highlighted": true
+        },
+        "entry2": {
+          "jcr:primaryType": "nt:unstructured",
+          "period": "Q3 2021",
+          "title": "First flight of the AV-380X",
+          "fileReference": "/content/dam/mysite/history/2021.jpg"
+        },
+        "entry3": {
+          "jcr:primaryType": "nt:unstructured",
+          "title": "Entry with no period is dropped"
+        }
+      }
+    },
+    "timeline-defaults": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/timeline",
+      "entries": {
+        "jcr:primaryType": "nt:unstructured",
+        "entry0": {
+          "jcr:primaryType": "nt:unstructured",
+          "period": "2024"
+        }
+      }
+    },
+    "timeline-empty": {
+      "jcr:primaryType": "nt:unstructured",
+      "sling:resourceType": "mysite/components/timeline"
+    }
+  }
+}

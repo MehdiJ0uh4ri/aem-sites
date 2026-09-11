@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Resource Library"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/tabs"
+        maximized="{Boolean}true">
+        <items jcr:primaryType="nt:unstructured">
+            <intro
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Introduction"
+                sling:resourceType="granite/ui/components/coral/foundation/container"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <heading
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldDescription="Optional heading rendered above the list."
+                        fieldLabel="Heading"
+                        name="./heading"/>
+                    <headingElement
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                        fieldDescription="HTML element used for the heading. Pick the one that fits the page outline."
+                        fieldLabel="Heading element"
+                        name="./headingElement">
+                        <items jcr:primaryType="nt:unstructured">
+                            <h2
+                                jcr:primaryType="nt:unstructured"
+                                selected="{Boolean}true"
+                                text="H2"
+                                value="h2"/>
+                            <h3
+                                jcr:primaryType="nt:unstructured"
+                                text="H3"
+                                value="h3"/>
+                        </items>
+                    </headingElement>
+                    <description
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                        fieldLabel="Description"
+                        name="./description"
+                        rows="{Long}3"/>
+                </items>
+            </intro>
+            <documents
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Documents"
+                sling:resourceType="granite/ui/components/coral/foundation/container"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <gatingNote
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/text"
+                        text="A gated document must live under /content/dam/mysite/gated. Assets outside that folder are readable by anyone who knows the URL, so ticking the box on one would show the form without actually protecting the file."/>
+                    <entries
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/multifield"
+                        composite="{Boolean}true"
+                        fieldDescription="Entries without a title or an asset are not rendered."
+                        fieldLabel="Documents">
+                        <field
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/container"
+                            name="./entries">
+                            <items jcr:primaryType="nt:unstructured">
+                                <title
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    fieldLabel="Title"
+                                    name="./title"
+                                    required="{Boolean}true"/>
+                                <description
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                                    fieldDescription="What the reader gets. This is what persuades someone to complete the form, so it matters most on gated entries."
+                                    fieldLabel="Description"
+                                    name="./description"
+                                    rows="{Long}2"/>
+                                <category
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                                    fieldLabel="Category"
+                                    name="./category">
+                                    <items jcr:primaryType="nt:unstructured">
+                                        <whitepaper
+                                            jcr:primaryType="nt:unstructured"
+                                            selected="{Boolean}true"
+                                            text="Whitepaper"
+                                            value="Whitepaper"/>
+                                        <datasheet
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Data sheet"
+                                            value="Data sheet"/>
+                                        <brochure
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Brochure"
+                                            value="Brochure"/>
+                                        <caseStudy
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Case study"
+                                            value="Case study"/>
+                                        <report
+                                            jcr:primaryType="nt:unstructured"
+                                            text="Report"
+                                            value="Report"/>
+                                    </items>
+                                </category>
+                                <assetPath
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                    fieldDescription="The document in Assets. Its format and size are read from the file, so they never go stale when it is replaced."
+                                    fieldLabel="Document"
+                                    name="./assetPath"
+                                    required="{Boolean}true"
+                                    rootPath="/content/dam"/>
+                                <gated
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                                    fieldDescription="Requires a completed lead form before the file is served. Only works for assets under /content/dam/mysite/gated."
+                                    name="./gated"
+                                    text="Require registration"
+                                    uncheckedValue="false"
+                                    value="{Boolean}true"/>
+                                <classification
+                                    jcr:primaryType="nt:unstructured"
+                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                    fieldDescription="Export-control classification, for example EAR99. Shown next to the download so a visitor knows before they ask."
+                                    fieldLabel="Classification"
+                                    name="./classification"/>
+                            </items>
+                        </field>
+                    </entries>
+                </items>
+            </documents>
+            <consent
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Consent"
+                sling:resourceType="granite/ui/components/coral/foundation/container"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <consentNote
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/text"
+                        text="The opt-in is unticked by default and is never required to submit the form. Downloading a document is not consent to be contacted about it, and in the EU treating it as such is unlawful. Have this wording reviewed before changing it."/>
+                    <consentText
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                        fieldDescription="Shown beside the marketing opt-in. Leave empty to use the approved default wording."
+                        fieldLabel="Consent wording"
+                        name="./consentText"
+                        rows="{Long}3"/>
+                </items>
+            </consent>
+        </items>
+    </content>
+</jcr:root>

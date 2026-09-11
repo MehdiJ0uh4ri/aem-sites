@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ | Structure of a careers page.
+ |
+ | The job listing is locked into the structure so every careers page exposes the same
+ | filter controls in the same place. Candidates move between business-unit careers
+ | pages constantly, and a search box that relocates between them is a search box
+ | people stop using.
+-->
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:deviceGroups="[mobile/groups/responsive]"
+        cq:template="/conf/mysite/settings/wcm/templates/aerovance-careers"
+        jcr:primaryType="cq:PageContent"
+        sling:resourceType="mysite/components/page">
+        <root
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="mysite/components/container"
+            layout="responsiveGrid">
+            <experiencefragment-header
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/experiencefragment"
+                fragmentVariationPath="/content/experience-fragments/mysite/us/en/site/header/master"/>
+            <hero
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/aerohero"
+                editable="{Boolean}true"
+/>
+            <intro
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/container"
+                editable="{Boolean}true"
+                layout="responsiveGrid"
+/>
+            <jobs
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/joblisting"
+                editable="{Boolean}true"
+/>
+            <life
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/container"
+                editable="{Boolean}true"
+                layout="responsiveGrid"
+/>
+            <locations
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/locationsmap"
+                editable="{Boolean}true"
+/>
+            <experiencefragment-footer
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/experiencefragment"
+                fragmentVariationPath="/content/experience-fragments/mysite/us/en/site/footer/master"/>
+        </root>
+        <cq:responsive jcr:primaryType="nt:unstructured">
+            <breakpoints jcr:primaryType="nt:unstructured">
+                <phone
+                    jcr:primaryType="nt:unstructured"
+                    title="Smaller Screen"
+                    width="{Long}768"/>
+                <tablet
+                    jcr:primaryType="nt:unstructured"
+                    title="Tablet"
+                    width="{Long}1200"/>
+            </breakpoints>
+        </cq:responsive>
+    </jcr:content>
+</jcr:root>

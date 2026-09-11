@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ | Structure of an investor-relations page.
+ |
+ | The ticker sits above the editable area and is included dynamically, so the page
+ | body can hold a long dispatcher TTL while the price behind it expires on the
+ | delayed-quote interval the market-data licence requires. See the SDI configuration
+ | in ui.config and the matching rules in the dispatcher farm.
+-->
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:deviceGroups="[mobile/groups/responsive]"
+        cq:template="/conf/mysite/settings/wcm/templates/aerovance-investor-relations"
+        jcr:primaryType="cq:PageContent"
+        sling:resourceType="mysite/components/page">
+        <root
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="mysite/components/container"
+            layout="responsiveGrid">
+            <experiencefragment-header
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/experiencefragment"
+                fragmentVariationPath="/content/experience-fragments/mysite/us/en/site/header/master"/>
+            <ticker
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/stockticker"
+                editable="{Boolean}true"
+/>
+            <hero
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/aerohero"
+                editable="{Boolean}true"
+/>
+            <body
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/container"
+                editable="{Boolean}true"
+                layout="responsiveGrid"
+/>
+            <documents
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/resourcelibrary"
+                editable="{Boolean}true"
+/>
+            <experiencefragment-footer
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="mysite/components/experiencefragment"
+                fragmentVariationPath="/content/experience-fragments/mysite/us/en/site/footer/master"/>
+        </root>
+        <cq:responsive jcr:primaryType="nt:unstructured">
+            <breakpoints jcr:primaryType="nt:unstructured">
+                <phone
+                    jcr:primaryType="nt:unstructured"
+                    title="Smaller Screen"
+                    width="{Long}768"/>
+                <tablet
+                    jcr:primaryType="nt:unstructured"
+                    title="Tablet"
+                    width="{Long}1200"/>
+            </breakpoints>
+        </cq:responsive>
+    </jcr:content>
+</jcr:root>

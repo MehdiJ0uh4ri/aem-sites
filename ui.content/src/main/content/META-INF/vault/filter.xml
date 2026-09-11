@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workspaceFilter version="1.0">
     <filter root="/conf/mysite" mode="merge"/>
+    <!-- Workflow models and DAM metadata schemas are instance-wide, not site-scoped, so they
+         live under /conf/global. Merge mode: this package owns only the AeroVance nodes and
+         must not remove anything else the instance keeps there. -->
+    <filter root="/conf/global/settings/workflow/models/aerovance-export-control-publication" mode="merge"/>
+    <filter root="/conf/global/settings/dam/adminui-extension/metadataschema/aerovance-technical-asset" mode="merge"/>
     <filter root="/content/mysite" mode="merge"/>
     <filter root="/content/dam/mysite" mode="merge">
         <exclude pattern="/content/dam/mysite(/.*)?"/>
