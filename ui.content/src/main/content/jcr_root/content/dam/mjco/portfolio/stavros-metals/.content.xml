@@ -11,17 +11,18 @@
             <master
                 jcr:primaryType="nt:unstructured"
                 companyName="Stavros Metals"
+                slug="stavros-metals"
                 sector="Materials"
                 location="Pittsburgh, PA"
+                geography="Northeast"
                 investmentYear="2019"
+                stage="Seed"
                 status="Written off"
                 description="Recycled specialty alloys. The technology worked; the market did not arrive."
                 website="https://example.com"
                 companyStory="Placeholder company story."
                 featuredImage="/content/dam/mjco/images/co-stavros-metals.jpg"/>
         </data>
-        <metadata
-            jcr:primaryType="nt:unstructured"
-            dc:title="Stavros Metals"/>
+        <metadata jcr:primaryType="nt:unstructured" dc:title="Stavros Metals"/>
     </jcr:content>
 </jcr:root>

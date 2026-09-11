@@ -7,7 +7,7 @@
         navTitle="Portfolio"
         jcr:title="Portfolio"
         pageTitle="Portfolio | MJ &amp; Company"
-        jcr:description="Every company MJ &amp; Company holds, with its sector, its vintage and its current status."
+        jcr:description="Every company MJ &amp; Company holds, filterable by sector, stage and year, including the positions that have not worked."
         sling:resourceType="mysite/components/page">
         <root
             jcr:primaryType="nt:unstructured"
@@ -19,19 +19,63 @@
                 layout="responsiveGrid">
                 <opener
                     jcr:primaryType="nt:unstructured"
-                    sling:resourceType="mysite/components/mjhero"
+                    sling:resourceType="mysite/components/mjsignal"
                     eyebrow="Portfolio"
-                    lineOne="Twenty-odd companies,"
-                    lineTwo="and why we hold them."
-                    standfirst="Listed in full, including the positions that have not worked. A portfolio page that shows only its winners is marketing, not a portfolio."
-                    fileReference="/content/dam/mjco/images/hero-portfolio.jpg"/>
+                    statement="Twenty-odd companies, listed in full — including the ones that did not work."
+                    footnote="Placeholder dataset. Counts describe the sample content shipped with this build, not MJ &amp; Company holdings.">
+                    <items jcr:primaryType="nt:unstructured">
+                        <item0
+                            jcr:primaryType="nt:unstructured"
+                            value="22"
+                            label="Companies held"
+                            note="Placeholder dataset"/>
+                        <item1
+                            jcr:primaryType="nt:unstructured"
+                            value="5"
+                            label="Sectors"
+                            note="Placeholder dataset"/>
+                        <item2
+                            jcr:primaryType="nt:unstructured"
+                            value="4"
+                            label="U.S. regions"
+                            note="Placeholder dataset"/>
+                        <item3
+                            jcr:primaryType="nt:unstructured"
+                            value="2019"
+                            label="First position"
+                            note="Placeholder dataset"/>
+                    </items>
+                </opener>
                 <index
                     jcr:primaryType="nt:unstructured"
-                    sling:resourceType="mysite/components/mjindex"
-                    variant="portfolio"
+                    sling:resourceType="mysite/components/mjgrid"
+                    eyebrow="The whole book"
+                    heading="Filter by sector, stage or vintage."
+                    intro="Each position was taken with a written thesis. Where the thesis has broken, the entry says so."
                     parentPath="/content/dam/mjco/portfolio"
                     detailRoot="/content/mjco/us/en/portfolio"
-                    limit="{Long}48"/>
+                    showSecondaryFilters="{Boolean}true"
+                    emptyText="No companies match that combination. Clear a filter to widen the view."/>
+                <engage
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="mysite/components/mjengage"
+                    eyebrow="Engage"
+                    statement="If you are building something durable, we would like to hear the argument.">
+                    <items jcr:primaryType="nt:unstructured">
+                        <item0
+                            jcr:primaryType="nt:unstructured"
+                            audience="Founders"
+                            body="Send the thesis, not the deck. We read everything that arrives and reply either way."
+                            ctaText="Write to us"
+                            ctaLink="/content/mjco/us/en/engage"/>
+                        <item1
+                            jcr:primaryType="nt:unstructured"
+                            audience="Investors"
+                            body="Our reporting, our marks and our reasoning are available to prospective limited partners."
+                            ctaText="Request materials"
+                            ctaLink="/content/mjco/us/en/engage"/>
+                    </items>
+                </engage>
             </sections>
         </root>
     </jcr:content>

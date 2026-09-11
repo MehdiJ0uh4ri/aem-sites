@@ -11,17 +11,18 @@
             <master
                 jcr:primaryType="nt:unstructured"
                 companyName="Halden Freight"
+                slug="halden-freight"
                 sector="Logistics"
                 location="Memphis, TN"
+                geography="South"
                 investmentYear="2023"
+                stage="Series B"
                 status="Active"
                 description="Contract management and audit for mid-market shippers."
                 website="https://example.com"
                 companyStory="Placeholder company story."
                 featuredImage="/content/dam/mjco/images/co-halden-freight.jpg"/>
         </data>
-        <metadata
-            jcr:primaryType="nt:unstructured"
-            dc:title="Halden Freight"/>
+        <metadata jcr:primaryType="nt:unstructured" dc:title="Halden Freight"/>
     </jcr:content>
 </jcr:root>

@@ -1,0 +1,278 @@
+//== MJ Portfolio Grid.
+//
+// A flat grid of equal cards. The rail's two-variant contract (a wide lead beside narrow
+// secondaries) is right for a preview of six, where the lead reads as editorial selection.
+// On the complete index it would read as favouritism, and a card that changed size when a
+// filter was applied would make the result set harder to scan, not easier. So: one card
+// size, one crop, and the filtering does the work.
+//
+// Data-driven, not data-dense: no table, no zebra striping, no sort arrows. The controls
+// are a line of words above a set of cards.
+//
+// Tokens only — no local colours, sizes or spacing constants in this file.
+
+.cmp-mjgrid {
+    @include mj-section($mj-paper);
+
+    &__inner {
+        @include mj-container;
+    }
+
+    &__head {
+        display: grid;
+        gap: 1rem;
+        margin-bottom: clamp(2rem, 4vw, 3rem);
+    }
+
+    &__eyebrow {
+        @include mj-eyebrow($mj-bronze-deep);
+    }
+
+    &__heading {
+        @include mj-heading;
+
+        max-width: 22ch;
+    }
+
+    &__intro {
+        @include mj-body;
+    }
+
+    //-- Controls.
+
+    &__filters {
+        border-top: 1px solid $mj-rule;
+        border-bottom: 1px solid $mj-rule;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: clamp(1rem, 3vw, 2.5rem);
+        margin-bottom: clamp(2rem, 4vw, 3rem);
+        padding: clamp(1rem, 2vw, 1.5rem) 0;
+    }
+
+    &__facet {
+        border: 0;
+        margin: 0;
+        min-width: 0;
+        padding: 0;
+    }
+
+    &__legend {
+        @include mj-visually-hidden;
+    }
+
+    &__pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: clamp(0.5rem, 1.5vw, 1.25rem);
+    }
+
+    // A pill is a word with a rule under it when chosen — not a filled capsule. The
+    // control should look like part of the writing, not like a form.
+    &__pill {
+        @include mj-meta($mj-muted);
+
+        background: none;
+        border: 0;
+        border-bottom: 1px solid transparent;
+        cursor: pointer;
+        font-family: $mj-sans;
+        min-height: 44px;
+        padding: 0 0 0.35em;
+        transition: color 0.3s $mj-ease, border-color 0.3s $mj-ease;
+
+        &:hover {
+            color: $mj-ink;
+        }
+
+        &.is-active {
+            border-bottom-color: $mj-bronze;
+            color: $mj-ink;
+        }
+
+        &:focus-visible {
+            outline: 2px solid $mj-bronze-deep;
+            outline-offset: 4px;
+        }
+    }
+
+    &__secondary {
+        display: flex;
+        align-items: center;
+        gap: clamp(0.75rem, 2vw, 1.5rem);
+        margin-left: auto;
+    }
+
+    &__field {
+        align-items: center;
+        display: flex;
+        gap: 0.5rem;
+        margin: 0;
+    }
+
+    &__label {
+        @include mj-meta($mj-muted);
+    }
+
+    &__select {
+        background: none;
+        border: 0;
+        border-bottom: 1px solid $mj-rule;
+        color: $mj-ink;
+        font-family: $mj-sans;
+        font-size: 0.8125rem;
+        min-height: 44px;
+        padding: 0 1.25rem 0 0;
+
+        &:focus-visible {
+            outline: 2px solid $mj-bronze-deep;
+            outline-offset: 2px;
+        }
+    }
+
+    &__reset {
+        @include mj-meta($mj-bronze-deep);
+
+        background: none;
+        border: 0;
+        cursor: pointer;
+        min-height: 44px;
+        padding: 0;
+
+        &:focus-visible {
+            outline: 2px solid $mj-bronze-deep;
+            outline-offset: 4px;
+        }
+    }
+
+    &__count {
+        @include mj-meta($mj-muted);
+
+        margin: 0;
+        width: 100%;
+    }
+
+    //-- The grid itself.
+
+    &__list {
+        display: grid;
+        gap: clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 2vw, 2rem);
+        // auto-fill, not auto-fit: a filtered result of one company should stay one card
+        // wide instead of stretching across the whole row.
+        grid-template-columns: repeat(auto-fill, minmax(min(17rem, 100%), 1fr));
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    &__card {
+        // The link's hit area is stretched over the card rather than the card being
+        // wrapped in an anchor, so the link's accessible name stays the company name.
+        position: relative;
+    }
+
+    &__art {
+        margin-bottom: 1rem;
+        overflow: hidden;
+    }
+
+    &__img {
+        // One crop for every card. Cycling ratios is what made the rail look accidental.
+        aspect-ratio: 5 / 4;
+        display: block;
+        height: 100%;
+        object-fit: cover;
+        width: 100%;
+        transition: transform 1.2s $mj-ease;
+    }
+
+    &__card:hover &__img,
+    &__card:focus-within &__img {
+        transform: scale(1.03);
+    }
+
+    &__meta {
+        @include mj-meta;
+
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin: 0;
+    }
+
+    &__sector {
+        color: $mj-bronze-deep;
+    }
+
+    &__name {
+        @include mj-heading(1.125rem, 1.375rem);
+
+        margin: 0.6rem 0 0;
+    }
+
+    &__link {
+        color: inherit;
+        text-decoration: none;
+
+        &::after {
+            content: "";
+            inset: 0;
+            position: absolute;
+        }
+
+        &:focus-visible {
+            outline: 2px solid $mj-bronze-deep;
+            outline-offset: 4px;
+        }
+    }
+
+    &__summary {
+        @include mj-body($mj-muted);
+
+        font-size: 0.9375rem;
+        margin-top: 0.6rem;
+    }
+
+    &__status {
+        @include mj-meta($mj-muted);
+
+        margin-top: 0.6rem;
+    }
+
+    //-- Empty state. Designed, not a blank area: it says what happened and the Clear
+    //   control beside the filters is the way out.
+    &__empty {
+        @include mj-body($mj-muted);
+
+        border-top: 1px solid $mj-rule;
+        font-family: $mj-serif;
+        font-size: clamp(1.125rem, 2vw, 1.5rem);
+        max-width: 32ch;
+        padding-top: clamp(2rem, 4vw, 3rem);
+    }
+}
+
+@media (max-width: 700px) {
+    .cmp-mjgrid {
+        &__secondary {
+            margin-left: 0;
+            width: 100%;
+        }
+
+        &__filters {
+            gap: 1rem;
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cmp-mjgrid__img {
+        transition: none;
+    }
+
+    .cmp-mjgrid__pill,
+    .cmp-mjgrid__select {
+        transition: none;
+    }
+}

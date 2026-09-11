@@ -11,17 +11,18 @@
             <master
                 jcr:primaryType="nt:unstructured"
                 companyName="Caldera Grid"
+                slug="caldera-grid"
                 sector="Energy"
                 location="Denver, CO"
+                geography="West"
                 investmentYear="2022"
+                stage="Series B"
                 status="Active"
                 description="Interconnection engineering for utility-scale storage projects."
                 website="https://example.com"
                 companyStory="Placeholder company story."
                 featuredImage="/content/dam/mjco/images/co-caldera-grid.jpg"/>
         </data>
-        <metadata
-            jcr:primaryType="nt:unstructured"
-            dc:title="Caldera Grid"/>
+        <metadata jcr:primaryType="nt:unstructured" dc:title="Caldera Grid"/>
     </jcr:content>
 </jcr:root>

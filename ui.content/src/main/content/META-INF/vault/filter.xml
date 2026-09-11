@@ -31,6 +31,7 @@
     <filter root="/conf/mjco" mode="update"/>
     <filter root="/content/dam/mjco" mode="update"/>
     <filter root="/content/mjco/us/en/approach" mode="update"/>
+    <filter root="/content/mjco/us/en/portfolio" mode="update"/>
     <filter root="/content/mjco/us/en/market-intelligence" mode="update"/>
     <filter root="/content/mjco" mode="merge"/>
     <!--

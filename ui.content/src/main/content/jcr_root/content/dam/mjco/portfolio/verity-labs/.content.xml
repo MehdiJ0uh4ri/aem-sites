@@ -11,17 +11,18 @@
             <master
                 jcr:primaryType="nt:unstructured"
                 companyName="Verity Labs"
+                slug="verity-labs"
                 sector="Health"
                 location="Boston, MA"
+                geography="Northeast"
                 investmentYear="2020"
+                stage="Seed"
                 status="Realised"
                 description="Assay development tooling for clinical laboratories."
                 website="https://example.com"
                 companyStory="Placeholder company story."
                 featuredImage="/content/dam/mjco/images/co-verity-labs.jpg"/>
         </data>
-        <metadata
-            jcr:primaryType="nt:unstructured"
-            dc:title="Verity Labs"/>
+        <metadata jcr:primaryType="nt:unstructured" dc:title="Verity Labs"/>
     </jcr:content>
 </jcr:root>

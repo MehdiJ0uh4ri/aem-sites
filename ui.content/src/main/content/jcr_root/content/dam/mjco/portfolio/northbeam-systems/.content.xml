@@ -11,17 +11,18 @@
             <master
                 jcr:primaryType="nt:unstructured"
                 companyName="Northbeam Systems"
+                slug="northbeam-systems"
                 sector="Industrial software"
                 location="Chicago, IL"
+                geography="Midwest"
                 investmentYear="2021"
+                stage="Series A"
                 status="Active"
                 description="Scheduling software for contract manufacturers, sold to the plant floor rather than to head office."
                 website="https://example.com"
                 companyStory="Placeholder company story."
                 featuredImage="/content/dam/mjco/images/co-northbeam-systems.jpg"/>
         </data>
-        <metadata
-            jcr:primaryType="nt:unstructured"
-            dc:title="Northbeam Systems"/>
+        <metadata jcr:primaryType="nt:unstructured" dc:title="Northbeam Systems"/>
     </jcr:content>
 </jcr:root>

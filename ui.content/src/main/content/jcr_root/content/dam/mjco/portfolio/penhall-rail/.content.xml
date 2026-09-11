@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:dam="http://www.day.com/dam/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:dc="http://purl.org/dc/elements/1.1/"
+    jcr:primaryType="dam:Asset">
+    <jcr:content
+        jcr:primaryType="dam:AssetContent"
+        contentFragment="{Boolean}true"
+        jcr:title="Penhall Rail">
+        <data
+            jcr:primaryType="nt:unstructured"
+            cq:model="/conf/mjco/settings/dam/cfm/models/portfolio-company">
+            <master
+                jcr:primaryType="nt:unstructured"
+                companyName="Penhall Rail"
+                slug="penhall-rail"
+                sector="Logistics"
+                location="Kansas City, MO"
+                geography="Midwest"
+                investmentYear="2021"
+                stage="Series B"
+                status="Active"
+                description="Railcar utilisation and demurrage accounting for shippers."
+                website="https://example.com"
+                companyStory="Placeholder company story."
+                featuredImage="/content/dam/mjco/images/co-northbeam-systems.jpg"/>
+        </data>
+        <metadata jcr:primaryType="nt:unstructured" dc:title="Penhall Rail"/>
+    </jcr:content>
+</jcr:root>

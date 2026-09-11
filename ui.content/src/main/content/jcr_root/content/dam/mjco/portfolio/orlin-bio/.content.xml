@@ -11,17 +11,18 @@
             <master
                 jcr:primaryType="nt:unstructured"
                 companyName="Orlin Bio"
+                slug="orlin-bio"
                 sector="Health"
                 location="San Diego, CA"
+                geography="West"
                 investmentYear="2024"
+                stage="Series A"
                 status="Active"
                 description="Protein engineering platform focused on manufacturability rather than discovery."
                 website="https://example.com"
                 companyStory="Placeholder company story."
                 featuredImage="/content/dam/mjco/images/co-orlin-bio.jpg"/>
         </data>
-        <metadata
-            jcr:primaryType="nt:unstructured"
-            dc:title="Orlin Bio"/>
+        <metadata jcr:primaryType="nt:unstructured" dc:title="Orlin Bio"/>
     </jcr:content>
 </jcr:root>

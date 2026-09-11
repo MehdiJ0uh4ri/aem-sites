@@ -1,0 +1,126 @@
+<!--/*
+    MJ Portfolio Grid — the full, filterable index.
+
+    Every company is rendered server-side and the filters only hide and show; with
+    twenty-odd companies there is nothing to gain from fetching, and a great deal to lose —
+    the page works with JavaScript off, the whole list is in the HTML for a crawler, and a
+    shared filtered URL renders the same set for someone who never runs the script.
+
+    Filter values are carried on data attributes rather than read back out of the visible
+    text, so the script never parses prose. Those attributes come from normalised fields on
+    the fragment, which is why the content model gained `stage` and `geography`.
+*/-->
+<sly data-sly-use.grid="com.mysite.core.models.MjGrid"/>
+
+<section class="cmp-mjgrid"
+         data-sly-test.hasContent="${!grid.empty}"
+         id="${grid.id}"
+         data-cmp-data-layer="${grid.data.json}">
+
+    <div class="cmp-mjgrid__inner">
+        <header class="cmp-mjgrid__head" data-cmp-reveal>
+            <p class="cmp-mjgrid__eyebrow" data-sly-test="${grid.eyebrow}">${grid.eyebrow}</p>
+            <h2 class="cmp-mjgrid__heading"
+                data-sly-element="${grid.headingTag}"
+                data-sly-test="${grid.heading}">${grid.heading}</h2>
+            <p class="cmp-mjgrid__intro" data-sly-test="${grid.intro}">${grid.intro}</p>
+        </header>
+
+        <!--/* A row of words, not a wall of dropdowns. Sector is the control an investor
+               actually reaches for, so it is the one that gets the room. */-->
+        <div class="cmp-mjgrid__filters" data-cmp-grid data-cmp-grid-empty="${grid.emptyText}">
+            <fieldset class="cmp-mjgrid__facet cmp-mjgrid__facet--primary">
+                <legend class="cmp-mjgrid__legend">Sector</legend>
+                <div class="cmp-mjgrid__pills" role="group">
+                    <button class="cmp-mjgrid__pill is-active"
+                            type="button"
+                            aria-pressed="true"
+                            data-cmp-grid-filter="sector"
+                            data-cmp-grid-value="">All</button>
+                    <button class="cmp-mjgrid__pill"
+                            data-sly-repeat.sector="${grid.sectors}"
+                            type="button"
+                            aria-pressed="false"
+                            data-cmp-grid-filter="sector"
+                            data-cmp-grid-value="${sector}">${sector}</button>
+                </div>
+            </fieldset>
+
+            <div class="cmp-mjgrid__secondary" data-sly-test="${grid.showSecondaryFilters}">
+                <p class="cmp-mjgrid__field">
+                    <label class="cmp-mjgrid__label" for="${grid.id}-stage">Stage</label>
+                    <select class="cmp-mjgrid__select"
+                            id="${grid.id}-stage"
+                            data-cmp-grid-filter="stage">
+                        <option value="">Any</option>
+                        <option data-sly-repeat.stage="${grid.stages}" value="${stage}">${stage}</option>
+                    </select>
+                </p>
+                <p class="cmp-mjgrid__field">
+                    <label class="cmp-mjgrid__label" for="${grid.id}-year">Year</label>
+                    <select class="cmp-mjgrid__select"
+                            id="${grid.id}-year"
+                            data-cmp-grid-filter="year">
+                        <option value="">Any</option>
+                        <option data-sly-repeat.year="${grid.years}" value="${year}">${year}</option>
+                    </select>
+                </p>
+                <button class="cmp-mjgrid__reset" type="button" data-cmp-grid-reset hidden>Clear</button>
+            </div>
+
+            <!--/* Announced rather than only drawn: a filter that changes the list has to
+                   tell a screen reader what it did. */-->
+            <p class="cmp-mjgrid__count" data-cmp-grid-count role="status" aria-live="polite"></p>
+        </div>
+
+        <ol class="cmp-mjgrid__list" data-cmp-grid-list>
+            <li class="cmp-mjgrid__item"
+                data-sly-repeat.company="${grid.items}"
+                data-sector="${company.sector}"
+                data-stage="${company.stage}"
+                data-year="${company.year}"
+                data-region="${company.region}">
+                <article class="cmp-mjgrid__card"
+                         id="${company.id}"
+                         data-cmp-data-layer="${company.dataLayerJson}">
+
+                    <div class="cmp-mjgrid__art" data-sly-test="${company.fileReference}">
+                        <img class="cmp-mjgrid__img"
+                             src="${company.fileReference}"
+                             alt=""
+                             loading="lazy"
+                             decoding="async"/>
+                    </div>
+
+                    <p class="cmp-mjgrid__meta">
+                        <span class="cmp-mjgrid__sector" data-sly-test="${company.sector}">${company.sector}</span>
+                        <span class="cmp-mjgrid__year" data-sly-test="${company.year}">${company.year}</span>
+                    </p>
+
+                    <h3 class="cmp-mjgrid__name">
+                        <!--/* x-cq-linkchecker="skip" keeps AEM's link checker from stripping
+                               the anchor while the detail pages are still being built. The
+                               route is the contract; an unbuilt page 404s, which is honest,
+                               where a silently removed link is not. */-->
+                        <a class="cmp-mjgrid__link"
+                           data-sly-test="${company.url}"
+                           href="${company.url}"
+                           x-cq-linkchecker="skip"
+                           data-cmp-clickable>${company.name}</a>
+                        <span data-sly-test="${!company.url}">${company.name}</span>
+                    </h3>
+
+                    <p class="cmp-mjgrid__summary" data-sly-test="${company.summary}">${company.summary}</p>
+
+                    <p class="cmp-mjgrid__status" data-sly-test="${company.status}">${company.status}</p>
+                </article>
+            </li>
+        </ol>
+
+        <p class="cmp-mjgrid__empty" data-cmp-grid-emptystate hidden>${grid.emptyText}</p>
+    </div>
+</section>
+
+<sly data-sly-test="${!hasContent && wcmmode.edit}">
+    <div class="cq-placeholder" data-emptytext="${'MJ Portfolio Grid — pick a company folder' @ i18n}"></div>
+</sly>

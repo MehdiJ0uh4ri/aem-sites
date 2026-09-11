@@ -132,6 +132,26 @@
                             renderType="text"
                             listOrder="{Long}12"
                             multiple="{Boolean}true"/>
+                        <stage
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Stage"
+                            name="stage"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}13"
+                            fieldDescription="Entry stage at first cheque: Seed, Series A, Series B or Growth. Normalised on the fragment so the index can filter on it rather than parsing prose at render time."/>
+                        <geography
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="dam/cfm/models/editor/components/datatypes/field"
+                            fieldLabel="Region"
+                            name="geography"
+                            valueType="string"
+                            metaType="text-single"
+                            renderType="text"
+                            listOrder="{Long}14"
+                            fieldDescription="U.S. region: West, Northeast, Midwest or South. Stored separately from the free-text location, which stays a city for display."/>
                     </items>
                 </content>
             </cq:dialog>
